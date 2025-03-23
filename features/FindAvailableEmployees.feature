@@ -1,4 +1,6 @@
 Feature: Find Available Employees
+  Description: Employee gets a list of all employees who are not currently working on activities
+  User: Employee
 
   Background: 
     Given these employees registered in the app
