@@ -32,7 +32,7 @@ Feature: Change Project Activities
     Then the estimated time of the activity should be "100"
 
   Scenario: Add user to activity
-    Given a project "P1" has an activity "A1" assigned to "user1"
-    And I am logged in as a project manager
-    When I reassign the activity "A1" to "user2"
-    Then the activity should now be assigned to "user2"
+    Given a project
+    And it has an activity
+    When i add myself to the project
+    Then i am a part of the project
