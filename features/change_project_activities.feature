@@ -1,4 +1,7 @@
 Feature: Change Project Activities
+  Description: A project leader or employee makes changes to a project activity
+  User: Employee
+
   Scenario: Start- and end week set by project leader for an activity
     Given a project
     And it has an activity

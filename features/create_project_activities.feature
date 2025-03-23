@@ -1,4 +1,7 @@
 Feature: Create Project Activity
+  Description: A project leader or employee creates a project activity
+  User: Employee
+
   Scenario: Create a new activity for a project as project leader
     Given a project
     And the user is the leader of the project

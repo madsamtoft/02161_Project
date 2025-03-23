@@ -1,13 +1,12 @@
 Feature: Create Project
-  Description: Employee can create a new project
+  Description: A project leader or employee creates a project
   User: Employee
 
   Scenario: The creation of a new project succeeded
     When creating a new project named "success"
     And no projects of the same name was found
-    Then a new project was created
+    Then a project with name "success" is created
 
   Scenario: The creation of a new project failed
-    Given a project with the name "failed" already exists
-    And the creation of a new project with the name "failed" is attempted created
-    Then no new project was created
+    When creating a new project named "failed"
+    Then exception "Project Name Is Taken" is thrown

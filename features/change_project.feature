@@ -1,7 +1,6 @@
-Feature: Create Project
-  Description: Employee can change the details of a project
+Feature: Change Project
+  Description: A project leader or employee makes changes to a project
   User: Employee
-
 
   Scenario: Start- and end date changed for a project
     Given a project
