@@ -15,7 +15,7 @@ Feature: Change Project
     And the user is the not the leader of the project
     When the start date is set to "1.1.2021"
     And the end date is set to "1.5.2021"
-    Then exception "Not Project Leader" is thrown
+    Then error message "Not Project Leader" is given
 
   Scenario: set new name for a project as project leader
     Given a project
@@ -27,7 +27,7 @@ Feature: Change Project
     Given a project
     And the user is not the leader of the project
     When setting project name to "new"
-    Then exception "Not Project Leader" is thrown
+    Then error message "Not Project Leader" is given
 
   Scenario: set new customer for a project as project leader
     Given a project
@@ -39,7 +39,7 @@ Feature: Change Project
     Given a project
     And the user is not the leader of the project
     When setting project customer to "good customer"
-    Then exception "Not Project Leader" is thrown
+    Then error message "Not Project Leader" is given
 
   Scenario: set new project leader for a project
     Given a project
@@ -51,4 +51,4 @@ Feature: Change Project
     Given a project
     Given "John" does not exist as employee
     When setting leader as "John"
-    Then exception "Not a valid employee" is thrown
+    Then error message "Not A Valid Employee" is given

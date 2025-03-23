@@ -12,15 +12,15 @@ Feature: Create Project Activity
     Given a project
     And the user is not the leader of the project
     When creating a new activity "A1"
-    Then exception "Not Project Leader" is thrown
+    Then error message "Not Project Leader" is given
 
   Scenario: Create activity with missing name
     Given a project
     When creating a new activity ""
-    Then exception "Invalid Activity Name" is thrown
+    Then error message "Invalid Activity Name" is given
 
   Scenario: Creating activity with duplicate name
     Given a project
     And it has an activity "A1"
     When creating a new activity "A1"
-    Then exception "Activity Name Already Taken" is thrown
+    Then error message "Activity Name Already Taken" is given

@@ -17,7 +17,7 @@ Feature: Assign Employee
         And "e" is not assigned to "a" in "p"
         When "e" is assigned to "a" in "p"
         Then "e" wont be assigned to "a" in "p"
-        And Exception "TooManyActivitesException" is thrown
+        And error message "Too Many Activities" is given
         
     Scenario: The employee is already assigned to the given activity
         Given Some employee "e"

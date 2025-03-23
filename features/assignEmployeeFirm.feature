@@ -15,4 +15,4 @@ Feature: Assign an employee to a firm activity
         And "e" is already assigned to "a"
         When "e" is assigned to "a"
         Then "e" wont be assigned to "a"
-        And Exception "AlreadyAssignedException" is thrown
+        And error message "Employee Already Assigned" is given

@@ -17,7 +17,7 @@ Feature: Change Project Activities
     And the user is not the leader of the project
     When the start week is set to "1"
     And the end week is set to "12"
-    Then exception "Not Project Leader" is thrown
+    Then error message "Not Project Leader" is given
 
   Scenario: Set estimated hours for an activity as project leader
     Given a project
@@ -31,7 +31,7 @@ Feature: Change Project Activities
     And it has an activity
     And the user is not the leader of the project
     When setting the estimated hours of an activity to "100"
-    Then exception "Not Project Leader" is thrown
+    Then error message "Not Project Leader" is given
 
   Scenario: Add user to activity
     Given a project

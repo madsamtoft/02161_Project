@@ -9,4 +9,5 @@ Feature: Create Project
 
   Scenario: The creation of a new project failed
     When creating a new project named "failed"
-    Then exception "Project Name Is Taken" is thrown
+    And a project named "failed" already exists
+    Then error message "Project Name Is Taken" is given
