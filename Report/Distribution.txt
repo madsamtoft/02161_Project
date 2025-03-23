@@ -1,0 +1,33 @@
+Sekvensdiagram lektier:
+Dejan:
+- assignEmployeeToActivity
+- assignEmployeeToFirmActivity
+Sebastian
+- generateReport
+- checkEmployeeAvailability
+Karl:
+- registerTimeDaily
+- checkRegisteredDaily
+Mads:
+- createActivity
+- setActivityEstimatedHours
+Bertram:
+- Create project
+- assignProjectLeader
+
+Use cases lektier:
+Dejan:
+- Assign employee to activity
+- Assign employee to firm activity
+Sebastian:
+- Generate rapport
+- Check Employee availabilities
+Karl:
+- Register time used on activities per day
+- Check registered amount
+Mads:
+- Create project activites
+- Change project activites
+Bertram:
+- Create project
+- Change project

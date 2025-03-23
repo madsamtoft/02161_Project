@@ -1,0 +1,67 @@
+<diagram program="umletino" version="15.1"><zoom_level>9</zoom_level><element><id>UMLClass</id><coordinates><x>90</x><y>459</y><w>189</w><h>171</h></coordinates><panel_attributes>Employee
+--
+name : String
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>423</x><y>90</y><w>270</w><h>279</h></coordinates><panel_attributes>Project
+--
+name: String
+projectLeader : Employee
+activities : Activity[*] 
+startDate: Calendar
+endDate: Calendar
+customer: String
+--
+assignProjectLeader(Employee)
+createActivity(String)
+setActivityStart(Activity,Calendar)
+setActivityEnd(Activity,Calendar)
+setActivityEstimatedHours(Activity,int)
+assignEmployeeToActivity(Activity,Employee)
+registerTimeDaily(Activity,Employee,int)
+checkRegisteredDaily(Employee): Map&lt;Activity,Int&gt;
+changeHours(Activity, Employee, Calendar, int)
+getWeeklyActivityAmount(Employee) : int
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>333</x><y>459</y><w>297</w><h>171</h></coordinates><panel_attributes>Activity
+--
+name: String
+employees : Map&lt;Employee, Map&lt;Calendar, int&gt;&gt;
+startWeek: Calendar
+endWeek: Calendar
+estimatedHours: int
+--
+registerTimeDaily(Employee,int)
+checkRegisteredDaily(Employee):int
+changeHours(Employee,Calendar, int)
+getWeeklyActivityAmount(Employee) : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>90</y><w>297</w><h>360</h></coordinates><panel_attributes>SystemApp
+--
+projects: Project[*]
+firmActivities: Activity[*]
+employees: Employee[*]
+--
+createProject(String)
+checkRegisteredDaily(Employee): Map&lt;Activity,Int&gt;
+
+assignProjectLeader(Project, Employee)
+createActivity(Project, String)
+setActivityStart(Project, Activity, Calendar)
+setActivityEnd(Project, Activity, Calendar)
+setActivityEstimatedHours(Project, Activity, int)
+assignEmployeeToActivity(Project, Activity, Employee)
+registerTimeDaily(Project, Activity, Employee, int)
+changeHours(Project, Activity, Employee, Calendar, int)
+
+- checkWeeklyActivityAmount(Employee): int
+generateReport(): String
+checkEmployeeAvailability(): Employee [*]
+
+createFirmActivity(String)
+setFirmActivityStart(Activity, Calendar)
+setFirmActivityEnd(Activity, Calendar)
+setFirmActivityEstimatedHours(Activity, int)
+assignEmployeeToFirmActivity(Activity, Employee)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>90</x><y>18</y><w>180</w><h>63</h></coordinates><panel_attributes>Note..
+Maybe change (Project,activity)
+-&gt; (String,String)</panel_attributes><additional_attributes></additional_attributes></element></diagram>
