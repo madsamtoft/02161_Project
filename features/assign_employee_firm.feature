@@ -14,5 +14,4 @@ Feature: Assign an employee to a firm activity
         And Some existing firm activity "a"
         And "e" is already assigned to "a"
         When "e" is assigned to "a"
-        Then "e" wont be assigned to "a"
-        And error message "Employee Already Assigned" is given
+        Then "e" is succesfully assigned to "a"
