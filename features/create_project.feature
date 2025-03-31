@@ -4,10 +4,19 @@ Feature: Create Project
 
   Scenario: The creation of a new project succeeded
     When creating a new project named "success"
-    And no projects of the same name was found
-    Then a project with name "success" is created
+    Then 1 unique project(s) with name "success" exist(s)
 
   Scenario: The creation of a new project failed
-    When creating a new project named "failed"
-    And a project named "failed" already exists
-    Then error message "Project Name Is Taken" is given
+    When creating a new project named ""
+    Then error message "Project Name cannot be empty" is given
+
+  Scenario: Create two projects with the same name
+    When creating a new project named "project"
+    And creating a new project named "project"
+    Then 2 unique project(s) with name "project" exist(s)
+
+#  Scenario: First project in a year has the correct id
+#    Given no existing projects
+#    And the year is 2025
+#    When creating a new project named "project 2025"
+#    Then project "project 2025" has id 25001
