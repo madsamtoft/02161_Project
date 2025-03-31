@@ -8,6 +8,7 @@ public class Project {
     private Calendar startDate;
     private Calendar endDate;
     private String customer;
+    private Employee projectLeader;
 
     public Project(String name, int id) throws SystemAppException {
         this.setName(name);
@@ -17,11 +18,15 @@ public class Project {
 //        this.customer = null;
     }
 
+    public void assignProjectLeader(Employee employee) {
+        this.projectLeader = employee;
+    }
+
     public String getName() {
         return this.name;
     }
     public void setName(String name) throws SystemAppException {
-        if (!name.equals("")) {
+        if (!name.isEmpty()) {
             this.name = name;
         } else {
             throw new SystemAppException("Project Name cannot be empty");
@@ -47,5 +52,11 @@ public class Project {
     }
     public void setCustomer(String customer) {
         this.customer = customer;
+    }
+    public Employee getProjectLeader() {
+        return projectLeader;
+    }
+    public void setProjectLeader(Employee projectLeader) {
+        this.projectLeader = projectLeader;
     }
 }
