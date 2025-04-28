@@ -16,7 +16,7 @@ Feature: Change Project
 #    Then error message "Not A Valid Employee" is given
 
   Scenario: Start- and end date changed for a project
-    And setting employee as project leader
+    Given "huba" is the leader of the project
     When the start date is set to day 1, month 1, and year 2021
     And the end date is set to day 5, month 5, and year 2021
     Then the start date is day 1, month 1, and year 2021
