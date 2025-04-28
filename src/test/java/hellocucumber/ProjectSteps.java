@@ -2,6 +2,7 @@ package hellocucumber;
 
 import app.*;
 import io.cucumber.java.an.E;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -19,6 +20,7 @@ public class ProjectSteps {
     private String errorMessage;
     private Project someProject;
     private Employee someEmployee;
+    private Activity someActivity;
 
 
     @When("creating a new project named {string}")
@@ -163,5 +165,61 @@ public class ProjectSteps {
     @Then("project customer is {string}")
     public void projectCustomerIs(String customer) {
         assertEquals(customer, someProject.getCustomer());
+    }
+
+    //// ACTIVITY STEPS
+    @Given("it has an activity")
+    public void itHasAnActivity() {
+        try {
+            someActivity = new Activity("chjk");
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("the start week is set to {int} in year {int}")
+    public void theStartWeekIsSetTo(int startWeek, int startYear) {
+        Calendar startDate = Calendar.getInstance();
+        startDate.clear();
+        startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
+        startDate.set(Calendar.YEAR, startYear);
+        someActivity.setStartWeek(startDate);
+    }
+
+    @When("the end week is set to {int} in year {int}")
+    public void theEndWeekIsSetTo(int endWeek, int endYear) {
+        Calendar endDate = Calendar.getInstance();
+        endDate.clear();
+        endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
+        endDate.set(Calendar.YEAR, endYear);
+        someActivity.setEndWeek(endDate);
+    }
+
+    @Then("the start week is {int} in year {int}")
+    public void theStartWeekIs(int startWeek, int startYear) {
+        Calendar startDate = Calendar.getInstance();
+        startDate.clear();
+        startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
+        startDate.set(Calendar.YEAR, startYear);
+        assertEquals(startDate, someActivity.getStartWeek());
+    }
+
+    @Then("the end week is {int} in year {int}")
+    public void theEndWeekIs(int endWeek, int endYear) {
+        Calendar endDate = Calendar.getInstance();
+        endDate.clear();
+        endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
+        endDate.set(Calendar.YEAR, endYear);
+        assertEquals(endDate, someActivity.getEndWeek());
+    }
+
+    @When("setting the estimated hours of an activity to {int}")
+    public void settingTheEstimatedHoursOfAnActivityTo(int hours) {
+        someActivity.setEstimatedHours(hours);
+    }
+
+    @Then("the estimated hours of the activity should be {int}")
+    public void theEstimatedHoursOfTheActivityShouldBe(int hours) {
+        assertEquals(hours, someActivity.getEstimatedHours());
     }
 }
