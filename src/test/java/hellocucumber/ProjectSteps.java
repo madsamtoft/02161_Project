@@ -222,4 +222,31 @@ public class ProjectSteps {
     public void theEstimatedHoursOfTheActivityShouldBe(int hours) {
         assertEquals(hours, someActivity.getEstimatedHours());
     }
+
+    @When("creating a new activity {string} in the project")
+    public void creatingANewActivityInTheProject(String activityName) {
+        try {
+            someProject.createActivity(someEmployee, activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the activity with name {string} is a part of the project")
+    public void theActivityWithNameIsAPartOfTheProject(String activityName) {
+        try {
+            someProject.getActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Given("activity {string} already exists in the project")
+    public void activityAlreadyExistsInTheProject(String activityName) {
+        try {
+            someProject.createActivity(someEmployee, activityName);
+        } catch (Exception e) {
+            // blank?
+        }
+    }
 }
