@@ -74,24 +74,94 @@ public class ProjectSteps {
     @When("the start date is set to day {int}, month {int}, and year {int}")
     public void theStartDateIsSetToDayMonthAndYear(int day, int month, int year) {
         Calendar startDate = Calendar.getInstance();
+        startDate.clear();
         startDate.set(Calendar.DATE, day);
         startDate.set(Calendar.MONTH, month-1);
         startDate.set(Calendar.YEAR, year);
+
+        try {
+            someProject.setStartDate(someEmployee, startDate);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @When("the end date is set to day {int}, month {int}, and year {int}")
-    public void theEndDateIsSetToDayMonthAndYear(Integer int1, Integer int2, Integer int3) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void theEndDateIsSetToDayMonthAndYear(int day, int month, int year) {
+        Calendar endDate = Calendar.getInstance();
+        endDate.clear();
+        endDate.set(Calendar.DATE, day);
+        endDate.set(Calendar.MONTH, month-1);
+        endDate.set(Calendar.YEAR, year);
+
+        try {
+            someProject.setEndDate(someEmployee, endDate);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
     }
     @Then("the start date is day {int}, month {int}, and year {int}")
-    public void theStartDateIsDayMonthAndYear(Integer int1, Integer int2, Integer int3) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void theStartDateIsDayMonthAndYear(int day, int month, int year) {
+        Calendar setDate = someProject.getStartDate();
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.clear();
+        startDate.set(Calendar.DATE, day);
+        startDate.set(Calendar.MONTH, month-1);
+        startDate.set(Calendar.YEAR, year);
+
+        assertEquals(startDate, setDate);
     }
     @Then("the end date is day {int}, month {int}, and year {int}")
-    public void theEndDateIsDayMonthAndYear(Integer int1, Integer int2, Integer int3) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void theEndDateIsDayMonthAndYear(int day, int month, int year) {
+        Calendar setDate = someProject.getEndDate();
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.clear();
+        endDate.set(Calendar.DATE, day);
+        endDate.set(Calendar.MONTH, month-1);
+        endDate.set(Calendar.YEAR, year);
+
+        assertEquals(endDate, setDate);
+    }
+
+    @Given("{string} is the leader of the project")
+    public void theUserIsTheLeaderOfTheProject(String string) {
+        Employee employee = new Employee(string);
+        someProject.assignProjectLeader(employee);
+    }
+
+    @When("setting project name to {string}")
+    public void settingProjectNameTo(String string) {
+        try {
+            someProject.setName(someEmployee, string);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("project name is {string}")
+    public void projectNameIs(String string) {
+        assertEquals(string, someProject.getName());
+    }
+
+    @Given("{string} is not the leader of the project")
+    public void isNotTheLeaderOfTheProject(String string) {
+        Employee employee = new Employee(string);
+        assertNotEquals(employee, someProject.getProjectLeader());
+    }
+
+    @When("setting project customer to {string}")
+    public void settingProjectCustomerTo(String customer) {
+        try {
+            someProject.setCustomer(someEmployee, customer);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("project customer is {string}")
+    public void projectCustomerIs(String customer) {
+        assertEquals(customer, someProject.getCustomer());
     }
 }
