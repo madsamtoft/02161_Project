@@ -249,4 +249,14 @@ public class ProjectSteps {
             // blank?
         }
     }
+
+    @When("{string} tries to register daily time to {int} for activity")
+    public void triesToRegisterDailyTimeToForActivity(String employeeName, int hours) {
+        someProject.registerTimeDaily(someActivity, someEmployee, hours);
+    }
+
+    @Then("{int} hours have been registered to the activity")
+    public void hoursHaveBeenRegisteredToTheActivity(int hours) {
+        assertEquals(hours, someProject.checkRegisteredDaily(someActivity, someEmployee));
+    }
 }

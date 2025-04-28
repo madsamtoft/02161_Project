@@ -3,6 +3,7 @@ package app;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class Project {
     private String name;
@@ -105,6 +106,18 @@ public class Project {
             }
         }
         throw new SystemAppException("No such activity found");
+    }
+
+    public void registerTimeDaily(Activity activity, Employee employee, int hours) {
+        activity.registerTimeDaily(employee, hours);
+    }
+
+    public int checkRegisteredDaily(Activity activity, Employee employee) {
+        return activity.checkRegisteredDaily(employee);
+    }
+
+    public Map<Activity, Integer> checkRegisteredDaily(Employee employee) {
+        return null;
     }
 
 //    public void setProjectLeader(Employee projectLeader) {
