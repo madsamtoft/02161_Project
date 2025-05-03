@@ -7,22 +7,22 @@ Feature: Create Project Activity
     And it has an activity
 
   Scenario: Create a new activity for a project as project leader
-    Given "huba" is the leader of the project
+    Given employee is the leader of the project
     When creating a new activity "A1" in the project
     Then the activity with name "A1" is a part of the project
 
   Scenario: Create a new activity for a project as non-project leader
-    Given "huba" is not the leader of the project
+    Given employee is not the leader of the project
     When creating a new activity "A1" in the project
     Then error message "Employee is not Project Leader" is given
 
   Scenario: Create activity with missing name
-    Given "huba" is the leader of the project
+    Given employee is the leader of the project
     When creating a new activity "" in the project
     Then error message "Activity Name cannot be empty" is given
 
   Scenario: Creating activity with duplicate name
-    Given "huba" is the leader of the project
+    Given employee is the leader of the project
     And activity "A1" already exists in the project
     When creating a new activity "A1" in the project
     Then error message "Activity Name already taken" is given

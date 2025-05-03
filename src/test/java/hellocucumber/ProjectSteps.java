@@ -19,6 +19,7 @@ public class ProjectSteps {
     private Employee someEmployee;
     private List<Employee> someEmployees = new ArrayList<>();
     private Activity someActivity;
+    private List<Employee> availableEmployees;
 
 
     @When("creating a new project named {string}")
@@ -125,10 +126,9 @@ public class ProjectSteps {
         assertEquals(endDate, setDate);
     }
 
-    @Given("{string} is the leader of the project")
-    public void theUserIsTheLeaderOfTheProject(String string) {
-        Employee employee = new Employee(string);
-        someProject.assignProjectLeader(employee);
+    @Given("employee is the leader of the project")
+    public void theUserIsTheLeaderOfTheProject() {
+        someProject.assignProjectLeader(someEmployee);
     }
 
     @When("setting project name to {string}")
@@ -145,10 +145,9 @@ public class ProjectSteps {
         assertEquals(string, someProject.getName());
     }
 
-    @Given("{string} is not the leader of the project")
-    public void isNotTheLeaderOfTheProject(String string) {
-        Employee employee = new Employee(string);
-        assertNotEquals(employee, someProject.getProjectLeader());
+    @Given("employee is not the leader of the project")
+    public void isNotTheLeaderOfTheProject() {
+        assertNotEquals(someEmployee, someProject.getProjectLeader());
     }
 
     @When("setting project customer to {string}")
@@ -262,8 +261,8 @@ public class ProjectSteps {
 //        assertEquals(hours, someProject.checkRegisteredDaily(someActivity, someEmployee));
 //    }
 
-    @When("{string} tries to register daily time to {int}:{int} for activity")
-    public void triesToRegisterDailyTimeToForActivity(String employeeName, int fullHours, int minutes) {
+    @When("employee tries to register daily time to {int}:{int} for activity")
+    public void triesToRegisterDailyTimeToForActivity(int fullHours, int minutes) {
         double hours = fullHours + (minutes/60.);
         try {
             someProject.registerTimeDaily(someActivity, someEmployee, hours);
@@ -272,7 +271,7 @@ public class ProjectSteps {
         }
     }
 
-    @Then("{int}:{int} hours have been registered to the activity")
+    @Then("{int}:{int} hours have been registered to the activity by employee")
     public void hoursHaveBeenRegisteredToTheActivity(int fullHours, int minutes) {
         double hours = fullHours + (minutes/60.);
         assertEquals(hours, someProject.checkRegisteredDaily(someActivity, someEmployee));
@@ -310,4 +309,30 @@ public class ProjectSteps {
     public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
         assertTrue(someActivity.employeeAssigned(someEmployee));
     }
+
+//    // FIND AVAILABLE EMPLOYEES
+//    @Given("these employees registered in the app")
+//    public void theseEmployeesRegisteredInTheApp(List<String> employeeNames) {
+//        for(String employeeName : employeeNames) {
+//            someEmployees.add(new Employee(employeeName));
+//        }
+//
+//    }
+//
+//    @When("searching for available employees")
+//    public void searchingForAvailableEmployees() {
+//        systemApp.getAvailableEmployees();
+//    }
+//
+//    @Then("employees found are")
+//    public void employeesFoundAre(List<String> employeeNames) {
+//        // Write code here that turns the phrase above into concrete actions
+//        // For automatic transformation, change DataTable to one of
+//        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
+//        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
+//        // Double, Byte, Short, Long, BigInteger or BigDecimal.
+//        //
+//        // For other transformations you can register a DataTableType.
+//        throw new io.cucumber.java.PendingException();
+//    }
 }

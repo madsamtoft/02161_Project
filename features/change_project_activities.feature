@@ -7,7 +7,7 @@ Feature: Change Project Activities
     And it has an activity
 
   Scenario: Start- and end week set by project leader for an activity
-    Given "huba" is the leader of the project
+    Given employee is the leader of the project
     When the start week is set to 1 in year 2020
     And the end week is set to 12 in year 2020
     Then the start week is 1 in year 2020
@@ -22,7 +22,7 @@ Feature: Change Project Activities
 #    Then error message "Employee is not Project Leader" is given
 
   Scenario: Set estimated hours for an activity as project leader
-    Given "huba" is the leader of the project
+    Given employee is the leader of the project
     When setting the estimated hours of an activity to 100
     Then the estimated hours of the activity should be 100
 

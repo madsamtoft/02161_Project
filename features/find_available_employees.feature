@@ -4,14 +4,14 @@
 #
 #  Background:
 #    Given these employees registered in the app
-#      | bert | deja | karl | mads | seba |
+#      | "bert" | "deja" | "karl" | "mads" | "seba" |
 #    And a project
-#    And an activity in the project
+#    And it has an activity
 #
 #  Scenario: All employees are found
 #    When searching for available employees
 #    Then employees found are
-#      | bert | deja | karl | mads | seba |
+#      | "bert" | "deja" | "karl" | "mads" | "seba" |
 #
 #  Scenario: Some employees are found
 #    Given employee with name "bert" is assigned to activity
