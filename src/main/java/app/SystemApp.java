@@ -25,4 +25,6 @@ public class SystemApp {
         }
         return ids;
     }
+
+//    checkWeeklyActivityAmount()
 }

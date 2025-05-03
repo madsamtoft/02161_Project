@@ -8,10 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +17,7 @@ public class ProjectSteps {
     private String errorMessage;
     private Project someProject;
     private Employee someEmployee;
+    private List<Employee> someEmployees = new ArrayList<>();
     private Activity someActivity;
 
 
@@ -250,8 +248,23 @@ public class ProjectSteps {
         }
     }
 
-    @When("{string} tries to register daily time to {int} for activity")
-    public void triesToRegisterDailyTimeToForActivity(String employeeName, int hours) {
+//    @When("{string} tries to register daily time to {double} for activity")
+//    public void triesToRegisterDailyTimeToForActivity(String employeeName, double hours) {
+//        try {
+//            someProject.registerTimeDaily(someActivity, someEmployee, hours);
+//        } catch (Exception e){
+//            errorMessage = e.getMessage();
+//        }
+//    }
+//
+//    @Then("{int} hours have been registered to the activity")
+//    public void hoursHaveBeenRegisteredToTheActivity(double hours) {
+//        assertEquals(hours, someProject.checkRegisteredDaily(someActivity, someEmployee));
+//    }
+
+    @When("{string} tries to register daily time to {int}:{int} for activity")
+    public void triesToRegisterDailyTimeToForActivity(String employeeName, int fullHours, int minutes) {
+        double hours = fullHours + (minutes/60.);
         try {
             someProject.registerTimeDaily(someActivity, someEmployee, hours);
         } catch (Exception e){
@@ -259,8 +272,42 @@ public class ProjectSteps {
         }
     }
 
-    @Then("{int} hours have been registered to the activity")
-    public void hoursHaveBeenRegisteredToTheActivity(int hours) {
+    @Then("{int}:{int} hours have been registered to the activity")
+    public void hoursHaveBeenRegisteredToTheActivity(int fullHours, int minutes) {
+        double hours = fullHours + (minutes/60.);
         assertEquals(hours, someProject.checkRegisteredDaily(someActivity, someEmployee));
+    }
+
+    @And("{string}, {string}, {string} exist as employees")
+    public void existAsEmployees(String empl1, String empl2, String empl3) {
+        someEmployees.add(new Employee(empl1));
+        someEmployees.add(new Employee(empl2));
+        someEmployees.add(new Employee(empl3));
+    }
+
+
+
+    // ASSIGN EMPLOYEE
+    @Given("{string} is assigned to {int} activities")
+    public void isAssignedToActivities(String employeeName, Integer activityCount) {
+
+    }
+
+    @Given("{string} is not assigned to the activity in the project")
+    public void isNotAssignedToTheActivityInTheProject(String employeeName) {
+
+    }
+
+    @When("{string} is assigned to the activity in the project")
+    public void isAssignedToTheActivityInTheProject(String employeeName) {
+        try {
+            someActivity.assignEmployee(someEmployee);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+    @Then("{string} is successfully assigned to the activity in the project")
+    public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
+        assertTrue(someActivity.employeeAssigned(someEmployee));
     }
 }

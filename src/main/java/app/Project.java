@@ -80,8 +80,6 @@ public class Project {
     public void createActivity(Employee employee, String activityName) throws SystemAppException {
         if (!isProjectLeader(employee)) {
             throw new SystemAppException("Employee is not Project Leader");
-        } else if (activityName.isEmpty()) {
-            throw new SystemAppException("Activity Name cannot be empty");
         } else if (activityExists(activityName)) {
             throw new SystemAppException("Activity Name already taken");
         }
@@ -94,9 +92,9 @@ public class Project {
         try {
             getActivity(activityName);
         } catch (Exception e) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public Activity getActivity(String activityName) throws SystemAppException {
@@ -108,24 +106,27 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
-    public void registerTimeDaily(Activity activity, Employee employee, int hours) {
-        if (activity == null){
-            throw new IllegalArgumentException("No Activity To Registers Hours To");
-        }
-        else{
-        activity.registerTimeDaily(employee, hours);
+    public void registerTimeDaily(Activity activity, Employee employee, double hours) throws SystemAppException {
+        if (activity == null) {
+            throw new SystemAppException("No Activity To Registers Hours To");
+        } else {
+            activity.registerTimeDaily(employee, hours);
         }
     }
 
-    public int checkRegisteredDaily(Activity activity, Employee employee) {
+    public double checkRegisteredDaily(Activity activity, Employee employee) {
         return activity.checkRegisteredDaily(employee);
     }
 
-    public Map<Activity, Integer> checkRegisteredDaily(Employee employee) {
-        return null;
-    }
+//    public Map<Activity, Integer> checkRegisteredDaily(Employee employee) {
+//        return null;
+//    }
 
 //    public void setProjectLeader(Employee projectLeader) {
 //        this.projectLeader = projectLeader;
+//    }
+
+//    public int getWeeklyActivityAmount(Employee employee) {
+//        return 0;
 //    }
 }
