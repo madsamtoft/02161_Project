@@ -109,7 +109,12 @@ public class Project {
     }
 
     public void registerTimeDaily(Activity activity, Employee employee, int hours) {
+        if (activity == null){
+            throw new IllegalArgumentException("No Activity To Registers Hours To");
+        }
+        else{
         activity.registerTimeDaily(employee, hours);
+        }
     }
 
     public int checkRegisteredDaily(Activity activity, Employee employee) {

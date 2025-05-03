@@ -252,7 +252,11 @@ public class ProjectSteps {
 
     @When("{string} tries to register daily time to {int} for activity")
     public void triesToRegisterDailyTimeToForActivity(String employeeName, int hours) {
-        someProject.registerTimeDaily(someActivity, someEmployee, hours);
+        try {
+            someProject.registerTimeDaily(someActivity, someEmployee, hours);
+        } catch (Exception e){
+            errorMessage = e.getMessage();
+        }
     }
 
     @Then("{int} hours have been registered to the activity")
