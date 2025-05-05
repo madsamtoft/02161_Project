@@ -32,6 +32,11 @@ public class ProjectSteps {
         }
     }
 
+    @Given("there is no error message")
+    public void thereIsNoErrorMessage() {
+        errorMessage = null;
+    }
+
     @Then("error message {string} is given")
     public void errorMessageIsGiven(String string) {
         assertEquals(string, errorMessage);
@@ -140,7 +145,7 @@ public class ProjectSteps {
     public void theUserIsTheLeaderOfTheProject() {
         try {
             someProjectLeader = someEmployee;
-            someProject.assignProjectLeader(null, someEmployee);
+            someProject.assignProjectLeader(someProjectLeader, someEmployee);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -196,8 +201,12 @@ public class ProjectSteps {
 
     @Given("a project leader")
     public void aProjectLeader() {
-        someProjectLeader = new Employee("leader");
-        someProject.assignProjectLeader(someProjectLeader);
+        try {
+            someProjectLeader = new Employee("leader");
+            someProject.assignProjectLeader(null, someProjectLeader);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @When("the start week is set to {int} in year {int}")
@@ -398,7 +407,7 @@ public class ProjectSteps {
     @And("there exists a firm activity")
     public void thereExistsAFirmActivity() {
         try {
-            someFirmActivity = new Activity("løbehjuls konkurrence");
+            someProject.createActivity(someEmployee, "løbehjuls konkurrence");
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
