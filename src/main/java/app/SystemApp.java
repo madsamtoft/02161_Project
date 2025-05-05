@@ -6,7 +6,7 @@ public class SystemApp {
     private List<Project> projects = new LinkedList<>();
     private List<Activity> firmActivityList = new ArrayList<>();
     private int projectIdCounter = 0;
-    private List<Employee> employees;
+    private List<Employee> employees = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Hello bitches: Software Huset A/S");
@@ -53,6 +53,29 @@ public class SystemApp {
             }
         }
         throw new SystemAppException("No such firm activity found");
+    }
+    
+    private Project getProject(String name) throws SystemAppException {
+        for (Project project : projects) {
+            if (project.getName().equals(name)) {
+                return project;
+            }
+        }
+        throw new SystemAppException("Project does not exist");
+    }
+
+    private Employee getEmployee(String name) throws SystemAppException {
+        for (Employee employee : employees) {
+            if (employee.name().equals(name)) {
+                return employee;
+            }
+        }
+        throw new SystemAppException("Employee does not exist");
+    }
+
+    public void assignProjectLeader(String project, String employee) throws SystemAppException {
+        // TODO: this should be changed to use project IDs
+        getProject(project).assignProjectLeader(getEmployee(employee));
     }
 
 //    checkWeeklyActivityAmount()
