@@ -1,7 +1,9 @@
 package ui;
 
+import app.Project;
 import app.SystemApp;
 import app.SystemAppException;
+import java.util.*;
 
 import java.util.Scanner;
 
@@ -54,6 +56,25 @@ public class App {
         }
     }
 
+    private void createActivity(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createActivity <projectName> <activityName>");
+            return;
+        }
+        String projectName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createActivity <projectName> <activityName>");
+            return;
+        }
+        String activityName = arguments.next();
+        try {
+            systemApp.createActivity(actor, projectName, activityName);
+            System.out.println("Activity \"" + activityName + "\" successfully created in project \"" + projectName + "\"");
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void createFirmActivity(Scanner arguments) {
         if (!arguments.hasNext()){
             System.out.println("Usage: createFirmActivity <activityName>");
@@ -65,6 +86,32 @@ public class App {
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    private void listProjects() {
+        List<Project> projects = systemApp.getProjects();
+        for (int i = 0; i < projects.size(); i++) {
+            System.out.printf("\tProject %2d: %s%d\n", (i+1), projects.get(i).getName(), projects.get(i).getId());
+        }
+    }
+
+    private void list(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: list projects OR list activities <project>");
+            return;
+        }
+        String next = arguments.next().toLowerCase();
+        if (next.equals("projects")) {
+            listProjects();
+            return;
+        } else if (next.equals("activities")) {
+            // TODO: List activities
+            return;
+        } else {
+            System.out.println("Usage: list projects OR list activities <project>");
+            return;
+        }
+
     }
 
     public void login(Scanner arguments) {
@@ -103,8 +150,14 @@ public class App {
                 case "assignprojectleader":
                     assignProjectLeader(arguments);
                     break;
+                case "createactivity":
+                    createActivity(arguments);
+                    break;
                 case "createfirmactivity":
                     createFirmActivity(arguments);
+                    break;
+                case "list":
+                    list(arguments);
                     break;
 
                 // UI specific commands:
