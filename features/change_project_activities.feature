@@ -3,6 +3,7 @@ Feature: Change Project Activities
   User: Employee
   Background:
     Given a project
+    And a project leader
     And "huba" exists as employee
     And it has an activity
 

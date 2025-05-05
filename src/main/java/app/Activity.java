@@ -41,6 +41,7 @@ public class Activity {
 
     public void registerTimeDaily(Employee employee, double hours) throws SystemAppException {
         Map<Calendar, Double> dateHours;
+        System.out.println("Registering time daily in Activity" + hours + " hours");
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
         } else {

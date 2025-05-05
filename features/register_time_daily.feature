@@ -3,6 +3,7 @@ Feature: Register time Daily
   User: Employee
   Background:
     Given a project
+    And a project leader
     And "huba" exists as employee
 
   Scenario: Employee registers 5 hours to existing activity
