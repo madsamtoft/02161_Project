@@ -53,6 +53,19 @@ public class App {
         }
     }
 
+    public void createFirmActivity(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createFirmActivity <activityName>");
+            return;
+        }
+        String activityName = arguments.next();
+        try {
+            systemApp.createFirmActivity(activityName);
+        } catch (SystemAppException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void launch() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -72,6 +85,9 @@ public class App {
                     break;
                 case "assignprojectleader":
                     assignProjectLeader(arguments);
+                    break;
+                case "createfirmactivity":
+                    createFirmActivity(arguments);
                     break;
                 case "exit":
                     return;
