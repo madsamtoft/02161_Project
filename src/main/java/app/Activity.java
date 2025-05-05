@@ -57,7 +57,7 @@ public class Activity {
             alreadyRegistered = dateHours.get(today);
         }
         double putHours = Math.ceil(hours*2) / 2.;
-        if (putHours + alreadyRegistered > 24.) {
+        if ((putHours + alreadyRegistered) > 24.) {
             throw new SystemAppException("Cannot work more than 24 hours a day");
         }
         dateHours.put(today, putHours + alreadyRegistered);
@@ -85,7 +85,6 @@ public class Activity {
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
-
     }
 
 

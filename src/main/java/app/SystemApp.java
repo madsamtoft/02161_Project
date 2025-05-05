@@ -21,6 +21,20 @@ public class SystemApp {
         projects.add(project);
     }
 
+    public void changeProjectName( String actor, String name, String newName) throws SystemAppException {
+
+        getProject(name).setName(getEmployee(actor), newName);
+    }
+
+    public void changeProjectStartDate(String actor, String name, Calendar startDate) throws SystemAppException {
+        getProject(name).setStartDate(getEmployee(actor), startDate);
+    }
+
+    public void changeProjectEndDate(String actor, String name, Calendar endDate) throws SystemAppException {
+        getProject(name).setEndDate(getEmployee(actor), endDate);
+    }
+
+
     public void registerEmployee(String name) throws SystemAppException {
         if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
             throw new SystemAppException("Employee username must be up to 1-4 letters");

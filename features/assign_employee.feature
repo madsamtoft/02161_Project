@@ -3,6 +3,7 @@ Feature: Assign Employee
   User: Employee
   Background:
     Given a project
+    And a project leader
     And it has an activity
     And "huba" exists as employee
     And "buba", "bepo", "nepo" exist as employees
