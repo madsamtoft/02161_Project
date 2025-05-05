@@ -92,7 +92,7 @@ public class App {
                 case "exit":
                     return;
                 default:
-                    System.out.println("Unknown command");
+                    System.out.println("Unknown command: " + command);
             }
         }
     }
