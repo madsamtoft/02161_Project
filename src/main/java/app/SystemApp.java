@@ -58,7 +58,17 @@ public class SystemApp {
         }
         throw new SystemAppException("Firm activity " + name + " does not exist");
     }
-    
+
+    public void createActivity(String actor, String project, String activityName) throws SystemAppException {
+        Employee allegedProjectLeader;
+        try {
+            allegedProjectLeader = getEmployee(actor);
+        } catch (SystemAppException e) {
+            allegedProjectLeader = null;
+        }
+        getProject(project).createActivity(allegedProjectLeader, activityName);
+    }
+
     private Project getProject(String name) throws SystemAppException {
         for (Project project : projects) {
             if (project.getName().equals(name)) {
@@ -84,6 +94,10 @@ public class SystemApp {
     public void assignProjectLeader(String actor, String project, String employee) throws SystemAppException {
         // TODO: this should be changed to use project IDs
         getProject(project).assignProjectLeader(getEmployee(actor), getEmployee(employee));
+    }
+
+    public List<Project> getProjects() {
+        return this.projects;
     }
 
 //    checkWeeklyActivityAmount()
