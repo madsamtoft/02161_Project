@@ -71,6 +71,24 @@ public class Activity {
         return employeeDateHours.get(employee).get(getToday());
     }
 
+    // not done yet (karl)
+    public void registerTime(Employee employee, double hours, int day, int month, int year) {
+        Map<Calendar, Double> dateHours;
+        if (employeeDateHours.containsKey(employee)) {
+            dateHours = employeeDateHours.get(employee);
+        } else {
+            dateHours = new HashMap<>();
+            employeeDateHours.put(employee, dateHours);
+        }
+        Calendar date = Calendar.getInstance();
+        date.set(year,month,day);
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+
+    }
+
 
 
     public String getName() {

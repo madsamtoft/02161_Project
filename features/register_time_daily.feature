@@ -6,6 +6,7 @@ Feature: Register time Daily
     And a project leader
     And "huba" exists as employee
 
+
   Scenario: Employee registers 5 hours to existing activity
     Given it has an activity
     When employee tries to register daily time to 5:00 for activity
@@ -50,7 +51,3 @@ Feature: Register time Daily
     Given it has an activity
     Then 0:00 hours have been registered to the activity by employee
 
-#  SYSTEMAPP TEST
-#  Scenario: Employee registers more than 59 minutes
-##    When employee tries to register daily time to 0:60 for activity
-#    Then error message "Cannot enter more than 59 minutes" is given

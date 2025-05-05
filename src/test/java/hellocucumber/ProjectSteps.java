@@ -19,6 +19,7 @@ public class ProjectSteps {
     private Employee someEmployee;
     private Employee someProjectLeader;
     private List<Employee> someEmployees = new ArrayList<>();
+    private List<Employee> availableEmployees;
 
     private static final String DEFAULT_ACTIVITY_NAME = "chjk";
 
@@ -57,7 +58,7 @@ public class ProjectSteps {
     }
 
     @Given("{string} exists as employee")
-    public void existsAsEmployee(String string) throws SystemAppException {
+    public void existsAsEmployee(String string) {
         try {
             someEmployee = new Employee(string);
         } catch (Exception e) {
@@ -68,7 +69,11 @@ public class ProjectSteps {
 
     @When("setting employee as project leader")
     public void settingEmployeeAsProjectLeader() {
-        someProject.assignProjectLeader(someEmployee);
+        try {
+            someProject.assignProjectLeader(null, someEmployee);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @Then("the project leader is employee")
@@ -133,8 +138,12 @@ public class ProjectSteps {
 
     @Given("employee is the leader of the project")
     public void theUserIsTheLeaderOfTheProject() {
-        someProjectLeader = someEmployee;
-        someProject.assignProjectLeader(someEmployee);
+        try {
+            someProjectLeader = someEmployee;
+            someProject.assignProjectLeader(null, someEmployee);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @When("setting project name to {string}")
@@ -153,7 +162,12 @@ public class ProjectSteps {
 
     @Given("employee is not the leader of the project")
     public void isNotTheLeaderOfTheProject() {
-        assertNotEquals(someEmployee, someProject.getProjectLeader());
+        try {
+            someProject.assignProjectLeader(null, new Employee("chjk"));
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+//        assertNotEquals(someEmployee, someProject.getProjectLeader());
     }
 
     @When("setting project customer to {string}")
@@ -355,6 +369,39 @@ public class ProjectSteps {
             errorMessage = e.getMessage();
         }
 
+    }
+    // FIRM ACTIVITY
+
+    @When("creating a new firm activity {string}")
+    public void creatingANewFirmActivity(String activityName) {
+        try {
+            systemApp.createFirmActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the firm activity with name {string} exists")
+    public void theFirmActivityWithNameExists(String activityName) {
+        try {
+            systemApp.getFirmActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("{string} registers {double} hours to day {int}, month {int} and year {int}")
+    public void registersHoursToDayMonthAndYear(String employee, int hours, int minutes, int day, int month, int year) {
+        //someFirmActivity.registerTime(employee,hours,day,month,year);
+    }
+
+    @And("there exists a firm activity")
+    public void thereExistsAFirmActivity() {
+        try {
+            someFirmActivity = new Activity("løbehjuls konkurrence");
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
     }
 
 //    // FIND AVAILABLE EMPLOYEES

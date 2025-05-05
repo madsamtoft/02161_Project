@@ -24,11 +24,15 @@ public class Project {
     }
 
     private boolean isProjectLeader(Employee employee) {
-        return employee.equals(this.projectLeader);
+        return this.projectLeader == null || employee.equals(this.projectLeader);
     }
 
-    public void assignProjectLeader(Employee employee) {
-        this.projectLeader = employee;
+    public void assignProjectLeader(Employee actor, Employee employee) throws SystemAppException {
+        if (isProjectLeader(actor)) {
+            this.projectLeader = employee;
+        } else {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
     }
 
     public String getName() {
@@ -89,7 +93,7 @@ public class Project {
     public void createActivity(Employee employee, String activityName) throws SystemAppException {
         if (!isProjectLeader(employee)) {
             throw new SystemAppException("Employee is not Project Leader");
-        } else if (activityExists(activityName)) {
+        } else if (activityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Activity Name already taken");
         }
         else {
@@ -97,14 +101,6 @@ public class Project {
         }
     }
 
-    private boolean activityExists(String activityName) {
-        try {
-            getActivity(activityName);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
 
     public void assignEmployeeToActivity(String activityName, Employee employee) throws SystemAppException {
         Activity activity = getActivity(activityName);
