@@ -3,6 +3,8 @@ package ui;
 import app.Project;
 import app.SystemApp;
 import app.SystemAppException;
+
+import java.sql.SQLOutput;
 import java.util.*;
 
 import java.util.Scanner;
@@ -111,7 +113,62 @@ public class App {
             System.out.println("Usage: list projects OR list activities <project>");
             return;
         }
+    }
 
+    private void infoProject(String projectName) {
+        Project project;
+        try {
+            project = systemApp.getProject(projectName);
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        String name = project.getName();
+        String id = "" + project.getId();
+        String leader;
+        String customer;
+        String startDate;
+        String endDate;
+        try {
+            leader = project.getProjectLeader().name();
+        } catch (Exception e) {
+            leader = "<none>";
+        }
+        try {
+            customer = project.getCustomer();
+            if (customer == null) {
+                customer = "<none>";
+            }
+        } catch (Exception e) {
+            customer = "<none>";
+        }
+        try {
+            startDate = project.getStartDate().toString();
+        } catch (Exception e) {
+            startDate = "<none>";
+        }
+        try {
+            endDate = project.getEndDate().toString();
+        } catch (Exception e) {
+            endDate = "<none>";
+        }
+        System.out.println("Project Name...." + name);
+        System.out.println("Project ID......" + id);
+        System.out.println("Project Leader.." + leader);
+        System.out.println("Customer........" + customer);
+        System.out.println("Start date......" + startDate);
+        System.out.println("End date........" + endDate);
+        System.out.println("Activities:");
+//        listActivities(projectName);
+    }
+
+    private void info(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: info <project>");
+            return;
+        }
+        String projectName = arguments.next();
+        infoProject(projectName);
     }
 
     public void login(Scanner arguments) {
@@ -158,6 +215,9 @@ public class App {
                     break;
                 case "list":
                     list(arguments);
+                    break;
+                case "info":
+                    info(arguments);
                     break;
 
                 // UI specific commands:

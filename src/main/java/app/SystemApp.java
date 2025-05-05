@@ -69,7 +69,7 @@ public class SystemApp {
         getProject(project).createActivity(allegedProjectLeader, activityName);
     }
 
-    private Project getProject(String name) throws SystemAppException {
+    public Project getProject(String name) throws SystemAppException {
         for (Project project : projects) {
             if (project.getName().equals(name)) {
                 return project;
