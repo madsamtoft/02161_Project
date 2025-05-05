@@ -23,11 +23,11 @@ public class Project {
         this.activityList = new ArrayList<>();
     }
 
-    private boolean isProjectLeader(Employee employee) {
-        return this.projectLeader == null || employee.equals(this.projectLeader);
+    private boolean isProjectLeader(String employee) {
+        return this.projectLeader == null || employee.equals(this.projectLeader.name());
     }
 
-    public void assignProjectLeader(Employee actor, Employee employee) throws SystemAppException {
+    public void assignProjectLeader(String actor, Employee employee) throws SystemAppException {
         if (isProjectLeader(actor)) {
             this.projectLeader = employee;
         } else {
@@ -39,7 +39,7 @@ public class Project {
         return this.name;
     }
 
-    public void setName(Employee actor, String name) throws SystemAppException {
+    public void setName(String actor, String name) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         } else if (name.isEmpty()) {
@@ -57,8 +57,8 @@ public class Project {
         return startDate;
     }
 
-    public void setStartDate(Employee employee, Calendar startDate) throws SystemAppException {
-        if (!isProjectLeader(employee)) {
+    public void setStartDate(String actor, Calendar startDate) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         }
         this.startDate = startDate;
@@ -68,8 +68,8 @@ public class Project {
         return endDate;
     }
 
-    public void setEndDate(Employee employee, Calendar endDate) throws SystemAppException {
-        if (!isProjectLeader(employee)) {
+    public void setEndDate(String actor, Calendar endDate) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         }
         this.endDate = endDate;
@@ -79,8 +79,8 @@ public class Project {
         return customer;
     }
 
-    public void setCustomer(Employee employee, String customer) throws SystemAppException {
-        if (!isProjectLeader(employee)) {
+    public void setCustomer(String actor, String customer) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         }
         this.customer = customer;
@@ -90,8 +90,8 @@ public class Project {
         return projectLeader;
     }
 
-    public void createActivity(Employee employee, String activityName) throws SystemAppException {
-        if (!isProjectLeader(employee)) {
+    public void createActivity(String actor, String activityName) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         } else if (activityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Activity Name already taken");

@@ -96,7 +96,7 @@ public class ProjectSteps {
         startDate.set(Calendar.YEAR, year);
 
         try {
-            someProject.setStartDate(someEmployee, startDate);
+            someProject.setStartDate(someEmployee.name(), startDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -111,7 +111,7 @@ public class ProjectSteps {
         endDate.set(Calendar.YEAR, year);
 
         try {
-            someProject.setEndDate(someEmployee, endDate);
+            someProject.setEndDate(someEmployee.name(), endDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -145,7 +145,7 @@ public class ProjectSteps {
     public void theUserIsTheLeaderOfTheProject() {
         try {
             someProjectLeader = someEmployee;
-            someProject.assignProjectLeader(someProjectLeader, someEmployee);
+            someProject.assignProjectLeader(someProjectLeader.name(), someEmployee);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -154,7 +154,7 @@ public class ProjectSteps {
     @When("setting project name to {string}")
     public void settingProjectNameTo(String string) {
         try {
-            someProject.setName(someEmployee, string);
+            someProject.setName(someEmployee.name(), string);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -178,7 +178,7 @@ public class ProjectSteps {
     @When("setting project customer to {string}")
     public void settingProjectCustomerTo(String customer) {
         try {
-            someProject.setCustomer(someEmployee, customer);
+            someProject.setCustomer(someEmployee.name(), customer);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -193,7 +193,7 @@ public class ProjectSteps {
     @Given("it has an activity")
     public void itHasAnActivity() {
         try {
-            someProject.createActivity(someProjectLeader, DEFAULT_ACTIVITY_NAME);
+            someProject.createActivity(someProjectLeader.name(), DEFAULT_ACTIVITY_NAME);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -285,7 +285,7 @@ public class ProjectSteps {
     @When("creating a new activity {string} in the project")
     public void creatingANewActivityInTheProject(String activityName) {
         try {
-            someProject.createActivity(someEmployee, activityName);
+            someProject.createActivity(someEmployee.name(), activityName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -303,7 +303,7 @@ public class ProjectSteps {
     @Given("activity {string} already exists in the project")
     public void activityAlreadyExistsInTheProject(String activityName) {
         try {
-            someProject.createActivity(someEmployee, activityName);
+            someProject.createActivity(someEmployee.name(), activityName);
         } catch (Exception e) {
             // blank?
         }
@@ -407,7 +407,7 @@ public class ProjectSteps {
     @And("there exists a firm activity")
     public void thereExistsAFirmActivity() {
         try {
-            someProject.createActivity(someEmployee, "løbehjuls konkurrence");
+            someProject.createActivity(someEmployee.name(), "løbehjuls konkurrence");
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
