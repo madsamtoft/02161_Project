@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class App {
 
-    private final SystemApp pma = new SystemApp();
+    private final SystemApp systemApp = new SystemApp();
 
     private void createProject(Scanner arguments) {
         if (!arguments.hasNext()) {
@@ -16,7 +16,25 @@ public class App {
         }
         String name = arguments.next();
         try {
-            pma.createProject(name);
+            systemApp.createProject(name);
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void assignProjectLeader(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: assignProjectLeader <project> <name>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: assignProjectLeader <project> <name>");
+            return;
+        }
+        String employee = arguments.next();
+        try {
+            systemApp.assignProjectLeader(project, employee);
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -27,14 +45,17 @@ public class App {
         while (true) {
             System.out.print("# ");
             String line = scanner.nextLine();
-            Scanner lineScanner = new Scanner(line);
+            Scanner arguments = new Scanner(line);
             String command = "";
-            if (lineScanner.hasNext()) {
-                command = lineScanner.next();
+            if (arguments.hasNext()) {
+                command = arguments.next();
             }
             switch (command.toLowerCase()) {
                 case "createproject":
-                    createProject(lineScanner);
+                    createProject(arguments);
+                    break;
+                case "assignprojectleader":
+                    assignProjectLeader(arguments);
                     break;
                 case "exit":
                     return;
