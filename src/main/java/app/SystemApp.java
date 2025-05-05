@@ -34,10 +34,6 @@ public class SystemApp {
         getProject(name).setEndDate(getEmployee(actor), endDate);
     }
 
-    public void changeProjectLeader(String actor, String name, String newProjectLeader) throws SystemAppException {
-        getProject(name).assignProjectLeader(getEmployee(actor));
-    }
-
 
     public void registerEmployee(String name) throws SystemAppException {
         if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {

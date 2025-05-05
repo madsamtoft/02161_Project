@@ -43,7 +43,6 @@ public class App {
             System.out.println("Usage: changeProjectName <project> <newName>");
             return;
         }
-        String actor = "NULL"; //TODO Parse actor from arguments
         String name = arguments.next();
             if (!arguments.hasNext()) {
                 System.out.println("Usage: changeProjectName <project> <newName>");
@@ -62,7 +61,6 @@ public class App {
             System.out.println("Usage: changeProjectStartDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String actor = "NULL"; //TODO Parse actor from arguments
         String project = arguments.next();
         if (!arguments.hasNext()) {
             System.out.println("Usage: changeProjectStartDate <project> <dd> <mm> <yyyy>");
@@ -103,7 +101,6 @@ public class App {
             System.out.println("Usage: changeProjectEndDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String actor = "NULL"; //TODO Parse actor from arguments
 
         String project = arguments.next();
         if (!arguments.hasNext()) {
@@ -140,28 +137,7 @@ public class App {
         }
     }
 
-    private void changeProjectLeader(Scanner arguments) {
-        if (!arguments.hasNext()) {
-            System.out.println("Usage: changeProjectLeader <project> <name>");
-            return;
-        }
-        String actor = "NULL"; //TODO Parse actor from arguments
-//        if (!arguments.hasNext()) {
-//                System.out.println("Usage: changeProjectLeader <project> <name>");
-//                return;}
 
-        String project = arguments.next();
-        if (!arguments.hasNext()) {
-            System.out.println("Usage: changeProjectLeader <project> <name>");
-            return;
-        }
-        String newProjectLeader = arguments.next();
-        try {
-            systemApp.changeProjectLeader(actor, project, newProjectLeader);
-        } catch (SystemAppException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     private void assignProjectLeader(Scanner arguments){
         if (!arguments.hasNext()) {
@@ -280,9 +256,6 @@ public class App {
                     break;
                 case "changeprojectenddate":
                     changeProjectEndDate(arguments);
-                    break;
-                case "changeprojectleader":
-                    changeProjectLeader(arguments);
                     break;
                 case "assignprojectleader":
                     assignProjectLeader(arguments);
