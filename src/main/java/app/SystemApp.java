@@ -17,6 +17,24 @@ public class SystemApp {
         projects.add(project);
     }
 
+    public void changeProjectName( String actor, String name, String newName) throws SystemAppException {
+
+        getProject(name).setName(getEmployee(actor), newName);
+    }
+
+    public void changeProjectStartDate(String actor, String name, Calendar startDate) throws SystemAppException {
+        getProject(name).setStartDate(getEmployee(actor), startDate);
+    }
+
+    public void changeProjectEndDate(String actor, String name, Calendar endDate) throws SystemAppException {
+        getProject(name).setEndDate(getEmployee(actor), endDate);
+    }
+
+    public void changeProjectLeader(String actor, String name, String newProjectLeader) throws SystemAppException {
+        getProject(name).assignProjectLeader(getEmployee(actor));
+    }
+
+
     public List<Integer> getProjectIds(String name) {
         List<Integer> ids = new LinkedList<>();
         for (Project project : projects) {

@@ -34,8 +34,8 @@ public class Project {
     public String getName() {
         return this.name;
     }
-    public void setName(Employee employee, String name) throws SystemAppException {
-        if (!isProjectLeader(employee)) {
+    public void setName(Employee actor, String name) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         } else if (name.isEmpty()) {
             throw new SystemAppException("Project Name cannot be empty");
