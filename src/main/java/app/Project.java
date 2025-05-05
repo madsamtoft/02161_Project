@@ -108,13 +108,11 @@ public class Project {
     }
 
     public Activity getActivity(String activityName) throws SystemAppException {
-        System.out.println("Getting Activity: " + activityName);
         for (Activity activity : activityList) {
             if (activityName.equals(activity.getName())) {
                 return activity;
             }
         }
-        System.out.println("No activity found");
         throw new SystemAppException("No such activity found");
     }
 
