@@ -19,6 +19,7 @@ public class ProjectSteps {
     private Employee someEmployee;
     private List<Employee> someEmployees = new ArrayList<>();
     private Activity someActivity;
+    private Activity someFirmActivity;
     private List<Employee> availableEmployees;
 
 
@@ -311,8 +312,8 @@ public class ProjectSteps {
     }
     // FIRM ACTIVITY
 
-    @When("creating a new fim activity {string}")
-    public void creatingANewFimActivity(String activityName) {
+    @When("creating a new firm activity {string}")
+    public void creatingANewFirmActivity(String activityName) {
         try {
             systemApp.createFirmActivity(activityName);
         } catch (Exception e) {
@@ -324,6 +325,20 @@ public class ProjectSteps {
     public void theFirmActivityWithNameExists(String activityName) {
         try {
             systemApp.getFirmActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("{string} registers {double} hours to day {int}, month {int} and year {int}")
+    public void registersHoursToDayMonthAndYear(String employee, int hours, int minutes, int day, int month, int year) {
+        //someFirmActivity.registerTime(employee,hours,day,month,year);
+    }
+
+    @And("there exists a firm activity")
+    public void thereExistsAFirmActivity() {
+        try {
+            someFirmActivity = new Activity("løbehjuls konkurrence");
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }

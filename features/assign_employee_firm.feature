@@ -3,7 +3,8 @@ Feature: Assign an employee to a firm activity
 	User: Employee
     Background:
       Given "huba" exists as employee
-      And creating a new fim activity "traktortræk"
+      And there exists a firm activity
+
 
   # create firm activity
 
@@ -14,15 +15,17 @@ Feature: Assign an employee to a firm activity
   # get time on firm activity?
 
   Scenario: Creating a new firm activity
-    When creating a new fim activity "A1"
+    When creating a new firm activity "A1"
     Then the firm activity with name "A1" exists
 
   Scenario: Creating a firm activity with duplicate name
-    When creating a new fim activity "traktortræk"
+    When creating a new firm activity "traktortræk"
+    And creating a new firm activity "traktortræk"
     Then error message "Firm Activity Name already taken" is given
 
-#  Scenario: Register time to firm activity
-#    When "huba"
+  Scenario: Register time to firm activity
+    #When "huba" registers 1.5 hours to day 2, month 2 and year 2021
+
 
 
 

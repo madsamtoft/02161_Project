@@ -5,6 +5,7 @@ Feature: Register time Daily
     Given a project
     And "huba" exists as employee
 
+
   Scenario: Employee registers 5 hours to existing activity
     Given it has an activity
     When employee tries to register daily time to 5:00 for activity
