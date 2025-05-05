@@ -309,6 +309,25 @@ public class ProjectSteps {
     public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
         assertTrue(someActivity.employeeAssigned(someEmployee));
     }
+    // FIRM ACTIVITY
+
+    @When("creating a new fim activity {string}")
+    public void creatingANewFimActivity(String activityName) {
+        try {
+            systemApp.createFirmActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the firm activity with name {string} exists")
+    public void theFirmActivityWithNameExists(String activityName) {
+        try {
+            systemApp.getFirmActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
 
 //    // FIND AVAILABLE EMPLOYEES
 //    @Given("these employees registered in the app")
