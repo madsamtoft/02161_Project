@@ -9,6 +9,19 @@ public class App {
 
     private final SystemApp systemApp = new SystemApp();
 
+    private void registerEmployee(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: registerEmployee <name>");
+            return;
+        }
+        String name = arguments.next();
+        try {
+            systemApp.registerEmployee(name);
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void createProject(Scanner arguments) {
         if (!arguments.hasNext()) {
             System.out.println("Usage: createProject <name>");
@@ -51,6 +64,9 @@ public class App {
                 command = arguments.next();
             }
             switch (command.toLowerCase()) {
+                case "registeremployee":
+                    registerEmployee(arguments);
+                    break;
                 case "createproject":
                     createProject(arguments);
                     break;

@@ -8,6 +8,10 @@ public class SystemApp {
     private int projectIdCounter = 0;
     private List<Employee> employees = new ArrayList<>();
 
+    public SystemApp() {
+        employees.add(new Employee("huba"));
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello bitches: Software Huset A/S");
     }
@@ -15,6 +19,16 @@ public class SystemApp {
     public void createProject(String name) throws SystemAppException {
         Project project = new Project(name, ++projectIdCounter);
         projects.add(project);
+    }
+
+    public void registerEmployee(String name) throws SystemAppException {
+        if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
+            throw new SystemAppException("Employee username must be up to 1-4 letters");
+        }
+        if (employees.stream().anyMatch(e -> e.name().equals(name.toLowerCase()))) {
+            throw new SystemAppException("An emp½loyee with that username already exists");
+        }
+        employees.add(new Employee(name.toLowerCase()));
     }
 
     public List<Integer> getProjectIds(String name) {
