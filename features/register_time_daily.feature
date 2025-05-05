@@ -3,17 +3,19 @@ Feature: Register time Daily
   User: Employee
   Background:
     Given a project
+    And a project leader
     And "huba" exists as employee
 
+
+  Scenario: Employee registers 5 hours to non-existing activity
+    When employee tries to register daily time to 5:00 for activity
+    Then error message "No such activity found" is given
 
   Scenario: Employee registers 5 hours to existing activity
     Given it has an activity
     When employee tries to register daily time to 5:00 for activity
     Then 5:00 hours have been registered to the activity by employee
 
-  Scenario: Employee registers 5 hours to non-existing activity
-    When employee tries to register daily time to 5:00 for activity
-    Then error message "No Activity To Registers Hours To" is given
 
   Scenario: Employee registers 100 hours to existing activity
     Given it has an activity

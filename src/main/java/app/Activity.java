@@ -41,6 +41,7 @@ public class Activity {
 
     public void registerTimeDaily(Employee employee, double hours) throws SystemAppException {
         Map<Calendar, Double> dateHours;
+        System.out.println("Registering time daily in Activity" + hours + " hours");
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
         } else {
@@ -57,7 +58,8 @@ public class Activity {
             alreadyRegistered = dateHours.get(today);
         }
         double putHours = Math.ceil(hours*2) / 2.;
-        if (putHours + alreadyRegistered > 24.) {
+        System.out.println("Put Hours is: " + hours + " hours");
+        if ((putHours + alreadyRegistered) > 24.) {
             throw new SystemAppException("Cannot work more than 24 hours a day");
         }
         dateHours.put(today, putHours + alreadyRegistered);

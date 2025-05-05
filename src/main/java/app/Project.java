@@ -24,16 +24,21 @@ public class Project {
     }
 
     private boolean isProjectLeader(Employee employee) {
-        return employee.equals(this.projectLeader);
+        return this.projectLeader == null || employee.equals(this.projectLeader);
     }
 
-    public void assignProjectLeader(Employee employee) {
-        this.projectLeader = employee;
+    public void assignProjectLeader(Employee actor, Employee employee) throws SystemAppException {
+        if (isProjectLeader(actor)) {
+            this.projectLeader = employee;
+        } else {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
     }
 
     public String getName() {
         return this.name;
     }
+
     public void setName(Employee actor, String name) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
@@ -43,36 +48,44 @@ public class Project {
             this.name = name;
         }
     }
+
     public int getId() {
         return this.id;
     }
+
     public Calendar getStartDate() {
         return startDate;
     }
+
     public void setStartDate(Employee employee, Calendar startDate) throws SystemAppException {
         if (!isProjectLeader(employee)) {
             throw new SystemAppException("Employee is not Project Leader");
         }
         this.startDate = startDate;
     }
+
     public Calendar getEndDate() {
         return endDate;
     }
+
     public void setEndDate(Employee employee, Calendar endDate) throws SystemAppException {
         if (!isProjectLeader(employee)) {
             throw new SystemAppException("Employee is not Project Leader");
         }
         this.endDate = endDate;
     }
+
     public String getCustomer() {
         return customer;
     }
+
     public void setCustomer(Employee employee, String customer) throws SystemAppException {
         if (!isProjectLeader(employee)) {
             throw new SystemAppException("Employee is not Project Leader");
         }
         this.customer = customer;
     }
+
     public Employee getProjectLeader() {
         return projectLeader;
     }
@@ -80,7 +93,7 @@ public class Project {
     public void createActivity(Employee employee, String activityName) throws SystemAppException {
         if (!isProjectLeader(employee)) {
             throw new SystemAppException("Employee is not Project Leader");
-        } else if (activityExists(activityName)) {
+        } else if (activityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Activity Name already taken");
         }
         else {
@@ -88,33 +101,33 @@ public class Project {
         }
     }
 
-    private boolean activityExists(String activityName) {
-        try {
-            getActivity(activityName);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+
+    public void assignEmployeeToActivity(String activityName, Employee employee) throws SystemAppException {
+        Activity activity = getActivity(activityName);
+        activity.assignEmployee(employee);
     }
 
     public Activity getActivity(String activityName) throws SystemAppException {
+        System.out.println("Getting Activity: " + activityName);
         for (Activity activity : activityList) {
             if (activityName.equals(activity.getName())) {
                 return activity;
             }
         }
+        System.out.println("No activity found");
         throw new SystemAppException("No such activity found");
     }
 
-    public void registerTimeDaily(Activity activity, Employee employee, double hours) throws SystemAppException {
-        if (activity == null) {
-            throw new SystemAppException("No Activity To Registers Hours To");
-        } else {
-            activity.registerTimeDaily(employee, hours);
-        }
+    public void registerTimeDaily(String activityName, Employee employee, double hours) throws SystemAppException {
+        Activity activity;
+        System.out.println("Registering time daily " + activityName + " " + employee + " " + hours + " hours");
+        activity = getActivity(activityName);
+        System.out.println("Registering time daily " + activity + " " + employee + " " + hours + " hours");
+        activity.registerTimeDaily(employee, hours);
     }
 
-    public double checkRegisteredDaily(Activity activity, Employee employee) {
+    public double checkRegisteredDaily(String activityName, Employee employee) throws SystemAppException {
+        Activity activity = getActivity(activityName);
         return activity.checkRegisteredDaily(employee);
     }
 

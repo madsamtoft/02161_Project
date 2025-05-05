@@ -8,6 +8,10 @@ public class SystemApp {
     private int projectIdCounter = 0;
     private List<Employee> employees = new ArrayList<>();
 
+    public SystemApp() {
+        employees.add(new Employee("huba"));
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello bitches: Software Huset A/S");
     }
@@ -35,6 +39,16 @@ public class SystemApp {
     }
 
 
+    public void registerEmployee(String name) throws SystemAppException {
+        if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
+            throw new SystemAppException("Employee username must be up to 1-4 letters");
+        }
+        if (employeeExists(name)) {
+            throw new SystemAppException("An emp½loyee with that username already exists");
+        }
+        employees.add(new Employee(name.toLowerCase()));
+    }
+
     public List<Integer> getProjectIds(String name) {
         List<Integer> ids = new LinkedList<>();
         for (Project project : projects) {
@@ -47,39 +61,39 @@ public class SystemApp {
     }
 
     public void createFirmActivity(String activityName) throws SystemAppException {
-        if (firmActivityExists(activityName)) {
+        if (firmActivityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Firm Activity Name already taken");
         } else {
             firmActivityList.add(new Activity(activityName));
         }
     }
 
-    private boolean firmActivityExists(String activityName) {
-        try {
-            getFirmActivity(activityName);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
-
-    public Activity getFirmActivity(String activityName) throws SystemAppException{
+    public Activity getFirmActivity(String name) throws SystemAppException{
         for (Activity activity : firmActivityList) {
-            if (activityName.equals(activity.getName())) {
+            if (name.equals(activity.getName())) {
                 return activity;
             }
         }
-        throw new SystemAppException("No such firm activity found");
+        throw new SystemAppException("Firm activity " + name + " does not exist");
     }
-    
+
+    public void createActivity(String actor, String project, String activityName) throws SystemAppException {
+        Employee allegedProjectLeader;
+        try {
+            allegedProjectLeader = getEmployee(actor);
+        } catch (SystemAppException e) {
+            allegedProjectLeader = null;
+        }
+        getProject(project).createActivity(allegedProjectLeader, activityName);
+    }
+
     private Project getProject(String name) throws SystemAppException {
         for (Project project : projects) {
             if (project.getName().equals(name)) {
                 return project;
             }
         }
-        throw new SystemAppException("Project does not exist");
+        throw new SystemAppException("Project " + name + " does not exist");
     }
 
     private Employee getEmployee(String name) throws SystemAppException {
@@ -88,12 +102,20 @@ public class SystemApp {
                 return employee;
             }
         }
-        throw new SystemAppException("Employee does not exist");
+        throw new SystemAppException("Employee " + name + " does not exist");
     }
 
-    public void assignProjectLeader(String project, String employee) throws SystemAppException {
+    public boolean employeeExists(String name) {
+        return employees.stream().anyMatch(e -> e.name().equals(name.toLowerCase()));
+    }
+
+    public void assignProjectLeader(String actor, String project, String employee) throws SystemAppException {
         // TODO: this should be changed to use project IDs
-        getProject(project).assignProjectLeader(getEmployee(employee));
+        getProject(project).assignProjectLeader(getEmployee(actor), getEmployee(employee));
+    }
+
+    public List<Project> getProjects() {
+        return this.projects;
     }
 
 //    checkWeeklyActivityAmount()

@@ -1,14 +1,29 @@
 package ui;
 
+import app.Project;
 import app.SystemApp;
 import app.SystemAppException;
-import java.util.Calendar;
+import java.util.*;
 
 import java.util.Scanner;
 
 public class App {
 
     private final SystemApp systemApp = new SystemApp();
+    private String actor = "";
+
+    private void registerEmployee(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: registerEmployee <name>");
+            return;
+        }
+        String name = arguments.next();
+        try {
+            systemApp.registerEmployee(name);
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private void createProject(Scanner arguments) {
         if (!arguments.hasNext()) {
@@ -160,15 +175,89 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            systemApp.assignProjectLeader(project, employee);
+            systemApp.assignProjectLeader(actor, project, employee);
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void createActivity(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createActivity <projectName> <activityName>");
+            return;
+        }
+        String projectName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createActivity <projectName> <activityName>");
+            return;
+        }
+        String activityName = arguments.next();
+        try {
+            systemApp.createActivity(actor, projectName, activityName);
+            System.out.println("Activity \"" + activityName + "\" successfully created in project \"" + projectName + "\"");
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void createFirmActivity(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createFirmActivity <activityName>");
+            return;
+        }
+        String activityName = arguments.next();
+        try {
+            systemApp.createFirmActivity(activityName);
+        } catch (SystemAppException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void listProjects() {
+        List<Project> projects = systemApp.getProjects();
+        for (int i = 0; i < projects.size(); i++) {
+            System.out.printf("\tProject %2d: %s%d\n", (i+1), projects.get(i).getName(), projects.get(i).getId());
+        }
+    }
+
+    private void list(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: list projects OR list activities <project>");
+            return;
+        }
+        String next = arguments.next().toLowerCase();
+        if (next.equals("projects")) {
+            listProjects();
+            return;
+        } else if (next.equals("activities")) {
+            // TODO: List activities
+            return;
+        } else {
+            System.out.println("Usage: list projects OR list activities <project>");
+            return;
+        }
+
+    }
+
+    public void login(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: login <name>");
+            return;
+        }
+        String name = arguments.next();
+        if (systemApp.employeeExists(name)) {
+            actor = name;
+        } else {
+            System.out.println("Employee " + name + " does not exist");
         }
     }
 
     public void launch() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
+            if (!actor.isEmpty()) {
+                System.out.print("(" + actor + ") ");
+            }
             System.out.print("# ");
             String line = scanner.nextLine();
             Scanner arguments = new Scanner(line);
@@ -177,6 +266,9 @@ public class App {
                 command = arguments.next();
             }
             switch (command.toLowerCase()) {
+                case "registeremployee":
+                    registerEmployee(arguments);
+                    break;
                 case "createproject":
                     createProject(arguments);
                     break;
@@ -195,10 +287,27 @@ public class App {
                 case "assignprojectleader":
                     assignProjectLeader(arguments);
                     break;
+                case "createactivity":
+                    createActivity(arguments);
+                    break;
+                case "createfirmactivity":
+                    createFirmActivity(arguments);
+                    break;
+                case "list":
+                    list(arguments);
+                    break;
+
+                // UI specific commands:
+                case "login":
+                    login(arguments);
+                    break;
+                case "logout":
+                    actor = "";
+                    break;
                 case "exit":
                     return;
                 default:
-                    System.out.println("Unknown command");
+                    System.out.println("Unknown command: " + command);
             }
         }
     }
