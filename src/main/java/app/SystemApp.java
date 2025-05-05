@@ -77,7 +77,7 @@ public class SystemApp {
         getProject(project).createActivity(actor, activityName);
     }
 
-    private Project getProject(String name) throws SystemAppException {
+    public Project getProject(String name) throws SystemAppException {
         for (Project project : projects) {
             if (project.getName().equals(name)) {
                 return project;
@@ -106,6 +106,10 @@ public class SystemApp {
 
     public List<Project> getProjects() {
         return this.projects;
+    }
+
+    public List<Employee> getEmployees() {
+        return this.employees;
     }
 
 //    checkWeeklyActivityAmount()
