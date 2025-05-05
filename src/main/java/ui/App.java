@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class App {
 
     private final SystemApp systemApp = new SystemApp();
+    private String actor = "";
 
     private void registerEmployee(Scanner arguments) {
         if (!arguments.hasNext()) {
@@ -47,7 +48,7 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            systemApp.assignProjectLeader(project, employee);
+            systemApp.assignProjectLeader(actor, project, employee);
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -66,9 +67,25 @@ public class App {
         }
     }
 
+    public void login(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: login <name>");
+            return;
+        }
+        String name = arguments.next();
+        if (systemApp.employeeExists(name)) {
+            actor = name;
+        } else {
+            System.out.println("Employee " + name + " does not exist");
+        }
+    }
+
     public void launch() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
+            if (!actor.isEmpty()) {
+                System.out.print("(" + actor + ") ");
+            }
             System.out.print("# ");
             String line = scanner.nextLine();
             Scanner arguments = new Scanner(line);
@@ -88,6 +105,14 @@ public class App {
                     break;
                 case "createfirmactivity":
                     createFirmActivity(arguments);
+                    break;
+
+                // UI specific commands:
+                case "login":
+                    login(arguments);
+                    break;
+                case "logout":
+                    actor = "";
                     break;
                 case "exit":
                     return;

@@ -64,7 +64,11 @@ public class ProjectSteps {
 
     @When("setting employee as project leader")
     public void settingEmployeeAsProjectLeader() {
-        someProject.assignProjectLeader(someEmployee);
+        try {
+            someProject.assignProjectLeader(null, someEmployee);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @Then("the project leader is employee")
@@ -129,7 +133,11 @@ public class ProjectSteps {
 
     @Given("employee is the leader of the project")
     public void theUserIsTheLeaderOfTheProject() {
-        someProject.assignProjectLeader(someEmployee);
+        try {
+            someProject.assignProjectLeader(null, someEmployee);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @When("setting project name to {string}")
@@ -148,7 +156,12 @@ public class ProjectSteps {
 
     @Given("employee is not the leader of the project")
     public void isNotTheLeaderOfTheProject() {
-        assertNotEquals(someEmployee, someProject.getProjectLeader());
+        try {
+            someProject.assignProjectLeader(null, new Employee("chjk"));
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+//        assertNotEquals(someEmployee, someProject.getProjectLeader());
     }
 
     @When("setting project customer to {string}")

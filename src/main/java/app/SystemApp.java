@@ -25,7 +25,7 @@ public class SystemApp {
         if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
             throw new SystemAppException("Employee username must be up to 1-4 letters");
         }
-        if (employees.stream().anyMatch(e -> e.name().equals(name.toLowerCase()))) {
+        if (employeeExists(name)) {
             throw new SystemAppException("An emp½loyee with that username already exists");
         }
         employees.add(new Employee(name.toLowerCase()));
@@ -77,9 +77,13 @@ public class SystemApp {
         throw new SystemAppException("Employee " + name + " does not exist");
     }
 
-    public void assignProjectLeader(String project, String employee) throws SystemAppException {
+    public boolean employeeExists(String name) {
+        return employees.stream().anyMatch(e -> e.name().equals(name.toLowerCase()));
+    }
+
+    public void assignProjectLeader(String actor, String project, String employee) throws SystemAppException {
         // TODO: this should be changed to use project IDs
-        getProject(project).assignProjectLeader(getEmployee(employee));
+        getProject(project).assignProjectLeader(getEmployee(actor), getEmployee(employee));
     }
 
 //    checkWeeklyActivityAmount()

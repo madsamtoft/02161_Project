@@ -24,11 +24,15 @@ public class Project {
     }
 
     private boolean isProjectLeader(Employee employee) {
-        return employee.equals(this.projectLeader);
+        return this.projectLeader == null || employee.equals(this.projectLeader);
     }
 
-    public void assignProjectLeader(Employee employee) {
-        this.projectLeader = employee;
+    public void assignProjectLeader(Employee actor, Employee employee) throws SystemAppException {
+        if (isProjectLeader(actor)) {
+            this.projectLeader = employee;
+        } else {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
     }
 
     public String getName() {
