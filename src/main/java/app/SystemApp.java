@@ -114,5 +114,9 @@ public class SystemApp {
         return this.projects;
     }
 
+    public List<Employee> getEmployees() {
+        return this.employees;
+    }
+
 //    checkWeeklyActivityAmount()
 }

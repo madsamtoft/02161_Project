@@ -1,5 +1,6 @@
 package ui;
 
+import app.Employee;
 import app.Project;
 import app.SystemApp;
 import app.SystemAppException;
@@ -22,6 +23,7 @@ public class App {
         String name = arguments.next();
         try {
             systemApp.registerEmployee(name);
+            System.out.println("Employee \"" + name + "\" successfully registered");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -35,6 +37,7 @@ public class App {
         String name = arguments.next();
         try {
             systemApp.createProject(name);
+            System.out.println("Project \"" + name + "\" successfully created");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -53,6 +56,7 @@ public class App {
         String newName = arguments.next();
         try {
             systemApp.changeProjectName(actor, name, newName);
+            System.out.println("Project name successfully changed to \"" + newName + "\" in project \"" + name + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -93,6 +97,7 @@ public class App {
         date.set(Calendar.YEAR, Integer.parseInt(year));
         try {
             systemApp.changeProjectStartDate(actor, project, date);
+            System.out.println("Start date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -134,6 +139,7 @@ public class App {
         date.set(Calendar.YEAR, Integer.parseInt(year));
         try {
             systemApp.changeProjectEndDate(actor, project, date);
+            System.out.println("End date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -154,6 +160,7 @@ public class App {
         String employee = arguments.next();
         try {
             systemApp.assignProjectLeader(actor, project, employee);
+            System.out.println("Project leader \"" + employee + "\" successfully assigned to project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -186,6 +193,7 @@ public class App {
         String activityName = arguments.next();
         try {
             systemApp.createFirmActivity(activityName);
+            System.out.println("Firm activity \"" + activityName + "\" successfully created");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -198,14 +206,24 @@ public class App {
         }
     }
 
+    private void listEmployees() {
+        List<Employee> employees = systemApp.getEmployees();
+        for (int i = 0; i < employees.size(); i++) {
+            System.out.printf("\tEmployee %2d: %s\n", (i+1), employees.get(i).name());
+        }
+    }
+
     private void list(Scanner arguments) {
         if (!arguments.hasNext()){
-            System.out.println("Usage: list projects OR list activities <project>");
+            System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist activities <project>");
             return;
         }
         String next = arguments.next().toLowerCase();
         if (next.equals("projects")) {
             listProjects();
+            return;
+        } else if (next.equals("employees")) {
+            listEmployees();
             return;
         } else if (next.equals("activities")) {
             // TODO: List activities
@@ -260,6 +278,7 @@ public class App {
         System.out.println("Start date......" + startDate);
         System.out.println("End date........" + endDate);
         System.out.println("Activities:");
+        // TODO: List activities
 //        listActivities(projectName);
     }
 
