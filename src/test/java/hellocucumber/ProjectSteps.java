@@ -19,6 +19,7 @@ public class ProjectSteps {
     private Employee someEmployee;
     private List<Employee> someEmployees = new ArrayList<>();
     private Activity someActivity;
+    private Activity someFirmActivity;
     private List<Employee> availableEmployees;
 
 
@@ -308,6 +309,39 @@ public class ProjectSteps {
     @Then("{string} is successfully assigned to the activity in the project")
     public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
         assertTrue(someActivity.employeeAssigned(someEmployee));
+    }
+    // FIRM ACTIVITY
+
+    @When("creating a new firm activity {string}")
+    public void creatingANewFirmActivity(String activityName) {
+        try {
+            systemApp.createFirmActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the firm activity with name {string} exists")
+    public void theFirmActivityWithNameExists(String activityName) {
+        try {
+            systemApp.getFirmActivity(activityName);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("{string} registers {double} hours to day {int}, month {int} and year {int}")
+    public void registersHoursToDayMonthAndYear(String employee, int hours, int minutes, int day, int month, int year) {
+        //someFirmActivity.registerTime(employee,hours,day,month,year);
+    }
+
+    @And("there exists a firm activity")
+    public void thereExistsAFirmActivity() {
+        try {
+            someFirmActivity = new Activity("løbehjuls konkurrence");
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
     }
 
 //    // FIND AVAILABLE EMPLOYEES
