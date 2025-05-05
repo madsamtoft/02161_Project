@@ -10,11 +10,6 @@ Feature: Change Project
     When setting employee as project leader
     Then the project leader is employee
 
-#  Scenario: set a non existing employee as project leader
-#    Given "chjk" does not exist as employee
-#    When setting employee as project leader
-#    Then error message "Not A Valid Employee" is given
-
   Scenario: Start- and end date changed for a project
     Given employee is the leader of the project
     When the start date is set to day 1, month 1, and year 2021

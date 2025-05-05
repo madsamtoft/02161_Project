@@ -5,6 +5,7 @@ import java.util.*;
 public class SystemApp {
     private List<Project> projects = new LinkedList<>();
     private int projectIdCounter = 0;
+    private List<Employee> employees;
 
     public static void main(String[] args) {
         System.out.println("Hello bitches: Software Huset A/S");

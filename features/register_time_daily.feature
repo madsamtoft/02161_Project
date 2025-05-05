@@ -49,7 +49,3 @@ Feature: Register time Daily
     Given it has an activity
     Then 0:00 hours have been registered to the activity by employee
 
-#  SYSTEMAPP TEST
-#  Scenario: Employee registers more than 59 minutes
-##    When employee tries to register daily time to 0:60 for activity
-#    Then error message "Cannot enter more than 59 minutes" is given
