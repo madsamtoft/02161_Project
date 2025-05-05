@@ -80,7 +80,7 @@ public class Project {
     public void createActivity(Employee employee, String activityName) throws SystemAppException {
         if (!isProjectLeader(employee)) {
             throw new SystemAppException("Employee is not Project Leader");
-        } else if (activityExists(activityName)) {
+        } else if (activityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Activity Name already taken");
         }
         else {
@@ -88,14 +88,6 @@ public class Project {
         }
     }
 
-    private boolean activityExists(String activityName) {
-        try {
-            getActivity(activityName);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
 
     public Activity getActivity(String activityName) throws SystemAppException {
         for (Activity activity : activityList) {

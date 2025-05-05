@@ -29,21 +29,13 @@ public class SystemApp {
     }
 
     public void createFirmActivity(String activityName) throws SystemAppException {
-        if (firmActivityExists(activityName)) {
+        if (firmActivityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Firm Activity Name already taken");
         } else {
             firmActivityList.add(new Activity(activityName));
         }
     }
 
-    private boolean firmActivityExists(String activityName) {
-        try {
-            getFirmActivity(activityName);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
 
 
     public Activity getFirmActivity(String activityName) throws SystemAppException{
