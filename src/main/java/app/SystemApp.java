@@ -23,15 +23,15 @@ public class SystemApp {
 
     public void changeProjectName( String actor, String name, String newName) throws SystemAppException {
 
-        getProject(name).setName(getEmployee(actor), newName);
+        getProject(name).setName(actor, newName);
     }
 
     public void changeProjectStartDate(String actor, String name, Calendar startDate) throws SystemAppException {
-        getProject(name).setStartDate(getEmployee(actor), startDate);
+        getProject(name).setStartDate(actor, startDate);
     }
 
     public void changeProjectEndDate(String actor, String name, Calendar endDate) throws SystemAppException {
-        getProject(name).setEndDate(getEmployee(actor), endDate);
+        getProject(name).setEndDate(actor, endDate);
     }
 
 
@@ -87,13 +87,7 @@ public class SystemApp {
 
 
     public void createActivity(String actor, String project, String activityName) throws SystemAppException {
-        Employee allegedProjectLeader;
-        try {
-            allegedProjectLeader = getEmployee(actor);
-        } catch (SystemAppException e) {
-            allegedProjectLeader = null;
-        }
-        getProject(project).createActivity(allegedProjectLeader, activityName);
+        getProject(project).createActivity(actor, activityName);
     }
 
     public Project getProject(String name) throws SystemAppException {
@@ -120,7 +114,7 @@ public class SystemApp {
 
     public void assignProjectLeader(String actor, String project, String employee) throws SystemAppException {
         // TODO: this should be changed to use project IDs
-        getProject(project).assignProjectLeader(getEmployee(actor), getEmployee(employee));
+        getProject(project).assignProjectLeader(actor, getEmployee(employee));
     }
 
     public List<Project> getProjects() {
