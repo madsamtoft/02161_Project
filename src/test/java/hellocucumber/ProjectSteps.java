@@ -399,9 +399,21 @@ public class ProjectSteps {
         }
     }
 
-    @When("{string} registers {double} hours to day {int}, month {int} and year {int}")
-    public void registersHoursToDayMonthAndYear(String employee, int hours, int minutes, int day, int month, int year) {
-        //someFirmActivity.registerTime(employee,hours,day,month,year);
+    @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int}")
+    public void registersHoursAndMinutesToDayMonthAndYear(String employee, int hours, int minutes, int day, int month, int year) {
+        try {
+            systemApp.registerTimeFirmActivity(employee, "a", hours, minutes, day, month, year);
+        } catch (Exception e){
+            errorMessage = e.getMessage();
+        }
+    }
+
+// MUY IMPORTANTE! fix throws SystemAppException
+// MUY IMPORTANTE! fix throws SystemAppException
+// MUY IMPORTANTE! fix throws SystemAppException
+    @Then("{string} has registered {double} hours to day {int}, month {int}, and year {int}")
+    public void hasRegisteredHoursToDayMonthAndYear(String employee, double hours, int day, int month, int year) throws SystemAppException {
+        assertEquals(hours,systemApp.checkRegisteredFirmActivity(employee, "a", day, month, year));
     }
 
     @And("there exists a firm activity")

@@ -3,7 +3,7 @@ Feature: Assign an employee to a firm activity
 	User: Employee
     Background:
       Given "huba" exists as employee
-      And there exists a firm activity
+      #And there exists a firm activity
 
 
   # create firm activity
@@ -24,8 +24,13 @@ Feature: Assign an employee to a firm activity
     Then error message "Firm Activity Name already taken" is given
 
   Scenario: Register time to firm activity
-    #When "huba" registers 1.5 hours to day 2, month 2 and year 2021
+    When creating a new firm activity "a"
+    When "huba" registers 1 hours and 30 minutes to day 2, month 2 and year 2021
+    Then "huba" has registered 1 hours to day 2, month 2, and year 2021
 
+  Scenario: checking registered time for firm activity without work
+    When creating a new firm activity "a"
+    Then "huba" has registered 0 hours to day 2, month 2, and year 2021
 
 
 

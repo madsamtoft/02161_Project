@@ -118,9 +118,9 @@ public class Project {
 
     public void registerTimeDaily(String activityName, Employee employee, double hours) throws SystemAppException {
         Activity activity;
-        System.out.println("Registering time daily " + activityName + " " + employee + " " + hours + " hours");
+//        System.out.println("Registering time daily " + activityName + " " + employee + " " + hours + " hours");
         activity = getActivity(activityName);
-        System.out.println("Registering time daily " + activity + " " + employee + " " + hours + " hours");
+//        System.out.println("Registering time daily " + activity + " " + employee + " " + hours + " hours");
         activity.registerTimeDaily(employee, hours);
     }
 

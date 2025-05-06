@@ -71,7 +71,7 @@ public class Activity {
     }
 
     // not done yet (karl)
-    public void registerTime(Employee employee, double hours, int day, int month, int year) {
+    public void registerTime(Employee employee, double hours, int day, int month, int year) throws SystemAppException {
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -85,6 +85,34 @@ public class Activity {
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
+
+        double putHours = Math.ceil(hours*2) / 2.;
+        if (putHours > 24.) {
+            throw new SystemAppException("Cannot work more than 24 hours a day");
+        }
+        dateHours.put(date,putHours);
+    }
+
+    public double checkRegistered(Employee employee, int day, int month, int year){
+//        Map<Calendar, Double> dateHours;
+//        if (employeeDateHours.containsKey(employee)) {
+//            dateHours = employeeDateHours.get(employee);
+//        } else {
+//            dateHours = new HashMap<>();
+//            employeeDateHours.put(employee, dateHours);
+//        }
+
+        Calendar date = Calendar.getInstance();
+        date.set(year,month,day);
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        if (!employeeDateHours.containsKey(employee) || !employeeDateHours.get(employee).containsKey(date)) {
+            return 0;
+        }
+        return employeeDateHours.get(employee).get(date);
+
     }
 
 

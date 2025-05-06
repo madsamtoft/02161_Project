@@ -73,6 +73,19 @@ public class SystemApp {
         throw new SystemAppException("Firm activity " + name + " does not exist");
     }
 
+    //MUY IMPORTANTE FIX THIS
+    public void registerTimeFirmActivity(String employee, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
+        double putHours = hours; //puthours = hours + minutes (thing)
+        Activity firmActivity = getFirmActivity(firmActivityName);
+        firmActivity.registerTime(getEmployee(employee),putHours,day,month,year);
+    }
+
+    public double checkRegisteredFirmActivity(String employee, String firmActivityName, int day, int month, int year) throws SystemAppException{
+        Activity firmActivity = getFirmActivity(firmActivityName);
+        return firmActivity.checkRegistered(getEmployee(employee),day,month,year);
+    }
+
+
     public void createActivity(String actor, String project, String activityName) throws SystemAppException {
         Employee allegedProjectLeader;
         try {
