@@ -3,7 +3,8 @@ Feature: Change Project Activities
   User: Employee
   Background:
     Given a project
-    And a project leader
+#    And a project leader
+#      Comment: A project leader is not needed on the project to test
     And "huba" exists as employee
     And it has an activity
 

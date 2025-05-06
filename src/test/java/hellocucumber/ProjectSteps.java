@@ -1,8 +1,6 @@
 package hellocucumber;
 
 import app.*;
-import io.cucumber.java.an.E;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,9 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProjectSteps {
     private SystemApp systemApp = new SystemApp();
     private String errorMessage;
-    private Project someProject;
-    private Employee someEmployee;
-    private Employee someProjectLeader;
+//    private  someProjectOld;
+    private final String someProject = "proj1";
+//    private Employee someEmployee;
+    private final String someEmployee = "abcd";
+    private final String someActivity = "act1";
+//    private final String someProjectLeader = "b";
+//    private Employee someProjectLeader;
     private List<Employee> someEmployees = new ArrayList<>();
     private List<Employee> availableEmployees;
 
@@ -55,17 +57,27 @@ public class ProjectSteps {
 
     @Given("a project")
     public void aProject() {
+//        try {
+//            someProject = new Project("p", 0);
+//        } catch (SystemAppException e) {
+//
+//        }
         try {
-            someProject = new Project("p", 0);
+            systemApp.createProject(someProject);
         } catch (SystemAppException e) {
-
+            errorMessage = e.getMessage();
         }
     }
 
     @Given("{string} exists as employee")
     public void existsAsEmployee(String string) {
+//        try {
+//            someEmployee = new Employee(string);
+//        } catch (Exception e) {
+//            errorMessage = e.getMessage();
+//        }
         try {
-            someEmployee = new Employee(string);
+            systemApp.registerEmployee(someEmployee);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -74,8 +86,13 @@ public class ProjectSteps {
 
     @When("setting employee as project leader")
     public void settingEmployeeAsProjectLeader() {
+//        try {
+//            someProject.assignProjectLeader(null, someEmployee);
+//        } catch (SystemAppException e) {
+//            errorMessage = e.getMessage();
+//        }
         try {
-            someProject.assignProjectLeader(null, someEmployee);
+            systemApp.assignProjectLeader(someEmployee, someProject, someEmployee);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -83,8 +100,14 @@ public class ProjectSteps {
 
     @Then("the project leader is employee")
     public void theProjectLeaderIsEmployee() {
-        Employee projectLeader = someProject.getProjectLeader();
-        assertEquals(someEmployee, projectLeader);
+//        Employee projectLeader = someProject.getProjectLeader();
+//        assertEquals(someEmployee, projectLeader);
+        try {
+            String projectLeader = systemApp.getProjectLeader(someProject);
+            assertEquals(someEmployee, projectLeader);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @When("the start date is set to day {int}, month {int}, and year {int}")
@@ -95,8 +118,13 @@ public class ProjectSteps {
         startDate.set(Calendar.MONTH, month-1);
         startDate.set(Calendar.YEAR, year);
 
+//        try {
+//            someProject.setStartDate(someEmployee.name(), startDate);
+//        } catch (Exception e) {
+//            errorMessage = e.getMessage();
+//        }
         try {
-            someProject.setStartDate(someEmployee.name(), startDate);
+            systemApp.changeProjectStartDate(someEmployee, someProject, startDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -110,15 +138,20 @@ public class ProjectSteps {
         endDate.set(Calendar.MONTH, month-1);
         endDate.set(Calendar.YEAR, year);
 
+//        try {
+//            someProject.setEndDate(someEmployee.name(), endDate);
+//        } catch (Exception e) {
+//            errorMessage = e.getMessage();
+//        }
         try {
-            someProject.setEndDate(someEmployee.name(), endDate);
+            systemApp.changeProjectEndDate(someEmployee, someProject, endDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
     @Then("the start date is day {int}, month {int}, and year {int}")
     public void theStartDateIsDayMonthAndYear(int day, int month, int year) {
-        Calendar setDate = someProject.getStartDate();
+//        Calendar setDate = someProject.getStartDate();
 
         Calendar startDate = Calendar.getInstance();
         startDate.clear();
@@ -126,11 +159,18 @@ public class ProjectSteps {
         startDate.set(Calendar.MONTH, month-1);
         startDate.set(Calendar.YEAR, year);
 
+        Calendar setDate = null;
+        try {
+            setDate = systemApp.getProjectStartDate(someProject);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+
         assertEquals(startDate, setDate);
     }
     @Then("the end date is day {int}, month {int}, and year {int}")
     public void theEndDateIsDayMonthAndYear(int day, int month, int year) {
-        Calendar setDate = someProject.getEndDate();
+//        Calendar setDate = someProject.getEndDate();
 
         Calendar endDate = Calendar.getInstance();
         endDate.clear();
@@ -138,14 +178,23 @@ public class ProjectSteps {
         endDate.set(Calendar.MONTH, month-1);
         endDate.set(Calendar.YEAR, year);
 
+        Calendar setDate = null;
+        try {
+            setDate = systemApp.getProjectEndDate(someProject);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+
         assertEquals(endDate, setDate);
     }
 
     @Given("employee is the leader of the project")
     public void theUserIsTheLeaderOfTheProject() {
         try {
-            someProjectLeader = someEmployee;
-            someProject.assignProjectLeader(someProjectLeader.name(), someEmployee);
+//            someProjectLeader = someEmployee;
+//            someProject.assignProjectLeader(someProjectLeader.name(), someEmployee);
+//            someProjectLeader = someEmployee;
+            systemApp.assignProjectLeader(someEmployee, someProject, someEmployee);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -154,7 +203,8 @@ public class ProjectSteps {
     @When("setting project name to {string}")
     public void settingProjectNameTo(String string) {
         try {
-            someProject.setName(someEmployee.name(), string);
+//            someProject.setName(someEmployee.name(), string);
+            systemApp.changeProjectName(someEmployee, someProject, string);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -162,13 +212,19 @@ public class ProjectSteps {
 
     @Then("project name is {string}")
     public void projectNameIs(String string) {
-        assertEquals(string, someProject.getName());
+//        assertEquals(string, someProject.getName());
+        try {
+            assertEquals(string, systemApp.getProjectName(someProject));
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @Given("employee is not the leader of the project")
     public void isNotTheLeaderOfTheProject() {
         try {
-            someProject.assignProjectLeader(null, new Employee("chjk"));
+//            someProject.assignProjectLeader(null, new Employee("chjk"));
+            systemApp.assignProjectLeader(someEmployee, someProject, "huba");
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -178,7 +234,8 @@ public class ProjectSteps {
     @When("setting project customer to {string}")
     public void settingProjectCustomerTo(String customer) {
         try {
-            someProject.setCustomer(someEmployee.name(), customer);
+//            someProject.setCustomer(someEmployee.name(), customer);
+            systemApp.changeProjectCustomer(someEmployee, someProject, customer);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -186,28 +243,34 @@ public class ProjectSteps {
 
     @Then("project customer is {string}")
     public void projectCustomerIs(String customer) {
-        assertEquals(customer, someProject.getCustomer());
+//        assertEquals(customer, someProject.getCustomer());
+        try {
+            assertEquals(customer, systemApp.getProjectCustomer(someProject));
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     //// ACTIVITY STEPS
     @Given("it has an activity")
     public void itHasAnActivity() {
         try {
-            someProject.createActivity(someProjectLeader.name(), DEFAULT_ACTIVITY_NAME);
+//            someProject.createActivity(someProjectLeader.name(), DEFAULT_ACTIVITY_NAME);
+            systemApp.createActivity(someEmployee, someProject, someActivity);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
 
-    @Given("a project leader")
-    public void aProjectLeader() {
-        try {
-            someProjectLeader = new Employee("leader");
-            someProject.assignProjectLeader(null, someProjectLeader);
-        } catch (Exception e) {
-            errorMessage = e.getMessage();
-        }
-    }
+//    @Given("a project leader")
+//    public void aProjectLeader() {
+//        try {
+//            someProjectLeader = new Employee("leader");
+//            someProject.assignProjectLeader(null, someProjectLeader);
+//        } catch (Exception e) {
+//            errorMessage = e.getMessage();
+//        }
+//    }
 
     @When("the start week is set to {int} in year {int}")
     public void theStartWeekIsSetTo(int startWeek, int startYear) {
@@ -216,7 +279,8 @@ public class ProjectSteps {
             startDate.clear();
             startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
             startDate.set(Calendar.YEAR, startYear);
-            someProject.getActivity(DEFAULT_ACTIVITY_NAME).setStartWeek(startDate);
+//            someProject.getActivity(DEFAULT_ACTIVITY_NAME).setStartWeek(startDate);
+            systemApp.setActivityStartWeek(someEmployee, someProject, someActivity, startDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -229,35 +293,8 @@ public class ProjectSteps {
             endDate.clear();
             endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
             endDate.set(Calendar.YEAR, endYear);
-            someProject.getActivity(DEFAULT_ACTIVITY_NAME).setEndWeek(endDate);
-        } catch (Exception e) {
-            errorMessage = e.getMessage();
-        }
-    }
-
-    @Then("the start week is {int} in year {int}")
-    public void theStartWeekIs(int startWeek, int startYear) {
-        try {
-            Calendar startDate = Calendar.getInstance();
-            Calendar actualStartDate = someProject.getActivity(DEFAULT_ACTIVITY_NAME).getStartWeek();
-            startDate.clear();
-            startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
-            startDate.set(Calendar.YEAR, startYear);
-            assertEquals(startDate, actualStartDate);
-        } catch (Exception e) {
-            errorMessage = e.getMessage();
-        }
-    }
-
-    @Then("the end week is {int} in year {int}")
-    public void theEndWeekIs(int endWeek, int endYear) {
-        try {
-            Calendar endDate = Calendar.getInstance();
-            Calendar actualEndDate = someProject.getActivity(DEFAULT_ACTIVITY_NAME).getEndWeek();
-            endDate.clear();
-            endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
-            endDate.set(Calendar.YEAR, endYear);
-            assertEquals(endDate, actualEndDate);
+//            someProject.getActivity(DEFAULT_ACTIVITY_NAME).setEndWeek(endDate);
+            systemApp.setActivityEndWeek(someEmployee, someProject, someActivity, endDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -266,26 +303,66 @@ public class ProjectSteps {
     @When("setting the estimated hours of an activity to {int}")
     public void settingTheEstimatedHoursOfAnActivityTo(int hours) {
         try {
-            someProject.getActivity(DEFAULT_ACTIVITY_NAME).setEstimatedHours(hours);
+//            someProject.getActivity(DEFAULT_ACTIVITY_NAME).setEstimatedHours(hours);
+            systemApp.setActivityEstimatedHours(someEmployee, someProject, someActivity, hours);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
 
+    @Then("the start week is {int} in year {int}")
+    public void theStartWeekIs(int startWeek, int startYear) {
+        Calendar startDate = Calendar.getInstance();
+        startDate.clear();
+        startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
+        startDate.set(Calendar.YEAR, startYear);
+
+        Calendar actualStartDate = null;
+        try {
+//            Calendar actualStartDate = someProject.getActivity(DEFAULT_ACTIVITY_NAME).getStartWeek();
+            actualStartDate = systemApp.getActivityStartWeek(someProject, someActivity);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+
+        assertEquals(startDate, actualStartDate);
+    }
+
+    @Then("the end week is {int} in year {int}")
+    public void theEndWeekIs(int endWeek, int endYear) {
+        Calendar endDate = Calendar.getInstance();
+        endDate.clear();
+        endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
+        endDate.set(Calendar.YEAR, endYear);
+
+        Calendar actualEndDate = null;
+        try {
+//            actualEndDate = someProject.getActivity(DEFAULT_ACTIVITY_NAME).getEndWeek();
+            actualEndDate = systemApp.getActivityEndWeek(someProject, someActivity);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+
+        assertEquals(endDate, actualEndDate);
+    }
+
     @Then("the estimated hours of the activity should be {int}")
     public void theEstimatedHoursOfTheActivityShouldBe(int hours) {
         try {
-            int actualHours = someProject.getActivity(DEFAULT_ACTIVITY_NAME).getEstimatedHours();
+//            int actualHours = someProject.getActivity(DEFAULT_ACTIVITY_NAME).getEstimatedHours();
+            int actualHours = systemApp.getActivityEstimatedHours(someProject, someActivity);
             assertEquals(hours, actualHours);
         } catch (Exception e) {
             errorMessage = e.getMessage();
+            fail();
         }
     }
 
     @When("creating a new activity {string} in the project")
     public void creatingANewActivityInTheProject(String activityName) {
         try {
-            someProject.createActivity(someEmployee.name(), activityName);
+//            someProject.createActivity(someEmployee.name(), activityName);
+            systemApp.createActivity(someEmployee, someProject, activityName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -294,20 +371,22 @@ public class ProjectSteps {
     @Then("the activity with name {string} is a part of the project")
     public void theActivityWithNameIsAPartOfTheProject(String activityName) {
         try {
-            someProject.getActivity(activityName);
+//            someProject.getActivity(activityName);
+            assertTrue(systemApp.hasActivity(someProject, activityName));
         } catch (Exception e) {
             errorMessage = e.getMessage();
+            fail();
         }
     }
 
-    @Given("activity {string} already exists in the project")
-    public void activityAlreadyExistsInTheProject(String activityName) {
-        try {
-            someProject.createActivity(someEmployee.name(), activityName);
-        } catch (Exception e) {
-            // blank?
-        }
-    }
+//    @Given("activity {string} already exists in the project")
+//    public void activityAlreadyExistsInTheProject(String activityName) {
+//        try {
+//            someProject.createActivity(someEmployee.name(), activityName);
+//        } catch (Exception e) {
+//            // blank?
+//        }
+//    }
 
 //    @When("{string} tries to register daily time to {double} for activity")
 //    public void triesToRegisterDailyTimeToForActivity(String employeeName, double hours) {
@@ -327,7 +406,8 @@ public class ProjectSteps {
     public void triesToRegisterDailyTimeToForActivity(int fullHours, int minutes) {
         double hours = fullHours + (minutes/60.);
         try {
-            someProject.registerTimeDaily(DEFAULT_ACTIVITY_NAME, someEmployee, hours);
+//            someProject.registerTimeDaily(DEFAULT_ACTIVITY_NAME, someEmployee, hours);
+            systemApp.registerTimeDaily(someProject, someActivity, someEmployee, hours);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -337,9 +417,11 @@ public class ProjectSteps {
     public void hoursHaveBeenRegisteredToTheActivity(int fullHours, int minutes) {
         double hours = fullHours + (minutes/60.);
         try {
-            assertEquals(hours, someProject.checkRegisteredDaily(DEFAULT_ACTIVITY_NAME, someEmployee));
+//            assertEquals(hours, someProject.checkRegisteredDaily(DEFAULT_ACTIVITY_NAME, someEmployee));
+            assertEquals(hours, systemApp.checkRegisteredTimeDaily(someProject, someActivity, someEmployee));
         } catch (Exception e){
             errorMessage = e.getMessage();
+            fail();
         }
     }
 
@@ -364,7 +446,8 @@ public class ProjectSteps {
     @When("{string} is assigned to the activity in the project")
     public void isAssignedToTheActivityInTheProject(String employeeName) {
         try {
-            someProject.assignEmployeeToActivity(DEFAULT_ACTIVITY_NAME, someEmployee);
+//            someProject.assignEmployeeToActivity(DEFAULT_ACTIVITY_NAME, someEmployee);
+            systemApp.assignEmployeeToActivity(someProject, someActivity, someEmployee);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -372,10 +455,12 @@ public class ProjectSteps {
     @Then("{string} is successfully assigned to the activity in the project")
     public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
         try {
-            boolean assigned = someProject.getActivity(DEFAULT_ACTIVITY_NAME).employeeAssigned(someEmployee);
-            assertTrue(assigned);
+//            boolean assigned = someProject.getActivity(DEFAULT_ACTIVITY_NAME).employeeAssigned(someEmployee);
+//            assertTrue(assigned);
+            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, someEmployee));
         } catch (Exception e) {
             errorMessage = e.getMessage();
+            fail();
         }
 
     }
@@ -416,14 +501,14 @@ public class ProjectSteps {
         assertEquals(hours,systemApp.checkRegisteredFirmActivity(employee, "a", day, month, year));
     }
 
-    @And("there exists a firm activity")
-    public void thereExistsAFirmActivity() {
-        try {
-            someProject.createActivity(someEmployee.name(), "løbehjuls konkurrence");
-        } catch (Exception e) {
-            errorMessage = e.getMessage();
-        }
-    }
+//    @And("there exists a firm activity")
+//    public void thereExistsAFirmActivity() {
+//        try {
+//            someProject.createActivity(someEmployee.name(), "løbehjuls konkurrence");
+//        } catch (Exception e) {
+//            errorMessage = e.getMessage();
+//        }
+//    }
 
 //    // FIND AVAILABLE EMPLOYEES
 //    @Given("these employees registered in the app")
