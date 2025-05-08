@@ -484,22 +484,43 @@ public class ProjectSteps {
         }
     }
 
-    @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int}")
-    public void registersHoursAndMinutesToDayMonthAndYear(String employee, int hours, int minutes, int day, int month, int year) {
+    @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to firm Activity {string}")
+    public void registersHoursAndMinutesToDayMonthAndYearToFirmActivity(String employee, int hours, int minutes, int day, int month, int year, String firmActivityName) {
         try {
-            systemApp.registerTimeFirmActivity(employee, "a", hours, minutes, day, month, year);
+            systemApp.registerTimeFirmActivity(employee, firmActivityName, hours, minutes, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
     }
 
-    @Then("{string} has registered {double} hours to day {int}, month {int}, and year {int}")
-    public void hasRegisteredHoursToDayMonthAndYear(String employee, double hours, int day, int month, int year) {
+    @Then("{string} has registered {double} hours to day {int}, month {int}, and year {int} to firm Activity {string}")
+    public void hasRegisteredHoursToDayMonthAndYearToFirmActivity(String employee, double hours, int day, int month, int year, String firmActivityName ) {
         try {
-            assertEquals(hours,systemApp.checkRegisteredFirmActivity(employee, "a", day, month, year));
+            assertEquals(hours,systemApp.checkRegisteredFirmActivity(employee, firmActivityName, day, month, year));
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
+    }
+
+    @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to Activity {string}")
+    public void registersHoursAndMinutesToDayMonthAndYearToActivity(String employee, int hours,int minutes, int day, int month, int year, String activity ) {
+        try {
+            systemApp.registerTimeActivity(employee,someProject,activity,hours,minutes,day,month,year);
+        }catch (Exception e){
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("{string} has registered {double} hours to day {int}, month {int}, and year {int} to Activity {string}")
+    public void hasRegisteredHoursToDayMonthAndYearToActivity(String employee, double hours, int day, int month, int year, String activity){
+        double checkHours = -1;
+        try {
+            checkHours = systemApp.checkRegisteredActivity(employee,someProject,activity,day,month,year);
+        } catch (Exception e){
+            errorMessage = e.getMessage();
+        }
+        assertEquals(hours,checkHours);
+
     }
 
 //    @And("there exists a firm activity")
