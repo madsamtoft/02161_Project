@@ -1,9 +1,6 @@
 package ui;
 
-import app.Employee;
-import app.Project;
-import app.SystemApp;
-import app.SystemAppException;
+import app.*;
 
 import java.util.*;
 
@@ -42,20 +39,46 @@ public class App {
         }
     }
 
+    private void addCustomer(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: addCustomer <project> <customer>");
+            return;
+        }
+        String projectName = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: addCustomer <project> <customer>");
+            return;
+        }
+        String customer = arguments.next();
+        Project project;
+        try {
+            project = systemApp.getProject(projectName);
+        } catch (Exception e) {
+            System.out.println("Project \"" + projectName + "\" does not exist");
+            return;
+        }
+        try {
+            project.setCustomer(actor, customer);
+        } catch (Exception e) {
+            System.out.println("User not authorized to add customer to project \"" + projectName + "\"");
+            return;
+        }
+    }
+
     private void changeProjectName(Scanner arguments) {
         if (!arguments.hasNext()) {
             System.out.println("Usage: changeProjectName <project> <newName>");
             return;
         }
         String name = arguments.next();
-            if (!arguments.hasNext()) {
-                System.out.println("Usage: changeProjectName <project> <newName>");
-                return;
-            }
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeProjectName <project> <newName>");
+            return;
+        }
         String newName = arguments.next();
         try {
             systemApp.changeProjectName(actor, name, newName);
-            System.out.println("Project name successfully changed to \"" + newName + "\" in project \"" + name + "\"");
+            System.out.println("Project name for \"" + name + "\" successfully changed to \"" + newName + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -159,7 +182,7 @@ public class App {
         String employee = arguments.next();
         try {
             systemApp.assignProjectLeader(actor, project, employee);
-            System.out.println("Project leader \"" + employee + "\" successfully assigned to project \"" + project + "\"");
+            System.out.println("\"" + employee + "\" has been successfully assigned as Project Leader for the project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -201,7 +224,29 @@ public class App {
     private void listProjects() {
         List<Project> projects = systemApp.getProjects();
         for (int i = 0; i < projects.size(); i++) {
-            System.out.printf("\tProject %2d: %s%d\n", (i+1), projects.get(i).getName(), projects.get(i).getId());
+            System.out.printf("\tProject %2d: %s#%d\n", (i+1), projects.get(i).getName(), projects.get(i).getId());
+        }
+    }
+
+    private void listActivities(String projectName) {
+        Project project;
+        List<Activity> activities;
+        try {
+            project = systemApp.getProject(projectName);
+        } catch (Exception e) {
+            System.out.println("Project \"" + projectName + "\" does not exist");
+            return;
+        }
+
+        try {
+            activities = project.getActivities();
+        } catch (Exception e) {
+            System.out.println("Project \"" + projectName + "\" has no activities");
+            return;
+        }
+
+        for (int i = 0; i < activities.size(); i++) {
+            System.out.printf("\tActivity %2d: %s\n", (i+1), activities.get(i).getName());
         }
     }
 
@@ -225,7 +270,7 @@ public class App {
             listEmployees();
             return;
         } else if (next.equals("activities")) {
-            // TODO: List activities
+            listActivities(arguments.next());
             return;
         } else {
             System.out.println("Usage: list projects OR list activities <project>");
@@ -261,12 +306,18 @@ public class App {
             customer = "<none>";
         }
         try {
-            startDate = project.getStartDate().toString();
+            int startDateDay = project.getStartDate().get(Calendar.DAY_OF_MONTH);
+            int startDateMonth = project.getStartDate().get(Calendar.MONTH) + 1;
+            int startDateYear = project.getStartDate().get(Calendar.YEAR);
+            startDate = startDateDay + "/" + startDateMonth + "/" + startDateYear;
         } catch (Exception e) {
             startDate = "<none>";
         }
         try {
-            endDate = project.getEndDate().toString();
+            int endDateDay = project.getEndDate().get(Calendar.DAY_OF_MONTH);
+            int endDateMonth = project.getEndDate().get(Calendar.MONTH) + 1;
+            int endDateYear = project.getEndDate().get(Calendar.YEAR);
+            endDate = endDateDay + "/" + endDateMonth + "/" + endDateYear;
         } catch (Exception e) {
             endDate = "<none>";
         }
@@ -277,8 +328,7 @@ public class App {
         System.out.println("Start date......" + startDate);
         System.out.println("End date........" + endDate);
         System.out.println("Activities:");
-        // TODO: List activities
-//        listActivities(projectName);
+        listActivities(projectName);
     }
 
     private void info(Scanner arguments) {
@@ -322,6 +372,9 @@ public class App {
                     break;
                 case "createproject":
                     createProject(arguments);
+                    break;
+                case "addcustomer":
+                    addCustomer(arguments);
                     break;
                 case "changeprojectname":
                     changeProjectName(arguments);
