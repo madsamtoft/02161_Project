@@ -528,6 +528,18 @@ public class ProjectSteps {
 
     }
 
+    @Then("{string} has registered {int} hours and {int} minutes in total to Activity {string}")
+    public void hasRegisteredHoursAndMinutesInTotalToActivity(String employee, int fullHours, int minutes, String activity) {
+        double hours = Math.ceil((fullHours + (minutes/60.))*2) / 2.;
+        double checkHours = -1;
+        try {
+            checkHours = systemApp.checkRegisteredTotalActivity(someProject, activity, employee);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+        assertEquals(hours, checkHours);
+    }
+
 // EMPLOYEE STEPS
     @When("registering an employee with identifier {string}")
     public void registeringAnEmployeeWithIdentifier(String employeeID) {

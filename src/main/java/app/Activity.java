@@ -111,6 +111,18 @@ public class Activity {
 
     }
 
+    public double checkRegisteredTotal(Employee employee) {
+        if (!employeeDateHours.containsKey(employee)) {
+            return 0;
+        }
+
+        double hoursTotal = 0;
+        for (double hours : employeeDateHours.get(employee).values()) {
+            hoursTotal += hours;
+        }
+        return hoursTotal;
+    }
+
 
 
     public String getName() {

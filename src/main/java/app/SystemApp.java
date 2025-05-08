@@ -185,6 +185,9 @@ public class SystemApp {
     public double checkRegisteredActivity(String employee,String project, String activity, int day, int month , int year ) throws SystemAppException{
         return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),day,month,year);
     }
+    public double checkRegisteredTotalActivity(String project, String activity, String employee) throws SystemAppException {
+        return getProject(project).checkRegisteredTotalActivity(activity, getEmployee(employee));
+    }
 
 
     public void assignEmployeeToActivity(String project, String activity, String employee) throws SystemAppException {

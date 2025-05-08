@@ -147,6 +147,10 @@ public class Project {
         return activity.checkRegistered(employee,day,month,year);
     }
 
+    public double checkRegisteredTotalActivity(String activityName, Employee employee) throws SystemAppException {
+        return getActivity(activityName).checkRegisteredTotal(employee);
+    }
+
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
         // TODO: check actor
