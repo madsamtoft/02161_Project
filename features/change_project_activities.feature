@@ -8,6 +8,11 @@ Feature: Change Project Activities
     And "huba" exists as employee
     And it has an activity
 
+  Scenario: Change project name by project leader
+    Given employee is the leader of the project
+    When the name of the activity is changed to "newName"
+    Then the name of the activity is "newName"
+
   Scenario: Start- and end week set by project leader for an activity
     Given employee is the leader of the project
     When the start week is set to 1 in year 2020
@@ -27,7 +32,7 @@ Feature: Change Project Activities
     Given employee is the leader of the project
     When setting the estimated hours of an activity to 100
     Then the estimated hours of the activity should be 100
-
+#
 #  Scenario: Ser estimated hours for an activity without being project leader
 #    Given a project
 #    And it has an activity

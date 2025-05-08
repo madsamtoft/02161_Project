@@ -13,13 +13,26 @@ public class SystemApp {
     }
 
     public void createProject(String name) throws SystemAppException {
-        Project project = new Project(name, ++projectIdCounter);
-        projects.add(project);
+        try  {
+            getProject(name);
+        }
+        catch(Exception e){
+            Project project = new Project(name, ++projectIdCounter);
+            projects.add(project);
+        }
+        throw new SystemAppException("Project with that name already exists");
     }
 
-//    public void changeProjectName( String actor, String project, String name) throws SystemAppException {
-//        getProject(project).setName(actor, name);
-//    }
+    public void changeProjectName( String actor, String project, String name) throws SystemAppException {
+        try  {
+            getProject(name);
+        }
+        catch(Exception e){
+            getProject(project).setName(actor, name);
+        }
+        throw new SystemAppException("Project with that name already exists");
+
+    }
 
 //    public void changeProjectStartDate(String actor, String project, Calendar startDate) throws SystemAppException {
 //        getProject(project).setStartDate(actor, startDate);
@@ -142,6 +155,10 @@ public class SystemApp {
 //        return getProject(projectName).getCustomer();
 //    }
 
+//    public void setActivityName(String actor, String project, String activity, String name) throws SystemAppException {
+//        getProject(project).setActivityName(actor, activity, name);
+//    }
+
 //    public void setActivityStartWeek(String actor, String project, String activity, Calendar startWeek) throws SystemAppException {
 //        getProject(project).setActivityStartWeek(actor, activity, startWeek);
 //    }
@@ -154,7 +171,11 @@ public class SystemApp {
 //        getProject(project).setActivityEstimatedHours(actor, activity, hours);
 //    }
 
-//    public Calendar getActivityStartWeek(String project, String activity) throws SystemAppException{
+//    public boolean activityExists(String project, String activity) throws SystemAppException {
+//        return getProject(project).activityExists(activity);
+//    }
+
+//    public Calendar getActivityStartWeek(String project, String activity) throws SystemAppException {
 //        return getProject(project).getActivityStartWeek(activity);
 //    }
 
@@ -183,6 +204,9 @@ public class SystemApp {
 //    }
 //    public double checkRegisteredActivity(String employee,String project, String activity, int day, int month , int year ) throws SystemAppException{
 //        return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),day,month,year);
+//    }
+//    public double checkRegisteredTotalActivity(String project, String activity, String employee) throws SystemAppException {
+//        return getProject(project).checkRegisteredTotalActivity(activity, getEmployee(employee));
 //    }
 
 
