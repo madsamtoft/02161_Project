@@ -94,13 +94,6 @@ public class Activity {
     }
 
     public double checkRegistered(Employee employee, int day, int month, int year){
-//        Map<Calendar, Double> dateHours;
-//        if (employeeDateHours.containsKey(employee)) {
-//            dateHours = employeeDateHours.get(employee);
-//        } else {
-//            dateHours = new HashMap<>();
-//            employeeDateHours.put(employee, dateHours);
-//        }
 
         Calendar date = Calendar.getInstance();
         date.set(year,month,day);
