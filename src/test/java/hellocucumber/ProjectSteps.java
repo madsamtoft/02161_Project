@@ -496,11 +496,13 @@ public class ProjectSteps {
     public void hasRegisteredHoursAndMinutesToDayMonthAndYearToFirmActivity(String employee, int fullHours, int minutes, int day, int month, int year, String firmActivityName) {
         double hours = fullHours + (minutes/60.);
         double roundHours = Math.ceil(hours*2) / 2.;
+        double checkHours = -1;
         try {
-            assertEquals(roundHours,systemApp.checkRegisteredFirmActivity(employee, firmActivityName, day, month, year));
+            checkHours = systemApp.checkRegisteredFirmActivity(employee, firmActivityName, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
+        assertEquals(roundHours,checkHours);
     }
 
     @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to Activity {string}")
