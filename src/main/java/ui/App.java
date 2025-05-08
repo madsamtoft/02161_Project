@@ -77,7 +77,7 @@ public class App {
         }
         String newName = arguments.next();
         try {
-            systemApp.changeProjectName(actor, name, newName);
+            systemApp.getProject(name).setName(actor, newName);
             System.out.println("Project name for \"" + name + "\" successfully changed to \"" + newName + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -118,7 +118,8 @@ public class App {
         date.set(Calendar.MONTH, Integer.parseInt(month) - 1); // Months are 0-based in Calendar
         date.set(Calendar.YEAR, Integer.parseInt(year));
         try {
-            systemApp.changeProjectStartDate(actor, project, date);
+//            systemApp.changeProjectStartDate(actor, project, date);
+            systemApp.getProject(project).setStartDate(actor, date);
             System.out.println("Start date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -160,7 +161,8 @@ public class App {
         date.set(Calendar.MONTH, Integer.parseInt(month) - 1); // Months are 0-based in Calendar
         date.set(Calendar.YEAR, Integer.parseInt(year));
         try {
-            systemApp.changeProjectEndDate(actor, project, date);
+//            systemApp.changeProjectEndDate(actor, project, date);
+            systemApp.getProject(project).setEndDate(actor, date);
             System.out.println("End date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -181,7 +183,8 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            systemApp.assignProjectLeader(actor, project, employee);
+//            systemApp.assignProjectLeader(actor, project, employee);
+            systemApp.getProject(project).assignProjectLeader(actor, systemApp.getEmployee(employee));
             System.out.println("\"" + employee + "\" has been successfully assigned as Project Leader for the project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -193,15 +196,16 @@ public class App {
             System.out.println("Usage: createActivity <projectName> <activityName>");
             return;
         }
-        String projectName = arguments.next();
+        String project = arguments.next();
         if (!arguments.hasNext()){
             System.out.println("Usage: createActivity <projectName> <activityName>");
             return;
         }
         String activityName = arguments.next();
         try {
-            systemApp.createActivity(actor, projectName, activityName);
-            System.out.println("Activity \"" + activityName + "\" successfully created in project \"" + projectName + "\"");
+//            systemApp.createActivity(actor, projectName, activityName);
+            systemApp.getProject(project).createActivity(actor, activityName);
+            System.out.println("Activity \"" + activityName + "\" successfully created in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
