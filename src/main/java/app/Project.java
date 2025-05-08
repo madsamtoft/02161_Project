@@ -158,6 +158,14 @@ public class Project {
         getActivity(activity).setName(name);
     }
 
+    public boolean activityExists(String activityName) {
+        for (Activity activity : activityList) {
+            if (activityName.equals(activity.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
         // TODO: check actor

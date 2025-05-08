@@ -159,7 +159,11 @@ public class SystemApp {
         getProject(project).setActivityEstimatedHours(actor, activity, hours);
     }
 
-    public Calendar getActivityStartWeek(String project, String activity) throws SystemAppException{
+    public boolean activityExists(String project, String activity) throws SystemAppException {
+        return getProject(project).activityExists(activity);
+    }
+
+    public Calendar getActivityStartWeek(String project, String activity) throws SystemAppException {
         return getProject(project).getActivityStartWeek(activity);
     }
 

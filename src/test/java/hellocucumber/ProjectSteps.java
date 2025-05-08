@@ -230,7 +230,16 @@ public class ProjectSteps {
 
     @Then("the name of the activity is {string}")
     public void theNameOfTheActivityIs(String activityName) {
-
+        boolean oldExists = true;
+        boolean newExists = false;
+        try {
+            oldExists = systemApp.activityExists(someProject, someActivity);
+            newExists = systemApp.activityExists(someProject, activityName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+        assertFalse(oldExists);
+        assertTrue(newExists);
     }
 
     @When("the start week is set to {int} in year {int}")
