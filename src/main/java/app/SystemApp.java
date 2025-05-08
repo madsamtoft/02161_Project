@@ -12,10 +12,6 @@ public class SystemApp {
         employees.add(new Employee("huba"));
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello bitches: Software Huset A/S");
-    }
-
     public void createProject(String name) throws SystemAppException {
         Project project = new Project(name, ++projectIdCounter);
         projects.add(project);
