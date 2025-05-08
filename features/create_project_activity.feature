@@ -7,7 +7,8 @@ Feature: Create Project Activity
 
   Scenario: Create a new activity for a project as project leader
     Given employee is the leader of the project
-    And it has an activity
+#    And it has an activity
+#      Step is irrelevant for test
     When creating a new activity "A1" in the project
     Then the activity with name "A1" is a part of the project
 
@@ -26,6 +27,8 @@ Feature: Create Project Activity
   Scenario: Creating activity with duplicate name
     Given employee is the leader of the project
     And it has an activity
-    And activity "A1" already exists in the project
+#    And activity "A1" already exists in the project
+#      Duplicate step definition is not needed
     When creating a new activity "A1" in the project
+    And creating a new activity "A1" in the project
     Then error message "Activity Name already taken" is given

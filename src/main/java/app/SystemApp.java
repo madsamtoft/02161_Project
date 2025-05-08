@@ -21,17 +21,21 @@ public class SystemApp {
         projects.add(project);
     }
 
-    public void changeProjectName( String actor, String name, String newName) throws SystemAppException {
+    public void changeProjectName( String actor, String project, String name) throws SystemAppException {
 
-        getProject(name).setName(actor, newName);
+        getProject(project).setName(actor, name);
     }
 
-    public void changeProjectStartDate(String actor, String name, Calendar startDate) throws SystemAppException {
-        getProject(name).setStartDate(actor, startDate);
+    public void changeProjectStartDate(String actor, String project, Calendar startDate) throws SystemAppException {
+        getProject(project).setStartDate(actor, startDate);
     }
 
-    public void changeProjectEndDate(String actor, String name, Calendar endDate) throws SystemAppException {
-        getProject(name).setEndDate(actor, endDate);
+    public void changeProjectEndDate(String actor, String project, Calendar endDate) throws SystemAppException {
+        getProject(project).setEndDate(actor, endDate);
+    }
+
+    public void changeProjectCustomer(String actor, String project, String customer) throws SystemAppException {
+        getProject(project).setCustomer(actor, customer);
     }
 
 
@@ -123,6 +127,70 @@ public class SystemApp {
 
     public List<Employee> getEmployees() {
         return this.employees;
+    }
+
+    public String getProjectLeader(String projectName) throws SystemAppException {
+        return getProject(projectName).getProjectLeader().name();
+    }
+
+    public Calendar getProjectStartDate(String projectName) throws SystemAppException {
+        return getProject(projectName).getStartDate();
+    }
+
+    public Calendar getProjectEndDate(String projectName) throws SystemAppException {
+        return getProject(projectName).getEndDate();
+    }
+
+    public String getProjectName(String projectName) throws SystemAppException {
+        return getProject(projectName).getName();
+    }
+
+    public String getProjectCustomer(String projectName) throws SystemAppException {
+        return getProject(projectName).getCustomer();
+    }
+
+    public void setActivityStartWeek(String actor, String project, String activity, Calendar startWeek) throws SystemAppException {
+        getProject(project).setActivityStartWeek(actor, activity, startWeek);
+    }
+
+    public void setActivityEndWeek(String actor, String project, String activity, Calendar endWeek) throws SystemAppException {
+        getProject(project).setActivityEndWeek(actor, activity, endWeek);
+    }
+
+    public void setActivityEstimatedHours(String actor, String project, String activity, int hours) throws SystemAppException {
+        getProject(project).setActivityEstimatedHours(actor, activity, hours);
+    }
+
+    public Calendar getActivityStartWeek(String project, String activity) throws SystemAppException{
+        return getProject(project).getActivityStartWeek(activity);
+    }
+
+    public Calendar getActivityEndWeek(String project, String activity) throws SystemAppException {
+        return getProject(project).getActivityEndWeek(activity);
+    }
+
+    public int getActivityEstimatedHours(String project, String activity) throws SystemAppException {
+        return getProject(project).getActivityEstimatedHours(activity);
+    }
+
+    public boolean hasActivity(String project, String activity) throws SystemAppException {
+        return getProject(project).hasActivity(activity);
+    }
+
+    public void registerTimeDaily(String project, String activity, String employee, double hours) throws SystemAppException {
+        getProject(project).registerTimeDaily(activity, getEmployee(employee), hours);
+    }
+
+    public double checkRegisteredTimeDaily(String project, String activity, String employee) throws SystemAppException {
+        return getProject(project).checkRegisteredDaily(activity, getEmployee(employee));
+    }
+
+    public void assignEmployeeToActivity(String project, String activity, String employee) throws SystemAppException {
+        getProject(project).assignEmployeeToActivity(activity, getEmployee(employee));
+    }
+
+    public boolean hasEmployeeAssignedToActivity(String project, String activity, String employee) throws SystemAppException {
+        return getProject(project).hasEmployeeAssignedToActivity(activity, getEmployee(employee));
     }
 
 //    checkWeeklyActivityAmount()
