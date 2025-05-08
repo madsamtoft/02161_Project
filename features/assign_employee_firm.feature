@@ -26,11 +26,11 @@ Feature: Assign an employee to a firm activity
   Scenario: Register time to firm activity
     When creating a new firm activity "a"
     When "huba" registers 1 hours and 30 minutes to day 2, month 2 and year 2021
-    Then "huba" has registered 1 hours to day 2, month 2, and year 2021
+    Then "huba" has registered 1 hours and 30 minutes to day 2, month 2, and year 2021
 
   Scenario: checking registered time for firm activity without work
     When creating a new firm activity "a"
-    Then "huba" has registered 0 hours to day 2, month 2, and year 2021
+    Then "huba" has registered 0 hours and 0 minutes to day 2, month 2, and year 2021
 
 
 

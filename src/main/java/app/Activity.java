@@ -39,7 +39,7 @@ public class Activity {
         this.assignedEmployees.add(employee);
     }
 
-    public void registerTimeDaily(Employee employee, double hours) throws SystemAppException {
+    public void registerTimeDaily(Employee employee, int fullHours, int minutes) throws SystemAppException {
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -56,6 +56,8 @@ public class Activity {
         if (dateHours.containsKey(today)) {
             alreadyRegistered = dateHours.get(today);
         }
+
+        double hours = fullHours + (minutes/60.);
         double putHours = Math.ceil(hours*2) / 2.;
         if ((putHours + alreadyRegistered) > 24.) {
             throw new SystemAppException("Cannot work more than 24 hours a day");
@@ -71,7 +73,7 @@ public class Activity {
     }
 
     // not done yet (karl)
-    public void registerTime(Employee employee, double hours, int day, int month, int year) throws SystemAppException {
+    public void registerTime(Employee employee, int fullHours, int minutes, int day, int month, int year) throws SystemAppException {
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -86,6 +88,7 @@ public class Activity {
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
 
+        double hours = fullHours + (minutes/60.);
         double putHours = Math.ceil(hours*2) / 2.;
         if (putHours > 24.) {
             throw new SystemAppException("Cannot work more than 24 hours a day");

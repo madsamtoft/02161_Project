@@ -404,10 +404,9 @@ public class ProjectSteps {
 
     @When("employee tries to register daily time to {int}:{int} for activity")
     public void triesToRegisterDailyTimeToForActivity(int fullHours, int minutes) {
-        double hours = fullHours + (minutes/60.);
         try {
 //            someProject.registerTimeDaily(DEFAULT_ACTIVITY_NAME, someEmployee, hours);
-            systemApp.registerTimeDaily(someProject, someActivity, someEmployee, hours);
+            systemApp.registerTimeDaily(someProject, someActivity, someEmployee, fullHours, minutes);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -493,10 +492,13 @@ public class ProjectSteps {
         }
     }
 
-    @Then("{string} has registered {double} hours to day {int}, month {int}, and year {int}")
-    public void hasRegisteredHoursToDayMonthAndYear(String employee, double hours, int day, int month, int year) {
+    @Then("{string} has registered {int} hours and {int} minutes to day {int}, month {int}, and year {int}")
+    public void hasRegisteredHoursAndMinutesToDayMonthAndYear(String employee, int fullHours, int minutes, int day, int month, int year) {
+        double hours = fullHours + (minutes/60.);
+        double roundHours = Math.ceil(hours*2) / 2.;
+
         try {
-            assertEquals(hours,systemApp.checkRegisteredFirmActivity(employee, "a", day, month, year));
+            assertEquals(roundHours,systemApp.checkRegisteredFirmActivity(employee, "a", day, month, year));
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
