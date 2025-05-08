@@ -528,6 +528,21 @@ public class ProjectSteps {
 
     }
 
+// EMPLOYEE STEPS
+    @When("registering an employee with identifier {string}")
+    public void registeringAnEmployeeWithIdentifier(String employeeID) {
+        try {
+            systemApp.registerEmployee(employeeID);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("{string} is a registered employee")
+    public void isARegisteredEmployee(String employeeID) {
+        assertTrue(systemApp.employeeExists(employeeID));
+    }
+
 //    @And("there exists a firm activity")
 //    public void thereExistsAFirmActivity() {
 //        try {
