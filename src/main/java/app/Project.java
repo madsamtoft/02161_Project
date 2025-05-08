@@ -151,6 +151,13 @@ public class Project {
         return getActivity(activityName).checkRegisteredTotal(employee);
     }
 
+    public void setActivityName(String actor, String activity, String name) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
+        getActivity(activity).setName(name);
+    }
+
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
         // TODO: check actor
@@ -182,6 +189,7 @@ public class Project {
     public boolean hasEmployeeAssignedToActivity(String activity, Employee employee) throws SystemAppException {
         return getActivity(activity).employeeAssigned(employee);
     }
+
 
 //    public Map<Activity, Integer> checkRegisteredDaily(Employee employee) {
 //        return null;

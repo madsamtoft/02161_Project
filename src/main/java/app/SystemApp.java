@@ -143,6 +143,10 @@ public class SystemApp {
         return getProject(projectName).getCustomer();
     }
 
+    public void setActivityName(String actor, String project, String activity, String name) throws SystemAppException {
+        getProject(project).setActivityName(actor, activity, name);
+    }
+
     public void setActivityStartWeek(String actor, String project, String activity, Calendar startWeek) throws SystemAppException {
         getProject(project).setActivityStartWeek(actor, activity, startWeek);
     }

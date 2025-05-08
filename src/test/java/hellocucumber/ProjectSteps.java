@@ -272,6 +272,20 @@ public class ProjectSteps {
 //        }
 //    }
 
+    @When("the name of the activity is changed to {string}")
+    public void theNameOfTheActivityIsChangedTo(String newActivityName) {
+        try {
+            systemApp.setActivityName(someEmployee, someProject, someActivity, newActivityName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the name of the activity is {string}")
+    public void theNameOfTheActivityIs(String activityName) {
+
+    }
+
     @When("the start week is set to {int} in year {int}")
     public void theStartWeekIsSetTo(int startWeek, int startYear) {
         try {
