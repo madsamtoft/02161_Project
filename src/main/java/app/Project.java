@@ -116,6 +116,10 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
+    public List<Activity> getActivities() throws SystemAppException {
+        return activityList;
+    }
+
     public boolean hasActivity(String activity) {
         return activityList.stream().anyMatch(a -> a.getName().equals(activity));
     }
@@ -132,6 +136,17 @@ public class Project {
         Activity activity = getActivity(activityName);
         return activity.checkRegisteredDaily(employee);
     }
+
+    public void registerTimeActivity(String activityName, Employee employee, int hours, int minutes, int day, int month, int year) throws SystemAppException {
+        Activity activity = getActivity(activityName);
+        activity.registerTime(employee,hours,minutes,day,month,year);
+    }
+
+    public double checkRegisteredActivity(String activityName,Employee employee, int day, int month, int year) throws SystemAppException{
+        Activity activity = getActivity(activityName);
+        return activity.checkRegistered(employee,day,month,year);
+    }
+
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
         // TODO: check actor

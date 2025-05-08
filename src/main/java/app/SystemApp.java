@@ -12,10 +12,6 @@ public class SystemApp {
         employees.add(new Employee("huba"));
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello bitches: Software Huset A/S");
-    }
-
     public void createProject(String name) throws SystemAppException {
         Project project = new Project(name, ++projectIdCounter);
         projects.add(project);
@@ -41,10 +37,10 @@ public class SystemApp {
 
     public void registerEmployee(String name) throws SystemAppException {
         if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
-            throw new SystemAppException("Employee username must be up to 1-4 letters");
+            throw new SystemAppException("Employee username must be 1-4 letters");
         }
         if (employeeExists(name)) {
-            throw new SystemAppException("An emp½loyee with that username already exists");
+            throw new SystemAppException("An employee with that username already exists");
         }
         employees.add(new Employee(name.toLowerCase()));
     }
@@ -182,6 +178,14 @@ public class SystemApp {
     public double checkRegisteredTimeDaily(String project, String activity, String employee) throws SystemAppException {
         return getProject(project).checkRegisteredDaily(activity, getEmployee(employee));
     }
+
+    public void registerTimeActivity(String employee, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+        getProject(project).registerTimeActivity(activity,getEmployee(employee),hours,minutes,day,month,year);
+    }
+    public double checkRegisteredActivity(String employee,String project, String activity, int day, int month , int year ) throws SystemAppException{
+        return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),day,month,year);
+    }
+
 
     public void assignEmployeeToActivity(String project, String activity, String employee) throws SystemAppException {
         getProject(project).assignEmployeeToActivity(activity, getEmployee(employee));
