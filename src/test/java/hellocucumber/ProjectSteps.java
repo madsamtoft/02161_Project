@@ -404,10 +404,9 @@ public class ProjectSteps {
 
     @When("employee tries to register daily time to {int}:{int} for activity")
     public void triesToRegisterDailyTimeToForActivity(int fullHours, int minutes) {
-        double hours = fullHours + (minutes/60.);
         try {
 //            someProject.registerTimeDaily(DEFAULT_ACTIVITY_NAME, someEmployee, hours);
-            systemApp.registerTimeDaily(someProject, someActivity, someEmployee, hours);
+            systemApp.registerTimeDaily(someProject, someActivity, someEmployee, fullHours, minutes);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -484,22 +483,49 @@ public class ProjectSteps {
         }
     }
 
-    @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int}")
-    public void registersHoursAndMinutesToDayMonthAndYear(String employee, int hours, int minutes, int day, int month, int year) {
+    @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to firm Activity {string}")
+    public void registersHoursAndMinutesToDayMonthAndYearToFirmActivity(String employee, int hours, int minutes, int day, int month, int year, String firmActivityName) {
         try {
-            systemApp.registerTimeFirmActivity(employee, "a", hours, minutes, day, month, year);
+            systemApp.registerTimeFirmActivity(employee, firmActivityName, hours, minutes, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
     }
 
-    @Then("{string} has registered {double} hours to day {int}, month {int}, and year {int}")
-    public void hasRegisteredHoursToDayMonthAndYear(String employee, double hours, int day, int month, int year) {
+    @Then("{string} has registered {int} hours and {int} minutes to day {int}, month {int}, and year {int} to firm Activity {string}")
+    public void hasRegisteredHoursAndMinutesToDayMonthAndYearToFirmActivity(String employee, int fullHours, int minutes, int day, int month, int year, String firmActivityName) {
+        double hours = fullHours + (minutes/60.);
+        double roundHours = Math.ceil(hours*2) / 2.;
+        double checkHours = -1;
         try {
-            assertEquals(hours,systemApp.checkRegisteredFirmActivity(employee, "a", day, month, year));
+            checkHours = systemApp.checkRegisteredFirmActivity(employee, firmActivityName, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
+        assertEquals(roundHours,checkHours);
+    }
+
+    @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to Activity {string}")
+    public void registersHoursAndMinutesToDayMonthAndYearToActivity(String employee, int fullHours,int minutes, int day, int month, int year, String activity ) {
+        try {
+            systemApp.registerTimeActivity(employee,someProject,activity,fullHours,minutes,day,month,year);
+        }catch (Exception e){
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("{string} has registered {int} hours and {int} minutes to day {int}, month {int}, and year {int} to Activity {string}")
+    public void hasRegisteredHoursAndMinutesToDayMonthAndYearToActivity(String employee, int fullHours, int minutes , int day, int month, int year, String activity){
+        double hours = fullHours + (minutes/60.);
+        double roundHours = Math.ceil(hours*2) / 2.;
+        double checkHours = -1;
+        try {
+            checkHours = systemApp.checkRegisteredActivity(employee,someProject,activity,day,month,year);
+        } catch (Exception e){
+            errorMessage = e.getMessage();
+        }
+        assertEquals(roundHours,checkHours);
+
     }
 
 //    @And("there exists a firm activity")

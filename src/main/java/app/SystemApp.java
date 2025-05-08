@@ -12,10 +12,6 @@ public class SystemApp {
         employees.add(new Employee("huba"));
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello bitches: Software Huset A/S");
-    }
-
     public void createProject(String name) throws SystemAppException {
         Project project = new Project(name, ++projectIdCounter);
         projects.add(project);
@@ -44,7 +40,7 @@ public class SystemApp {
             throw new SystemAppException("Employee username must be 1-4 letters");
         }
         if (employeeExists(name)) {
-            throw new SystemAppException("An emp½loyee with that username already exists");
+            throw new SystemAppException("An employee with that username already exists");
         }
         employees.add(new Employee(name.toLowerCase()));
     }
@@ -77,11 +73,9 @@ public class SystemApp {
         throw new SystemAppException("Firm activity " + name + " does not exist");
     }
 
-    //MUY IMPORTANTE FIX THIS
     public void registerTimeFirmActivity(String employee, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
-        double putHours = hours; //puthours = hours + minutes (thing)
         Activity firmActivity = getFirmActivity(firmActivityName);
-        firmActivity.registerTime(getEmployee(employee),putHours,day,month,year);
+        firmActivity.registerTime(getEmployee(employee),hours,minutes,day,month,year);
     }
 
     public double checkRegisteredFirmActivity(String employee, String firmActivityName, int day, int month, int year) throws SystemAppException{
@@ -177,13 +171,21 @@ public class SystemApp {
         return getProject(project).hasActivity(activity);
     }
 
-    public void registerTimeDaily(String project, String activity, String employee, double hours) throws SystemAppException {
-        getProject(project).registerTimeDaily(activity, getEmployee(employee), hours);
+    public void registerTimeDaily(String project, String activity, String employee, int fullHours, int minutes) throws SystemAppException {
+        getProject(project).registerTimeDaily(activity, getEmployee(employee), fullHours, minutes);
     }
 
     public double checkRegisteredTimeDaily(String project, String activity, String employee) throws SystemAppException {
         return getProject(project).checkRegisteredDaily(activity, getEmployee(employee));
     }
+
+    public void registerTimeActivity(String employee, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+        getProject(project).registerTimeActivity(activity,getEmployee(employee),hours,minutes,day,month,year);
+    }
+    public double checkRegisteredActivity(String employee,String project, String activity, int day, int month , int year ) throws SystemAppException{
+        return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),day,month,year);
+    }
+
 
     public void assignEmployeeToActivity(String project, String activity, String employee) throws SystemAppException {
         getProject(project).assignEmployeeToActivity(activity, getEmployee(employee));
