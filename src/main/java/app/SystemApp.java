@@ -13,13 +13,25 @@ public class SystemApp {
     }
 
     public void createProject(String name) throws SystemAppException {
-        Project project = new Project(name, ++projectIdCounter);
-        projects.add(project);
+        try  {
+            getProject(name);
+        }
+        catch(Exception e){
+            Project project = new Project(name, ++projectIdCounter);
+            projects.add(project);
+        }
+        throw new SystemAppException("Project with that name already exists");
     }
 
     public void changeProjectName( String actor, String project, String name) throws SystemAppException {
+        try  {
+            getProject(name);
+        }
+        catch(Exception e){
+            getProject(project).setName(actor, name);
+        }
+        throw new SystemAppException("Project with that name already exists");
 
-        getProject(project).setName(actor, name);
     }
 
     public void changeProjectStartDate(String actor, String project, Calendar startDate) throws SystemAppException {
