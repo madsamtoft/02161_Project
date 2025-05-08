@@ -12,7 +12,7 @@ Feature: Register and Check time
   Scenario: Employee Registers 5 hours to existing activity on a specific day
     When creating a new activity "a" in the project
     When "huba" registers 5 hours and 30 minutes to day 2, month 2 and year 2021 to Activity "a"
-    Then "huba" has registered 5 hours to day 2, month 2, and year 2021 to Activity "a"
+    Then "huba" has registered 5 hours and 30 minutes to day 2, month 2, and year 2021 to Activity "a"
 
 
 #old scenarios

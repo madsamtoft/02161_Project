@@ -120,12 +120,12 @@ public class Project {
         return activityList.stream().anyMatch(a -> a.getName().equals(activity));
     }
 
-    public void registerTimeDaily(String activityName, Employee employee, double hours) throws SystemAppException {
+    public void registerTimeDaily(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
         Activity activity;
 //        System.out.println("Registering time daily " + activityName + " " + employee + " " + hours + " hours");
         activity = getActivity(activityName);
 //        System.out.println("Registering time daily " + activity + " " + employee + " " + hours + " hours");
-        activity.registerTimeDaily(employee, hours);
+        activity.registerTimeDaily(employee, fullHours, minutes);
     }
 
     public double checkRegisteredDaily(String activityName, Employee employee) throws SystemAppException {
@@ -133,9 +133,9 @@ public class Project {
         return activity.checkRegisteredDaily(employee);
     }
 
-    public void registerTimeActivity(String activityName, Employee employee, double hours, int day, int month, int year) throws SystemAppException {
+    public void registerTimeActivity(String activityName, Employee employee, int hours, int minutes, int day, int month, int year) throws SystemAppException {
         Activity activity = getActivity(activityName);
-        activity.registerTime(employee,hours,day,month,year);
+        activity.registerTime(employee,hours,minutes,day,month,year);
     }
 
     public double checkRegisteredActivity(String activityName,Employee employee, int day, int month, int year) throws SystemAppException{

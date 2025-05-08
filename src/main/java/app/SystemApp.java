@@ -77,11 +77,9 @@ public class SystemApp {
         throw new SystemAppException("Firm activity " + name + " does not exist");
     }
 
-    //MUY IMPORTANTE FIX THIS
     public void registerTimeFirmActivity(String employee, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
-        double putHours = hours; //puthours = hours + minutes (thing)
         Activity firmActivity = getFirmActivity(firmActivityName);
-        firmActivity.registerTime(getEmployee(employee),putHours,day,month,year);
+        firmActivity.registerTime(getEmployee(employee),hours,minutes,day,month,year);
     }
 
     public double checkRegisteredFirmActivity(String employee, String firmActivityName, int day, int month, int year) throws SystemAppException{
@@ -177,8 +175,8 @@ public class SystemApp {
         return getProject(project).hasActivity(activity);
     }
 
-    public void registerTimeDaily(String project, String activity, String employee, double hours) throws SystemAppException {
-        getProject(project).registerTimeDaily(activity, getEmployee(employee), hours);
+    public void registerTimeDaily(String project, String activity, String employee, int fullHours, int minutes) throws SystemAppException {
+        getProject(project).registerTimeDaily(activity, getEmployee(employee), fullHours, minutes);
     }
 
     public double checkRegisteredTimeDaily(String project, String activity, String employee) throws SystemAppException {
@@ -186,8 +184,7 @@ public class SystemApp {
     }
 
     public void registerTimeActivity(String employee, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
-        double putHours = hours; // + minutes
-        getProject(project).registerTimeActivity(activity,getEmployee(employee),hours,day,month,year);
+        getProject(project).registerTimeActivity(activity,getEmployee(employee),hours,minutes,day,month,year);
     }
     public double checkRegisteredActivity(String employee,String project, String activity, int day, int month , int year ) throws SystemAppException{
         return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),day,month,year);
