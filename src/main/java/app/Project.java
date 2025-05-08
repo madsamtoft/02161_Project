@@ -116,6 +116,10 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
+    public List<Activity> getActivities() throws SystemAppException {
+        return activityList;
+    }
+
     public boolean hasActivity(String activity) {
         return activityList.stream().anyMatch(a -> a.getName().equals(activity));
     }
@@ -143,6 +147,25 @@ public class Project {
         return activity.checkRegistered(employee,day,month,year);
     }
 
+    public double checkRegisteredTotalActivity(String activityName, Employee employee) throws SystemAppException {
+        return getActivity(activityName).checkRegisteredTotal(employee);
+    }
+
+    public void setActivityName(String actor, String activity, String name) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
+        getActivity(activity).setName(name);
+    }
+
+    public boolean activityExists(String activityName) {
+        for (Activity activity : activityList) {
+            if (activityName.equals(activity.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
         // TODO: check actor
@@ -174,6 +197,7 @@ public class Project {
     public boolean hasEmployeeAssignedToActivity(String activity, Employee employee) throws SystemAppException {
         return getActivity(activity).employeeAssigned(employee);
     }
+
 
 //    public Map<Activity, Integer> checkRegisteredDaily(Employee employee) {
 //        return null;
