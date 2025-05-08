@@ -116,6 +116,10 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
+    public List<Activity> getActivities() throws SystemAppException {
+        return activityList;
+    }
+
     public boolean hasActivity(String activity) {
         return activityList.stream().anyMatch(a -> a.getName().equals(activity));
     }
