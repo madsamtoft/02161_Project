@@ -477,7 +477,7 @@ public class App {
             systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
             System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
-            System.out.println();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -516,7 +516,7 @@ public class App {
             double hours = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
             System.out.println(employee + " has registered " + hours + " to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
-            System.out.println();
+            System.out.println(e.getMessage());
         }
     }
 
