@@ -128,32 +128,28 @@ public class Activity {
     public String getName() {
         return name;
     }
-    public void setName(String actor, String name) {
-        // TODO: check actor
+    public void setName(String name) {
         this.name = name;
     }
 
     public Calendar getStartWeek() {
         return startWeek;
     }
-    public void setStartWeek(String actor, Calendar startWeek) {
-        // TODO: check actor
+    public void setStartWeek(Calendar startWeek) {
         this.startWeek = startWeek;
     }
 
     public Calendar getEndWeek() {
         return endWeek;
     }
-    public void setEndWeek(String actor, Calendar endWeek) {
-        // TODO: check actor
+    public void setEndWeek(Calendar endWeek) {
         this.endWeek = endWeek;
     }
 
     public int getEstimatedHours() {
         return estimatedHours;
     }
-    public void setEstimatedHours(String actor, int estimatedHours) {
-        // TODO: check actor
+    public void setEstimatedHours(int estimatedHours) {
         this.estimatedHours = estimatedHours;
     }
 }

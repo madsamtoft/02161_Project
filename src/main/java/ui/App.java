@@ -225,7 +225,7 @@ public class App {
         }
     }
 
-    private void listProjects() {
+    private void    listProjects() {
         List<Project> projects = systemApp.getProjects();
         for (int i = 0; i < projects.size(); i++) {
             System.out.printf("\tProject %2d: %s#%d\n", (i+1), projects.get(i).getName(), projects.get(i).getId());
