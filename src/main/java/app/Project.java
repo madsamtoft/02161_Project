@@ -176,18 +176,27 @@ public class Project {
     }
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
-        // TODO: check actor
-        getActivity(activity).setStartWeek(startWeek);
+        if (isProjectLeader(actor)) {
+            getActivity(activity).setStartWeek(startWeek);
+        } else {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
     }
 
     public void setActivityEndWeek(String actor, String activity, Calendar endWeek) throws SystemAppException {
-        // TODO: check actor
-        getActivity(activity).setEndWeek(endWeek);
+        if (isProjectLeader(actor)) {
+            getActivity(activity).setEndWeek(endWeek);
+        } else {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
     }
 
     public void setActivityEstimatedHours(String actor, String activity, int hours) throws SystemAppException {
-        // TODO: check actor
-        getActivity(activity).setEstimatedHours(hours);
+        if (isProjectLeader(actor)) {
+            getActivity(activity).setEstimatedHours(hours);
+        } else {
+            throw new SystemAppException("Employee is not Project Leader");
+        }
     }
 
     public Calendar getActivityStartWeek(String activity) throws SystemAppException {

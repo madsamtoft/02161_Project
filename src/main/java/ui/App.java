@@ -703,10 +703,10 @@ public class App {
                 case "assignemployee":
                     assignEmployee(arguments);
                     break;
-                case "changeactivitystartdate":
+                case "changeactivitystartweek":
                     changeActivityStartWeek(arguments);
                     break;
-                case "changeactivityenddate":
+                case "changeactivityendweek":
                     changeActivityEndWeek(arguments);
                     break;
                 case "registertimedaily":
