@@ -413,6 +413,7 @@ public class App {
             System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
             return;
         }
+
         String project = arguments.next();
         if (!arguments.hasNext()){
             System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
@@ -519,6 +520,39 @@ public class App {
             System.out.println(e.getMessage());
         }
     }
+    private void checkRegisteredTime(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: checkRegisteredTime <project> <employee>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredTime <project> <employee>");
+            return;
+        }
+        String actor = arguments.next();
+        try {
+            System.out.println(systemApp.checkRegisteredTime(project,actor)+ "hours");
+
+
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
+//    private void registerTimeActivity(Scanner arguments){
+//        if(!arguments.hasNext()){
+//            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+//
+//        }
+//        try{
+//
+//        } catch (SystemAppException e){
+//            System.out.println();
+//        }
+//    }
 
 
     private void listProjects() {
@@ -664,6 +698,9 @@ public class App {
                 case "registeremployee":
                     registerEmployee(arguments);
                     break;
+                case "checkregisteredtime":
+                    checkRegisteredTime(arguments);
+                    break;
 
                 // Project commands
                 case "createproject":
@@ -703,17 +740,17 @@ public class App {
                 case "assignemployee":
                     assignEmployee(arguments);
                     break;
-                case "changeactivitystartdate":
+                case "changeactivitystartweek":
                     changeActivityStartWeek(arguments);
                     break;
-                case "changeactivityenddate":
+                case "changeactivityendweek":
                     changeActivityEndWeek(arguments);
                     break;
                 case "registertimedaily":
                     registerTimeDaily(arguments);
                     break;
                 case "checkregisteredtimedaily":
-                    checkRegisteredTimeDaily(arguments);
+                    checkRegisteredTime(arguments);
                     break;
                 case "registertimeactivity":
                     registerTimeActivity(arguments);
