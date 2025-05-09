@@ -67,11 +67,11 @@ public class CalendarConverter {
         boolean e2null = end2 == null;
 
         if(!(s1null | e1null | s2null | e2null)){
-            return (start1.getTimeInMillis() < end2.getTimeInMillis()) & (start2.getTimeInMillis() < end1.getTimeInMillis());
+            return (start1.getTimeInMillis() <= end2.getTimeInMillis()) & (start2.getTimeInMillis() <= end1.getTimeInMillis());
         } else if(!(e1null | s2null)) {
-            return (start2.getTimeInMillis() < end1.getTimeInMillis());
+            return start2.getTimeInMillis() <= end1.getTimeInMillis();
         } else if(!(e2null | s1null)) {
-            return (start1.getTimeInMillis() < end2.getTimeInMillis());
+            return start1.getTimeInMillis() <= end2.getTimeInMillis();
         } else {
             return true;
         }
