@@ -294,17 +294,17 @@ public class App {
 
     private void assignEmployee(Scanner arguments) {
         if (!arguments.hasNext()) {
-            System.out.println("Usage: <project> <activity> <employee>");
+            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: <project> <activity> <employee>");
+            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
             return;
         }
         String activity = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: <project> <activity> <employee>");
+            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
             return;
         }
         String employee = arguments.next();
@@ -312,6 +312,64 @@ public class App {
             systemApp.assignEmployeeToActivity(actor, project, activity, employee);
             System.out.println("Employee \"" + employee + "\" successfully assigned to activity \"" + activity + "\" in project \"" + project + "\"");
         } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void changeActivityStartWeek(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        String activity = arguments.next();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        int week = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        int year = arguments.nextInt();
+        try {
+            systemApp.setActivityStartWeek(actor, project, activity, week, year);
+            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+        }  catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void changeActivityEndWeek(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        String activity = arguments.next();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        int week = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        int year = arguments.nextInt();
+        try {
+            systemApp.setActivityEndWeek(actor, project, activity, week, year);
+            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+        }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -568,6 +626,12 @@ public class App {
                     break;
                 case "assignemployee":
                     assignEmployee(arguments);
+                    break;
+                case "changeactivitystartdate":
+                    changeActivityStartWeek(arguments);
+                    break;
+                case "changeactivityenddate":
+                    changeActivityEndWeek(arguments);
                     break;
                 case "registertimedaily":
                     registerTimeDaily(arguments);

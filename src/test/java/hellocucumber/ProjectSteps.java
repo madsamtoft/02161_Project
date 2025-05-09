@@ -265,11 +265,7 @@ public class ProjectSteps {
     @When("the start week is set to {int} in year {int}")
     public void theStartWeekIsSetTo(int startWeek, int startYear) {
         try {
-            Calendar startDate = Calendar.getInstance();
-            startDate.clear();
-            startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
-            startDate.set(Calendar.YEAR, startYear);
-            systemApp.setActivityStartWeek(someEmployee, someProject, someActivity, startDate);
+            systemApp.setActivityStartWeek(someEmployee, someProject, someActivity, startWeek, startYear);
 //            systemApp.getProject(someProject).getActivity(someActivity).setStartWeek(someEmployee, startDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -279,11 +275,7 @@ public class ProjectSteps {
     @When("the end week is set to {int} in year {int}")
     public void theEndWeekIsSetTo(int endWeek, int endYear) {
         try {
-            Calendar endDate = Calendar.getInstance();
-            endDate.clear();
-            endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
-            endDate.set(Calendar.YEAR, endYear);
-            systemApp.setActivityEndWeek(someEmployee, someProject, someActivity, endDate);
+            systemApp.setActivityEndWeek(someEmployee, someProject, someActivity, endWeek, endYear);
 //            systemApp.getProject(someProject).getActivity(someActivity).setEndWeek(someEmployee, endDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -302,38 +294,41 @@ public class ProjectSteps {
 
     @Then("the start week is {int} in year {int}")
     public void theStartWeekIs(int startWeek, int startYear) {
-        Calendar startDate = Calendar.getInstance();
-        startDate.clear();
-        startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
-        startDate.set(Calendar.YEAR, startYear);
+//        Calendar startDate = Calendar.getInstance();
+//        startDate.clear();
+//        startDate.set(Calendar.WEEK_OF_YEAR, startWeek);
+//        startDate.set(Calendar.YEAR, startYear);
 
-        Calendar actualStartDate = null;
+//        Calendar actualStartDate = null;
         try {
-            actualStartDate = systemApp.getActivityStartWeek(someProject, someActivity);
+            Calendar startDate = CalendarConverter.getCalendar(startWeek, startYear);
+            Calendar actualStartDate = systemApp.getActivityStartWeek(someProject, someActivity);
 //            actualStartDate = systemApp.getProject(someProject).getActivity(someActivity).getStartWeek();
+            assertEquals(startDate.getTimeInMillis(), actualStartDate.getTimeInMillis());
         } catch (Exception e) {
             errorMessage = e.getMessage();
+            fail();
         }
 
-        assertEquals(startDate, actualStartDate);
     }
 
     @Then("the end week is {int} in year {int}")
     public void theEndWeekIs(int endWeek, int endYear) {
-        Calendar endDate = Calendar.getInstance();
-        endDate.clear();
-        endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
-        endDate.set(Calendar.YEAR, endYear);
+//        Calendar endDate = Calendar.getInstance();
+//        endDate.clear();
+//        endDate.set(Calendar.WEEK_OF_YEAR, endWeek);
+//        endDate.set(Calendar.YEAR, endYear);
 
-        Calendar actualEndDate = null;
+//        Calendar actualEndDate = null;
         try {
-            actualEndDate = systemApp.getActivityEndWeek(someProject, someActivity);
+            Calendar endDate = CalendarConverter.getCalendar(endWeek, endYear);
+            Calendar actualEndDate = systemApp.getActivityEndWeek(someProject, someActivity);
 //            actualEndDate = systemApp.getProject(someProject).getActivity(someActivity).getEndWeek();
+            assertEquals(endDate.getTimeInMillis(), actualEndDate.getTimeInMillis());
         } catch (Exception e) {
             errorMessage = e.getMessage();
+            fail();
         }
-
-        assertEquals(endDate, actualEndDate);
     }
 
     @Then("the estimated hours of the activity should be {int}")
@@ -454,7 +449,7 @@ public class ProjectSteps {
     @Then("{string} is successfully assigned to the activity in the project")
     public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
         try {
-            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, someEmployee));
+            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, employeeName));
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            assertTrue(systemApp.getProject(someProject).getActivity(someActivity).employeeAssigned(employee));
         } catch (Exception e) {

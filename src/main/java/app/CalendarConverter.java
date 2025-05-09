@@ -32,6 +32,21 @@ public class CalendarConverter {
         }
     }
 
+    public static Calendar getCalendar(int week, int year) throws SystemAppException {
+        Calendar calendar = getToday();
+        calendar.set(Calendar.WEEK_OF_YEAR, week);
+        calendar.set(Calendar.YEAR, year);
+
+        int weekCal = calendar.get(Calendar.WEEK_OF_YEAR);
+        int yearCal = calendar.get(Calendar.YEAR);
+
+        if((weekCal == week) & (yearCal == year)) {
+            return calendar;
+        } else {
+            throw new SystemAppException("Invalid calendar date");
+        }
+    }
+
     public static Calendar getToday() {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);

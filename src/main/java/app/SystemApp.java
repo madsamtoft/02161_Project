@@ -179,11 +179,13 @@ public class SystemApp {
         getProject(project).setActivityName(actor, activity, name);
     }
 
-    public void setActivityStartWeek(String actor, String project, String activity, Calendar startWeek) throws SystemAppException {
+    public void setActivityStartWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
+        Calendar startWeek = CalendarConverter.getCalendar(week, year);
         getProject(project).setActivityStartWeek(actor, activity, startWeek);
     }
 
-    public void setActivityEndWeek(String actor, String project, String activity, Calendar endWeek) throws SystemAppException {
+    public void setActivityEndWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
+        Calendar endWeek = CalendarConverter.getCalendar(week, year);
         getProject(project).setActivityEndWeek(actor, activity, endWeek);
     }
 
