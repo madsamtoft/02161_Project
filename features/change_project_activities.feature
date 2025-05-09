@@ -3,11 +3,8 @@ Feature: Change Project Activities
   User: Employee
   Background:
     Given a project
-#    And a project leader
-#      Comment: A project leader is not needed on the project to test
-    And an employee
-    And "huba" exists as employee
     And it has an activity
+    And an employee
 
   Scenario: Change project name by project leader
     Given employee is the leader of the project
@@ -21,26 +18,18 @@ Feature: Change Project Activities
     Then the start week is 1 in year 2020
     And the end week is 12 in year 2020
 
-#  Scenario: Start- and end week set by non-project leader for an activity
-#    Given a project
-#    And it has an activity
-#    Given "huba" is not the leader of the project
-#    When the start week is set to 1 in year 2020
-#    And the end week is set to 12 in year 2020
-#    Then error message "Employee is not Project Leader" is given
+  Scenario: Start- and end week set by non-project leader for an activity
+    Given employee is not the leader of the project
+    When the start week is set to 1 in year 2020
+    And the end week is set to 12 in year 2020
+    Then error message "Employee is not Project Leader" is given
 
   Scenario: Set estimated hours for an activity as project leader
     Given employee is the leader of the project
     When setting the estimated hours of an activity to 100
     Then the estimated hours of the activity should be 100
-#
-#  Scenario: Ser estimated hours for an activity without being project leader
-#    Given a project
-#    And it has an activity
-#    And the user is not the leader of the project
-#    When setting the estimated hours of an activity to "100"
-#    Then error message "Not Project Leader" is given
 
-#  Scenario: Add user to activity
-#    When "huba" is added to the activity
-#    Then "huba" is an employee of the activity
+  Scenario: Ser estimated hours for an activity without being project leader
+    Given employee is not the leader of the project
+    When setting the estimated hours of an activity to 100
+    Then error message "Employee is not Project Leader" is given
