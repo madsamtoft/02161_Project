@@ -657,6 +657,27 @@ public class ProjectSteps {
         assertEquals(checkId, actualId);
     }
 
+    @Given("activity {int} to {int} starts week {int} in year {int}")
+    public void activityToStartsWeekInYear(Integer actStart, Integer actEnd, Integer startWeek, Integer startYear) {
+        for(int i = actStart; i <= actEnd; i++) {
+            try{
+                systemApp.setActivityStartWeek(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+i, startWeek, startYear);
+            } catch (Exception e) {
+                errorMessage = e.getMessage();
+            }
+        }
+    }
+
+    @Given("activity {int} to {int} ends week {int} in year {int}")
+    public void activityToEndsWeekInYear(Integer actStart, Integer actEnd, Integer endWeek, Integer endYear) {
+        for(int i = actStart; i <= actEnd; i++) {
+            try{
+                systemApp.setActivityEndWeek(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+i, endWeek, endYear);
+            } catch (Exception e) {
+                errorMessage = e.getMessage();
+            }
+        }
+    }
 
 //    @And("there exists a firm activity")
 //    public void thereExistsAFirmActivity() {
