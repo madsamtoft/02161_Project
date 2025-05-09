@@ -13,7 +13,8 @@ Feature: Create Project
   Scenario: Create two projects with the same name
     When creating a new project named "project"
     And creating a new project named "project"
-    Then 2 unique project(s) with name "project" exist(s)
+    Then error message "Project with that name already exists" is given
+    And 1 unique project(s) with name "project" exist(s)
 
 #  Scenario: First project in a year has the correct id
 #    Given no existing projects
