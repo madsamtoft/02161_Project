@@ -1,6 +1,7 @@
 package hellocucumber;
 
 import app.*;
+import io.cucumber.java.ca.Cal;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -527,7 +528,7 @@ public class ProjectSteps {
     @And("the employee has already registered {int} hours to a activity")
     public void theEmployeeHasAlreadyRegisteredHoursToAActivity(int arg0) {
         try {
-            systemApp.registerTimeActivity(someEmployee,someProject,DEFAULT_ACTIVITY_NAME,arg0,0,1,1,2023);
+            systemApp.registerTimeDaily(someProject,someActivity,someEmployee, arg0,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -536,7 +537,7 @@ public class ProjectSteps {
     @When("an employee checks daily registered hours")
     public void anEmployeeChecksDailyRegisteredHours() {
         try {
-            systemApp.checkRegisteredTimeDaily(someProject, DEFAULT_ACTIVITY_NAME, someEmployee);
+            systemApp.checkRegisteredTime(someProject, someEmployee);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -545,10 +546,11 @@ public class ProjectSteps {
     public void hoursIsReturned(int hours) {
         double checkHours = -1;
         try {
-            checkHours = systemApp.checkRegisteredTimeDaily(someProject, DEFAULT_ACTIVITY_NAME, someEmployee);
+            checkHours = systemApp.checkRegisteredTime(someProject, someEmployee);
             assertEquals(hours,checkHours);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
+            System.out.println(errorMessage);
             fail();
         }
 
@@ -607,6 +609,15 @@ public class ProjectSteps {
         try {
             systemApp.createActivity(someEmployee, someProject, "activity1");
             systemApp.createActivity(someEmployee, someProject, "activity2");
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("the employee registers {int} hours to {string}")
+    public void theEmployeeRegistersHoursTo(int hours, String activityName) {
+        try {
+            systemApp.registerTimeDaily(someProject,activityName,someEmployee, hours,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
