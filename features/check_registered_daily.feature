@@ -4,6 +4,7 @@ Feature: Check registered Daily
 
   Scenario: Employee has registered 5 hours to a activity
     Given a project
+    And an employee
     And it has an activity
     And registering an employee with identifier "abcd"
     And the employee has already registered 5 hours to a activity
@@ -12,6 +13,7 @@ Feature: Check registered Daily
 
   Scenario: Employee has registered 0 hours
     Given a project
+    And an employee
     And it has an activity
     And registering an employee with identifier "abcd"
     When an employee checks daily registered hours
@@ -19,6 +21,7 @@ Feature: Check registered Daily
 
   Scenario: Employee has registered 5 hours to a activity and 4 to another activity
     Given a project
+    And an employee
     And it has two activities
     And registering an employee with identifier "abcd"
     When the employee registers 5 hours to "activity1"

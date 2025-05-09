@@ -5,22 +5,32 @@ import java.util.*;
 public class SystemApp {
     private List<Project> projects = new LinkedList<>();
     private List<Activity> firmActivityList = new ArrayList<>();
-    private int projectIdCounter = 0;
+    private int projectIdCounter = 1;
+    private int currentYear = 0;
     private List<Employee> employees = new ArrayList<>();
 
     public SystemApp() {
         employees.add(new Employee("huba"));
     }
 
+    private boolean projectExists(String name) {
+        return projects.stream().anyMatch(p -> p.getName().equals(name.toLowerCase()));
+    }
+
+    private int getNewProjectId() {
+        if (currentYear != CalendarConverter.getCurrentYear()) {
+            projectIdCounter = 1;
+            currentYear = CalendarConverter.getCurrentYear();
+        }
+
+        return (currentYear % 100) * 1000 + projectIdCounter++;
+    }
+
     public void createProject(String name) throws SystemAppException {
-        try  {
-            getProject(name);
+        if (projectExists(name))  {
+            throw new SystemAppException("Project with that name already exists");
         }
-        catch(Exception e){
-            Project project = new Project(name, ++projectIdCounter);
-            projects.add(project);
-        }
-        throw new SystemAppException("Project with that name already exists");
+        projects.add(new Project(name, getNewProjectId()));
     }
 
     public void changeProjectName( String actor, String project, String name) throws SystemAppException {
@@ -179,11 +189,13 @@ public class SystemApp {
         getProject(project).setActivityName(actor, activity, name);
     }
 
-    public void setActivityStartWeek(String actor, String project, String activity, Calendar startWeek) throws SystemAppException {
+    public void setActivityStartWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
+        Calendar startWeek = CalendarConverter.getCalendar(week, year);
         getProject(project).setActivityStartWeek(actor, activity, startWeek);
     }
 
-    public void setActivityEndWeek(String actor, String project, String activity, Calendar endWeek) throws SystemAppException {
+    public void setActivityEndWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
+        Calendar endWeek = CalendarConverter.getCalendar(week, year);
         getProject(project).setActivityEndWeek(actor, activity, endWeek);
     }
 
@@ -243,8 +255,8 @@ public class SystemApp {
     }
 
 
-    public void assignEmployeeToActivity(String project, String activity, String employee) throws SystemAppException {
-        getProject(project).assignEmployeeToActivity(activity, getEmployee(employee));
+    public void assignEmployeeToActivity(String actor, String project, String activity, String employee) throws SystemAppException {
+        getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employee));
     }
 
     public boolean hasEmployeeAssignedToActivity(String project, String activity, String employee) throws SystemAppException {

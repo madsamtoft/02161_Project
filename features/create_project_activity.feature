@@ -3,7 +3,7 @@ Feature: Create Project Activity
   User: Employee
   Background:
     Given a project
-    And "huba" exists as employee
+    And an employee
 
   Scenario: Create a new activity for a project as project leader
     Given employee is the leader of the project

@@ -294,24 +294,82 @@ public class App {
 
     private void assignEmployee(Scanner arguments) {
         if (!arguments.hasNext()) {
-            System.out.println("Usage: <project> <activity> <employee>");
+            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: <project> <activity> <employee>");
+            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
             return;
         }
         String activity = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: <project> <activity> <employee>");
+            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
             return;
         }
         String employee = arguments.next();
         try {
-            systemApp.assignEmployeeToActivity(project, activity, employee);
+            systemApp.assignEmployeeToActivity(actor, project, activity, employee);
             System.out.println("Employee \"" + employee + "\" successfully assigned to activity \"" + activity + "\" in project \"" + project + "\"");
         } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void changeActivityStartWeek(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        String activity = arguments.next();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        int week = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            return;
+        }
+        int year = arguments.nextInt();
+        try {
+            systemApp.setActivityStartWeek(actor, project, activity, week, year);
+            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+        }  catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void changeActivityEndWeek(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        String activity = arguments.next();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        int week = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            return;
+        }
+        int year = arguments.nextInt();
+        try {
+            systemApp.setActivityEndWeek(actor, project, activity, week, year);
+            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+        }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -369,12 +427,99 @@ public class App {
         String employee = arguments.next();
         try {
             double hours = systemApp.checkRegisteredTimeDaily(project,activityName,employee);
-            System.out.println(employee + " has registered" + hours + " to " + activityName);
+            System.out.println(employee + " has registered " + hours + " to " + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
     }
 
+    private void registerTimeActivity(Scanner arguments){
+        if(!arguments.hasNext()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        String employee = arguments.next();
+        if(!arguments.hasNext()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        String project = arguments.next();
+        if(!arguments.hasNext()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        String activity = arguments.next();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        int hours = arguments.nextInt();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        int minutes = arguments.nextInt();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        int day = arguments.nextInt();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        int month = arguments.nextInt();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            return;
+        }
+        int year = arguments.nextInt();
+        try{
+            systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
+            System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + activity + " at " + day+ "/" + month + "/" + year);
+        } catch (SystemAppException e){
+            System.out.println();
+        }
+    }
+
+    private void checkRegisteredTimeActivity(Scanner arguments){
+        if(!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredTimeActivity <employee> <project> <activity> <day> <month> <year>");
+            return;
+        }
+        String employee = arguments.next();
+        if(!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredTimeActivity <employee> <project> <activity> <day> <month> <year>");
+            return;
+        }
+        String project = arguments.next();
+        if(!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredTimeActivity <employee> <project> <activity> <day> <month> <year>");
+            return;
+        }
+        String activity = arguments.next();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: checkRegisteredTimeActivity <employee> <project> <activity> <day> <month> <year>");
+            return;
+        }
+        int day = arguments.nextInt();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: checkRegisteredTimeActivity <employee> <project> <activity> <day> <month> <year>");
+            return;
+        }
+        int month = arguments.nextInt();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: checkRegisteredTimeActivity <employee> <project> <activity> <day> <month> <year>");
+            return;
+        }
+        int year = arguments.nextInt();
+        try{
+            double hours = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
+            System.out.println(employee + " has registered " + hours + " to " + activity + " at " + day+ "/" + month + "/" + year);
+        } catch (SystemAppException e){
+            System.out.println();
+        }
+    }
     private void checkRegisteredTime(Scanner arguments) {
         if (!arguments.hasNext()) {
             System.out.println("Usage: checkRegisteredTime <project> <employee>");
@@ -403,7 +548,7 @@ public class App {
 //
 //        }
 //        try{
-//             
+//
 //        } catch (SystemAppException e){
 //            System.out.println();
 //        }
@@ -447,7 +592,7 @@ public class App {
         }
         String next = arguments.next().toLowerCase();
         if (next.equals("projects")) {
-            System.out.println(systemApp.listProjects());
+            listProjects();
             return;
         } else if (next.equals("employees")) {
             listEmployees();
@@ -595,11 +740,23 @@ public class App {
                 case "assignemployee":
                     assignEmployee(arguments);
                     break;
+                case "changeactivitystartdate":
+                    changeActivityStartWeek(arguments);
+                    break;
+                case "changeactivityenddate":
+                    changeActivityEndWeek(arguments);
+                    break;
                 case "registertimedaily":
                     registerTimeDaily(arguments);
                     break;
                 case "checkregisteredtimedaily":
                     checkRegisteredTime(arguments);
+                    break;
+                case "registertimeactivity":
+                    registerTimeActivity(arguments);
+                    break;
+                case "checkregisteredtimeactivity":
+                    checkRegisteredTimeActivity(arguments);
                     break;
 
                 // Help commands
