@@ -203,7 +203,7 @@ public class App {
         }
     }
 
-    public void createFirmActivity(Scanner arguments) {
+    private void createFirmActivity(Scanner arguments) {
         if (!arguments.hasNext()){
             System.out.println("Usage: createFirmActivity <activityName>");
             return;
@@ -212,6 +212,142 @@ public class App {
         try {
             systemApp.createFirmActivity(activityName);
             System.out.println("Firm activity \"" + activityName + "\" successfully created");
+        } catch (SystemAppException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void registerHoursToFirmActivity(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            return;
+        }
+        String employee = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            return;
+        }
+        String firmActivityName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            return;
+        }
+        String hours = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            return;
+        }
+        String minutes = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            return;
+        }
+        String day = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            return;
+        }
+        String month = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            return;
+        }
+        String year = arguments.next();
+
+        try {
+            systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
+            System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
+        } catch (SystemAppException e){
+            System.out.println((e.getMessage()));
+        }
+    }
+    private void checkRegisteredFirmActivity(Scanner arguments){
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
+            return;
+        }
+        String employee = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
+            return;
+        }
+        String firmActivityName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
+            return;
+        }
+        String day = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
+            return;
+        }
+        String month = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
+            return;
+        }
+        String year = arguments.next();
+        try {
+            double hours = systemApp.checkRegisteredFirmActivity(employee,firmActivityName,day,month,year);
+            System.out.println(employee + " has registered " + hours + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
+        } catch (SystemAppException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void registerTimeDaily(Scanner arguments){
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+            return;
+        }
+        String activityName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+            return;
+        }
+        String employee = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+            return;
+        }
+        String hours = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+            return;
+        }
+        String minutes = arguments.next();
+        try {
+            systemApp.registerTimeDaily(project, activityName, employee, hours, minutes);
+            System.out.println("employee has registered " + hours + " to " + activityName);
+        } catch (SystemAppException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void checkRegisteredTimeDaily(Scanner arguments){
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+            return;
+        }
+        String activityName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+            return;
+        }
+        String employee = arguments.next();
+        try {
+            int hours = systemApp.checkRegisteredTimeDaily(project,activityName,employee);
+            System.out.println(employee + " has registered" + hours + " to " + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -389,6 +525,18 @@ public class App {
                     break;
                 case "createfirmactivity":
                     createFirmActivity(arguments);
+                    break;
+                case "registerhourstofirmactivity":
+                    registerHoursToFirmActivity(arguments);
+                    break;
+                case "checkregisteredfirmactivity":
+                    checkRegisteredFirmActivity(arguments);
+                    break;
+                case "registertimedaily":
+                    registerTimeDaily(arguments);
+                    break;
+                case "checkregisteredtimedaily":
+                    checkRegisteredTimeDaily(arguments);
                     break;
                 case "list":
                     list(arguments);
