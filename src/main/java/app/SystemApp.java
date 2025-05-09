@@ -218,6 +218,15 @@ public class SystemApp {
     public double checkRegisteredTimeDaily(String project, String activity, String employee) throws SystemAppException {
         return getProject(project).checkRegisteredDaily(activity, getEmployee(employee));
     }
+    public double checkRegisteredTime(String project,String actor)throws SystemAppException{
+       double output = 0;
+        for (String activity : getProject(project).listActivities()){
+              output += checkRegisteredTimeDaily(project, activity, actor);
+
+        }
+        return output;
+
+    }
 
     public void registerTimeActivity(String employee, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Calendar date = CalendarConverter.getCalendar(day, month, year);
