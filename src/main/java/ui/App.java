@@ -6,6 +6,8 @@ import java.util.*;
 
 import java.util.Scanner;
 
+import static app.CalendarConverter.getCalendarFromString;
+
 public class App {
 
     private final SystemApp systemApp = new SystemApp();
@@ -105,18 +107,13 @@ public class App {
             return;
         }
         String year = arguments.next();
+        Calendar date;
         try {
-            int int_day = Integer.parseInt(day);
-            int int_month = Integer.parseInt(month);
-            int int_year = Integer.parseInt(year);
-        }
-        catch (NumberFormatException e) {
+            date = getCalendarFromString(day, month, year);
+        } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
+            return;
         }
-        Calendar date = Calendar.getInstance();
-        date.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
-        date.set(Calendar.MONTH, Integer.parseInt(month) - 1); // Months are 0-based in Calendar
-        date.set(Calendar.YEAR, Integer.parseInt(year));
         try {
             systemApp.changeProjectStartDate(actor, project, date);
             System.out.println("Start date successfully changed in project \"" + project + "\"");
@@ -147,18 +144,13 @@ public class App {
             return;
         }
         String year = arguments.next();
+        Calendar date;
         try {
-            int int_day = Integer.parseInt(day);
-            int int_month = Integer.parseInt(month);
-            int int_year = Integer.parseInt(year);
-        }
-        catch (NumberFormatException e) {
+            date = getCalendarFromString(day, month, year);
+        } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
+            return;
         }
-        Calendar date = Calendar.getInstance();
-        date.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
-        date.set(Calendar.MONTH, Integer.parseInt(month) - 1); // Months are 0-based in Calendar
-        date.set(Calendar.YEAR, Integer.parseInt(year));
         try {
             systemApp.changeProjectEndDate(actor, project, date);
             System.out.println("End date successfully changed in project \"" + project + "\"");

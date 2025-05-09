@@ -2,6 +2,9 @@ package app;
 
 import java.util.*;
 
+import static app.CalendarConverter.getCalendar;
+import static app.CalendarConverter.getToday;
+
 public class Activity {
     private String name;
     private Map<Employee, Map<Calendar, Double>> employeeDateHours;
@@ -19,14 +22,7 @@ public class Activity {
         this.assignedEmployees = new ArrayList<>();
     }
 
-    private Calendar getToday() {
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        return today;
-    }
+
 
     public boolean employeeAssigned(Employee employee) {
         return this.assignedEmployees.contains(employee);
@@ -81,12 +77,8 @@ public class Activity {
             dateHours = new HashMap<>();
             employeeDateHours.put(employee, dateHours);
         }
-        Calendar date = Calendar.getInstance();
-        date.set(year,month,day);
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
+
+        Calendar date = getCalendar(day,month,year);
 
         double hours = fullHours + (minutes/60.);
         double putHours = Math.ceil(hours*2) / 2.;
@@ -96,19 +88,12 @@ public class Activity {
         dateHours.put(date,putHours);
     }
 
-    public double checkRegistered(Employee employee, int day, int month, int year){
-
-        Calendar date = Calendar.getInstance();
-        date.set(year,month,day);
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
+    public double checkRegistered(Employee employee, int day, int month, int year) throws SystemAppException {
+        Calendar date = getCalendar(day, month, year);
         if (!employeeDateHours.containsKey(employee) || !employeeDateHours.get(employee).containsKey(date)) {
             return 0;
         }
         return employeeDateHours.get(employee).get(date);
-
     }
 
 
