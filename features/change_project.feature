@@ -5,7 +5,6 @@ Feature: Change Project
     Given a project
     And "huba" exists as employee
 
-
   Scenario: set new project leader for a project
     When setting employee as project leader
     Then the project leader is employee

@@ -66,9 +66,9 @@ public class ProjectSteps {
     }
 
     @Given("{string} exists as employee")
-    public void existsAsEmployee(String string) {
+    public void existsAsEmployee(String employeeName) {
         try {
-            systemApp.registerEmployee(someEmployee);
+            systemApp.registerEmployee(employeeName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -164,7 +164,7 @@ public class ProjectSteps {
     }
 
     @Given("employee is the leader of the project")
-    public void theUserIsTheLeaderOfTheProject() {
+    public void employeeIsTheLeaderOfTheProject() {
         try {
             systemApp.assignProjectLeader(someEmployee, someProject, someEmployee);
 //            Employee employee = systemApp.getEmployee(someEmployee);
@@ -197,7 +197,7 @@ public class ProjectSteps {
     @Given("employee is not the leader of the project")
     public void isNotTheLeaderOfTheProject() {
         try {
-            systemApp.assignProjectLeader(someEmployee, someProject, "huba");
+            systemApp.assignProjectLeader(someEmployee, someProject, otherEmployee);
 //            Employee employee = systemApp.getEmployee(otherEmployee);
 //            systemApp.getProject(someProject).assignProjectLeader(otherEmployee, employee);
         } catch (SystemAppException e) {
@@ -434,7 +434,7 @@ public class ProjectSteps {
     public void isAssignedToActivities(String employeeName, Integer activityCount) {
         try{
             for (int i = 0; i < activityCount; i++) {
-                systemApp.assignEmployeeToActivity(someProject, DEFAULT_ACTIVITY_NAME+(i+1), employeeName);
+                systemApp.assignEmployeeToActivity(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+(i+1), employeeName);
             }
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -456,20 +456,20 @@ public class ProjectSteps {
             errorMessage = e.getMessage();
         }
     }
+
     @When("{string} is assigned to activity {string}")
     public void isAssignedToTheActivity(String employeeName, String activityName) {
         try {
-            systemApp.assignEmployeeToActivity(someProject, activityName, someEmployee);
-//            Employee employee = systemApp.getEmployee(someEmployee);
-//            systemApp.getProject(someProject).getActivity(someActivity).assignEmployee(employee);
+            systemApp.assignEmployeeToActivity(employeeName, someProject, activityName, employeeName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
+
     @Then("{string} is successfully assigned to the activity in the project")
     public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
         try {
-            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, someEmployee));
+            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, employeeName));
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            assertTrue(systemApp.getProject(someProject).getActivity(someActivity).employeeAssigned(employee));
         } catch (Exception e) {

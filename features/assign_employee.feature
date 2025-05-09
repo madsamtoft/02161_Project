@@ -6,7 +6,9 @@ Feature: Assign Employee
 #    And a project leader
 #      Comment: A project leader is not needed on the project to test
 #    And it has 1 activities
+#    And "abcd" exists as employee
     And "huba" exists as employee
+#    And employee is the leader of the project
 #    And "buba", "bepo", "nepo" exist as employees
 
   Scenario: Successfully add employee to an activity
