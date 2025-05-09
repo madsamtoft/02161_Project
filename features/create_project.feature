@@ -16,6 +16,10 @@ Feature: Create Project
     Then error message "Project with that name already exists" is given
     And 1 unique project(s) with name "project" exist(s)
 
+  Scenario: Project ID
+    When creating a new project named "project"
+    Then the id of "project" is <currentYear> 001
+
 #  Scenario: First project in a year has the correct id
 #    Given no existing projects
 #    And the year is 2025

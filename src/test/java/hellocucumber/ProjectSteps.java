@@ -6,10 +6,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class ProjectSteps {
     private SystemApp systemApp = new SystemApp();
@@ -20,6 +23,7 @@ public class ProjectSteps {
     private final String someEmployee = "abcd";
     private final String otherEmployee = "huba";
     private final String someActivity = "act1";
+//    private MockedStatic<CalendarConverter> mockedCalendar = mockStatic(CalendarConverter.class);
 //    private final String someProjectLeader = "b";
 //    private Employee someProjectLeader;
 //    private List<Employee> someEmployees = new ArrayList<>();
@@ -636,6 +640,21 @@ public class ProjectSteps {
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
+    }
+
+    @Then("the id of {string} is <currentYear> {int}")
+    public void theIdCounterOfIs(String project, int id) {
+        String actualName = "";
+        int actualId = -1;
+        try {
+            actualName = systemApp.getProjectName(project);
+            actualId = systemApp.getProjectId(project);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+        int checkId = (CalendarConverter.getCurrentYear() % 100) * 1000 + id;
+        assertEquals(project, actualName);
+        assertEquals(checkId, actualId);
     }
 
 
