@@ -424,7 +424,7 @@ public class App {
         }
         String next = arguments.next().toLowerCase();
         if (next.equals("projects")) {
-            System.out.println(systemApp.listProjects());
+            listProjects();
             return;
         } else if (next.equals("employees")) {
             listEmployees();
