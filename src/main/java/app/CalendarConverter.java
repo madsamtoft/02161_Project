@@ -55,4 +55,8 @@ public class CalendarConverter {
         today.set(Calendar.MILLISECOND, 0);
         return today;
     }
+
+    public static int getCurrentYear() {
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
 }
