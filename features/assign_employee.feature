@@ -7,7 +7,7 @@ Feature: Assign Employee
 #      Comment: A project leader is not needed on the project to test
     And it has an activity
     And "huba" exists as employee
-    And "buba", "bepo", "nepo" exist as employees
+#    And "buba", "bepo", "nepo" exist as employees
 
   Scenario: Successfully add employee to an activity
     Given "huba" is assigned to 0 activities

@@ -96,33 +96,49 @@ public class Activity {
         return employeeDateHours.get(employee).get(date);
     }
 
+    public double checkRegisteredTotal(Employee employee) {
+        if (!employeeDateHours.containsKey(employee)) {
+            return 0;
+        }
+
+        double hoursTotal = 0;
+        for (double hours : employeeDateHours.get(employee).values()) {
+            hoursTotal += hours;
+        }
+        return hoursTotal;
+    }
+
 
 
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(String actor, String name) {
+        // TODO: check actor
         this.name = name;
     }
 
     public Calendar getStartWeek() {
         return startWeek;
     }
-    public void setStartWeek(Calendar startWeek) {
+    public void setStartWeek(String actor, Calendar startWeek) {
+        // TODO: check actor
         this.startWeek = startWeek;
     }
 
     public Calendar getEndWeek() {
         return endWeek;
     }
-    public void setEndWeek(Calendar endWeek) {
+    public void setEndWeek(String actor, Calendar endWeek) {
+        // TODO: check actor
         this.endWeek = endWeek;
     }
 
     public int getEstimatedHours() {
         return estimatedHours;
     }
-    public void setEstimatedHours(int estimatedHours) {
+    public void setEstimatedHours(String actor, int estimatedHours) {
+        // TODO: check actor
         this.estimatedHours = estimatedHours;
     }
 }

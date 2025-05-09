@@ -102,12 +102,12 @@ public class Project {
     }
 
 
-    public void assignEmployeeToActivity(String activityName, Employee employee) throws SystemAppException {
-        Activity activity = getActivity(activityName);
-        activity.assignEmployee(employee);
-    }
+//    public void assignEmployeeToActivity(String activityName, Employee employee) throws SystemAppException {
+//        Activity activity = getActivity(activityName);
+//        activity.assignEmployee(employee);
+//    }
 
-    private Activity getActivity(String activityName) throws SystemAppException {
+    public Activity getActivity(String activityName) throws SystemAppException {
         for (Activity activity : activityList) {
             if (activityName.equals(activity.getName())) {
                 return activity;
@@ -124,60 +124,80 @@ public class Project {
         return activityList.stream().anyMatch(a -> a.getName().equals(activity));
     }
 
-    public void registerTimeDaily(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
-        Activity activity;
-//        System.out.println("Registering time daily " + activityName + " " + employee + " " + hours + " hours");
-        activity = getActivity(activityName);
-//        System.out.println("Registering time daily " + activity + " " + employee + " " + hours + " hours");
-        activity.registerTimeDaily(employee, fullHours, minutes);
+//    public void registerTimeDaily(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
+//        Activity activity;
+////        System.out.println("Registering time daily " + activityName + " " + employee + " " + hours + " hours");
+//        activity = getActivity(activityName);
+////        System.out.println("Registering time daily " + activity + " " + employee + " " + hours + " hours");
+//        activity.registerTimeDaily(employee, fullHours, minutes);
+//    }
+
+//    public double checkRegisteredDaily(String activityName, Employee employee) throws SystemAppException {
+//        Activity activity = getActivity(activityName);
+//        return activity.checkRegisteredDaily(employee);
+//    }
+
+//    public void registerTimeActivity(String activityName, Employee employee, int hours, int minutes, int day, int month, int year) throws SystemAppException {
+//        Activity activity = getActivity(activityName);
+//        activity.registerTime(employee,hours,minutes,day,month,year);
+//    }
+
+//    public double checkRegisteredActivity(String activityName,Employee employee, int day, int month, int year) throws SystemAppException{
+//        Activity activity = getActivity(activityName);
+//        return activity.checkRegistered(employee,day,month,year);
+//    }
+
+//    public double checkRegisteredTotalActivity(String activityName, Employee employee) throws SystemAppException {
+//        return getActivity(activityName).checkRegisteredTotal(employee);
+//    }
+
+//    public void setActivityName(String actor, String activity, String name) throws SystemAppException {
+//        if (!isProjectLeader(actor)) {
+//            throw new SystemAppException("Employee is not Project Leader");
+//        }
+//        getActivity(activity).setName(name);
+//    }
+
+    public boolean activityExists(String activityName) {
+        for (Activity activity : activityList) {
+            if (activityName.equals(activity.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public double checkRegisteredDaily(String activityName, Employee employee) throws SystemAppException {
-        Activity activity = getActivity(activityName);
-        return activity.checkRegisteredDaily(employee);
-    }
+//    public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
+//        // TODO: check actor
+//        getActivity(activity).setStartWeek(startWeek);
+//    }
+//
+//    public void setActivityEndWeek(String actor, String activity, Calendar endWeek) throws SystemAppException {
+//        // TODO: check actor
+//        getActivity(activity).setEndWeek(endWeek);
+//    }
+//
+//    public void setActivityEstimatedHours(String actor, String activity, int hours) throws SystemAppException {
+//        // TODO: check actor
+//        getActivity(activity).setEstimatedHours(hours);
+//    }
 
-    public void registerTimeActivity(String activityName, Employee employee, int hours, int minutes, int day, int month, int year) throws SystemAppException {
-        Activity activity = getActivity(activityName);
-        activity.registerTime(employee,hours,minutes,day,month,year);
-    }
+//    public Calendar getActivityStartWeek(String activity) throws SystemAppException {
+//        return getActivity(activity).getStartWeek();
+//    }
+//
+//    public Calendar getActivityEndWeek(String activity) throws SystemAppException {
+//        return getActivity(activity).getEndWeek();
+//    }
+//
+//    public int getActivityEstimatedHours(String activity) throws SystemAppException {
+//        return getActivity(activity).getEstimatedHours();
+//    }
+//
+//    public boolean hasEmployeeAssignedToActivity(String activity, Employee employee) throws SystemAppException {
+//        return getActivity(activity).employeeAssigned(employee);
+//    }
 
-    public double checkRegisteredActivity(String activityName,Employee employee, int day, int month, int year) throws SystemAppException{
-        Activity activity = getActivity(activityName);
-        return activity.checkRegistered(employee,day,month,year);
-    }
-
-
-    public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
-        // TODO: check actor
-        getActivity(activity).setStartWeek(startWeek);
-    }
-
-    public void setActivityEndWeek(String actor, String activity, Calendar endWeek) throws SystemAppException {
-        // TODO: check actor
-        getActivity(activity).setEndWeek(endWeek);
-    }
-
-    public void setActivityEstimatedHours(String actor, String activity, int hours) throws SystemAppException {
-        // TODO: check actor
-        getActivity(activity).setEstimatedHours(hours);
-    }
-
-    public Calendar getActivityStartWeek(String activity) throws SystemAppException {
-        return getActivity(activity).getStartWeek();
-    }
-
-    public Calendar getActivityEndWeek(String activity) throws SystemAppException {
-        return getActivity(activity).getEndWeek();
-    }
-
-    public int getActivityEstimatedHours(String activity) throws SystemAppException {
-        return getActivity(activity).getEstimatedHours();
-    }
-
-    public boolean hasEmployeeAssignedToActivity(String activity, Employee employee) throws SystemAppException {
-        return getActivity(activity).employeeAssigned(employee);
-    }
 
 //    public Map<Activity, Integer> checkRegisteredDaily(Employee employee) {
 //        return null;
