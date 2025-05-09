@@ -295,6 +295,40 @@ public class App {
 //        }
 //    }
 
+//    private void registerTimeDaily(Scanner arguments){
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+//            return;
+//        }
+//        String project = arguments.next();
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+//            return;
+//        }
+//        String activityName = arguments.next();
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+//            return;
+//        }
+//        String employee = arguments.next();
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+//            return;
+//        }
+//        String hours = arguments.next();
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
+//            return;
+//        }
+//        String minutes = arguments.next();
+//        try {
+//            systemApp.registerTimeDaily(project, activityName, employee, hours, minutes);
+//            System.out.println("employee has registered " + hours + " to " + activityName);
+//        } catch (SystemAppException e){
+//            System.out.println(e.getMessage());
+//        }
+//    }
+
     private void listProjects() {
         List<Project> projects = systemApp.getProjects();
         for (int i = 0; i < projects.size(); i++) {
@@ -473,6 +507,9 @@ public class App {
 //                    break;
 //                case "checkregisteredfirmactivity":
 //                    checkRegisteredFirmActivity(arguments);
+//                    break;
+//                case "registertimedaily":
+//                    registerTimeDaily(arguments);
 //                    break;
                 case "list":
                     list(arguments);
