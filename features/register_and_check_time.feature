@@ -31,3 +31,8 @@ Feature: Register and Check time
     When creating a new activity "a" in the project
     And "huba" registers 100 hours and 0 minutes to day 2, month 2 and year 2021 to Activity "a"
     Then error message "Cannot work more than 24 hours a day" is given
+
+  Scenario: Employee tries to register time on non-existing date
+    When creating a new activity "a" in the project
+    And "huba" registers 5 hours and 0 minutes to day 32, month 13 and year -1 to Activity "a"
+    Then error message "Invalid calendar date" is given

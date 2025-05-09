@@ -56,7 +56,6 @@ public class SystemApp {
         getProject(project).setCustomer(actor, customer);
     }
 
-
     public void registerEmployee(String name) throws SystemAppException {
         if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
             throw new SystemAppException("Employee username must be 1-4 letters");
@@ -99,18 +98,17 @@ public class SystemApp {
         return firmActivityList.stream().anyMatch(a -> a.getName().equals(name));
     }
 
-    public void registerTimeFirmActivity(String employee, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
+    public void registerTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = CalendarConverter.getCalendar(day, month, year);
-        firmActivity.registerTime(getEmployee(employee),hours,minutes,date);
+        firmActivity.registerTime(getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double checkRegisteredFirmActivity(String employee, String firmActivityName, int day, int month, int year) throws SystemAppException{
+    public double checkRegisteredFirmActivity(String employeeName, String firmActivityName, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = CalendarConverter.getCalendar(day, month, year);
-        return firmActivity.checkRegistered(getEmployee(employee),date);
+        return firmActivity.checkRegistered(getEmployee(employeeName),date);
     }
-
 
     public void createActivity(String actor, String project, String activityName) throws SystemAppException {
         getProject(project).createActivity(actor, activityName);
@@ -138,11 +136,10 @@ public class SystemApp {
         return employees.stream().anyMatch(e -> e.name().equals(name.toLowerCase()));
     }
 
-    public void assignProjectLeader(String actor, String project, String employee) throws SystemAppException {
+    public void assignProjectLeader(String actor, String project, String employeeName) throws SystemAppException {
         // TODO: this should be changed to use project IDs
-        getProject(project).assignProjectLeader(actor, getEmployee(employee));
+        getProject(project).assignProjectLeader(actor, getEmployee(employeeName));
     }
-
 
     public Map<Integer, String> listProjects() {
         // This method only works when EVERY SINGLE project ID is unique
@@ -179,6 +176,10 @@ public class SystemApp {
 
     public String getProjectName(String projectName) throws SystemAppException {
         return getProject(projectName).getName();
+    }
+
+    public int getProjectId(String projectName) throws SystemAppException {
+        return getProject(projectName).getId();
     }
 
     public String getProjectCustomer(String projectName) throws SystemAppException {
@@ -223,13 +224,14 @@ public class SystemApp {
         return getProject(project).hasActivity(activity);
     }
 
-    public void registerTimeDaily(String project, String activity, String employee, int fullHours, int minutes) throws SystemAppException {
-        getProject(project).registerTimeDaily(activity, getEmployee(employee), fullHours, minutes);
+    public void registerTimeDaily(String project, String activity, String employeeName, int fullHours, int minutes) throws SystemAppException {
+        getProject(project).registerTimeDaily(activity, getEmployee(employeeName), fullHours, minutes);
     }
 
-    public double checkRegisteredTimeDaily(String project, String activity, String employee) throws SystemAppException {
-        return getProject(project).checkRegisteredDaily(activity, getEmployee(employee));
+    public double checkRegisteredTimeDaily(String project, String activity, String employeeName) throws SystemAppException {
+        return getProject(project).checkRegisteredDaily(activity, getEmployee(employeeName));
     }
+
     public double checkRegisteredTime(String project,String actor)throws SystemAppException{
        double output = 0;
         for (String activity : getProject(project).listActivities()){
@@ -237,30 +239,42 @@ public class SystemApp {
 
         }
         return output;
-
     }
 
-    public void registerTimeActivity(String employee, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+    public void registerTimeActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Calendar date = CalendarConverter.getCalendar(day, month, year);
-        getProject(project).registerTimeActivity(activity,getEmployee(employee),hours,minutes,date);
+        getProject(project).registerTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double checkRegisteredActivity(String employee,String project, String activity, int day, int month , int year ) throws SystemAppException{
+    public double checkRegisteredActivity(String employeeName,String project, String activity, int day, int month , int year ) throws SystemAppException{
         Calendar date = CalendarConverter.getCalendar(day, month, year);
-        return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),date);
+        return getProject(project).checkRegisteredActivity(activity,getEmployee(employeeName),date);
     }
 
-    public double checkRegisteredTotalActivity(String project, String activity, String employee) throws SystemAppException {
-        return getProject(project).checkRegisteredTotalActivity(activity, getEmployee(employee));
+    public double checkRegisteredTotalActivity(String project, String activity, String employeeName) throws SystemAppException {
+        return getProject(project).checkRegisteredTotalActivity(activity, getEmployee(employeeName));
     }
 
-
-    public void assignEmployeeToActivity(String actor, String project, String activity, String employee) throws SystemAppException {
-        getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employee));
+    public void assignEmployeeToActivity(String actor, String project, String activity, String employeeName) throws SystemAppException {
+        if(numberOfAssignedActivities(employeeName, project, activity) < 20){
+            getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employeeName));
+        }
+        throw new SystemAppException("Too Many Activities Assigned To Employee");
     }
 
-    public boolean hasEmployeeAssignedToActivity(String project, String activity, String employee) throws SystemAppException {
-        return getProject(project).hasEmployeeAssignedToActivity(activity, getEmployee(employee));
+    public int numberOfAssignedActivities(String employeeName, String projectName, String activityName) throws SystemAppException {
+        Employee employee = getEmployee(employeeName);
+        Calendar startWeek = getActivityStartWeek(projectName, activityName);
+        Calendar endWeek = getActivityEndWeek(projectName, activityName);
+        int sum = 0;
+        for(Project project: projects) {
+            sum += project.numberOfAssignedActivities(employee, startWeek, endWeek);
+        }
+        return sum;
+    }
+
+    public boolean hasEmployeeAssignedToActivity(String project, String activity, String employeeName) throws SystemAppException {
+        return getProject(project).hasEmployeeAssignedToActivity(activity, getEmployee(employeeName));
     }
 
 //    checkWeeklyActivityAmount()

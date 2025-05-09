@@ -6,10 +6,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class ProjectSteps {
     private SystemApp systemApp = new SystemApp();
@@ -20,12 +23,13 @@ public class ProjectSteps {
     private final String someEmployee = "abcd";
     private final String otherEmployee = "huba";
     private final String someActivity = "act1";
+//    private MockedStatic<CalendarConverter> mockedCalendar = mockStatic(CalendarConverter.class);
 //    private final String someProjectLeader = "b";
 //    private Employee someProjectLeader;
 //    private List<Employee> someEmployees = new ArrayList<>();
 //    private List<Employee> availableEmployees;
 
-    private static final String DEFAULT_ACTIVITY_NAME = "chjk";
+    private static final String DEFAULT_ACTIVITY_NAME = "act";
 
     @When("creating a new project named {string}")
     public void creatingANewProjectNamed(String string) {
@@ -76,9 +80,9 @@ public class ProjectSteps {
     }
 
     @Given("{string} exists as employee")
-    public void existsAsEmployee(String string) {
+    public void existsAsEmployee(String employeeName) {
         try {
-            systemApp.registerEmployee(someEmployee);
+            systemApp.registerEmployee(employeeName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -173,7 +177,7 @@ public class ProjectSteps {
     }
 
     @Given("employee is the leader of the project")
-    public void theUserIsTheLeaderOfTheProject() {
+    public void employeeIsTheLeaderOfTheProject() {
         try {
             systemApp.assignProjectLeader(someEmployee, someProject, someEmployee);
 //            Employee employee = systemApp.getEmployee(someEmployee);
@@ -206,7 +210,7 @@ public class ProjectSteps {
     @Given("employee is not the leader of the project")
     public void isNotTheLeaderOfTheProject() {
         try {
-            systemApp.assignProjectLeader(someEmployee, someProject, "huba");
+            systemApp.assignProjectLeader(someEmployee, someProject, otherEmployee);
 //            Employee employee = systemApp.getEmployee(otherEmployee);
 //            systemApp.getProject(someProject).assignProjectLeader(otherEmployee, employee);
         } catch (SystemAppException e) {
@@ -235,10 +239,12 @@ public class ProjectSteps {
     }
 
     //// ACTIVITY STEPS
-    @Given("it has an activity")
-    public void itHasAnActivity() {
+    @Given("it has {int} activities")
+    public void itHasAnActivity(int activityAmount) {
         try {
-            systemApp.createActivity(someEmployee, someProject, someActivity);
+            for(int i = 0; i < activityAmount; i++) {
+                systemApp.createActivity(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+(i+1));
+            }
 //            systemApp.getProject(someProject).createActivity(someEmployee, someActivity);
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -432,33 +438,46 @@ public class ProjectSteps {
     }
 
     // ASSIGN EMPLOYEE
-    @Given("{string} is assigned to {int} activities")
-    public void isAssignedToActivities(String employeeName, Integer activityCount) {
-        //for (int i = 0; i < activityCount; i++) {
-            //systemApp.assignEmployeeToActivity(someProject, someActivity+(i+1), employeeName);
-        //}
+    @Given("the employee is assigned to {int} activities")
+    public void isAssignedToActivities(Integer activityCount) {
+        try{
+            for (int i = 0; i < activityCount; i++) {
+                systemApp.assignEmployeeToActivity(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+(i+1), someEmployee);
+            }
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Given("the employee is not assigned to the activity in the project")
+    public void isNotAssignedToTheActivityInTheProject() {
 
     }
 
-    @Given("{string} is not assigned to the activity in the project")
-    public void isNotAssignedToTheActivityInTheProject(String employeeName) {
-
-    }
-
-    @When("{string} is assigned to the activity in the project")
-    public void isAssignedToTheActivityInTheProject(String employeeName) {
+    @When("the employee is assigned to the activity in the project")
+    public void isAssignedToTheActivityInTheProject() {
         try {
-            systemApp.assignEmployeeToActivity(employeeName, someProject, someActivity, employeeName);
+            systemApp.assignEmployeeToActivity(someEmployee, someProject, someActivity, someEmployee);
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            systemApp.getProject(someProject).getActivity(someActivity).assignEmployee(employee);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
-    @Then("{string} is successfully assigned to the activity in the project")
-    public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
+
+    @When("the employee is assigned to activity {string}")
+    public void isAssignedToTheActivity(String activityName) {
         try {
-            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, employeeName));
+            systemApp.assignEmployeeToActivity(someEmployee, someProject, activityName, someEmployee);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the employee is successfully assigned to the activity in the project")
+    public void isSuccessfullyAssignedToTheActivityInTheProject() {
+        try {
+            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, someEmployee));
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            assertTrue(systemApp.getProject(someProject).getActivity(someActivity).employeeAssigned(employee));
         } catch (Exception e) {
@@ -623,6 +642,42 @@ public class ProjectSteps {
         }
     }
 
+    @Then("the id of {string} is <currentYear> {int}")
+    public void theIdCounterOfIs(String project, int id) {
+        String actualName = "";
+        int actualId = -1;
+        try {
+            actualName = systemApp.getProjectName(project);
+            actualId = systemApp.getProjectId(project);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+        int checkId = (CalendarConverter.getCurrentYear() % 100) * 1000 + id;
+        assertEquals(project, actualName);
+        assertEquals(checkId, actualId);
+    }
+
+    @Given("activity {int} to {int} starts week {int} in year {int}")
+    public void activityToStartsWeekInYear(Integer actStart, Integer actEnd, Integer startWeek, Integer startYear) {
+        for(int i = actStart; i <= actEnd; i++) {
+            try{
+                systemApp.setActivityStartWeek(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+i, startWeek, startYear);
+            } catch (Exception e) {
+                errorMessage = e.getMessage();
+            }
+        }
+    }
+
+    @Given("activity {int} to {int} ends week {int} in year {int}")
+    public void activityToEndsWeekInYear(Integer actStart, Integer actEnd, Integer endWeek, Integer endYear) {
+        for(int i = actStart; i <= actEnd; i++) {
+            try{
+                systemApp.setActivityEndWeek(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+i, endWeek, endYear);
+            } catch (Exception e) {
+                errorMessage = e.getMessage();
+            }
+        }
+    }
 
 //    @And("there exists a firm activity")
 //    public void thereExistsAFirmActivity() {

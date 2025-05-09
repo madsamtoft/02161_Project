@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Project {
     private String name;
-    private int id; // Read only
+    private int id; // Read-only
     private Calendar startDate;
     private Calendar endDate;
     private String customer;
     private Employee projectLeader;
-    private List<Activity> activityList;
+    private List<Activity> activities;
 
     public Project(String name, int id) throws SystemAppException {
         if (name.isEmpty()) {
@@ -17,7 +17,7 @@ public class Project {
         }
         this.name = name;
         this.id = id;
-        this.activityList = new ArrayList<>();
+        this.activities = new ArrayList<>();
     }
 
     private boolean isProjectLeader(String employee) {
@@ -90,11 +90,11 @@ public class Project {
     public void createActivity(String actor, String activityName) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
-        } else if (activityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
+        } else if (activities.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Activity Name already taken");
         }
         else {
-            activityList.add(new Activity(activityName));
+            activities.add(new Activity(activityName));
         }
     }
 
@@ -108,7 +108,7 @@ public class Project {
     }
 
     private Activity getActivity(String activityName) throws SystemAppException {
-        for (Activity activity : activityList) {
+        for (Activity activity : activities) {
             if (activityName.equals(activity.getName())) {
                 return activity;
             }
@@ -117,19 +117,19 @@ public class Project {
     }
 
     private List<Activity> getActivities() throws SystemAppException {
-        return activityList;
+        return activities;
     }
     
     public List<String> listActivities() {
         List<String> activityNames = new LinkedList<>();
-        for(Activity activity: activityList) {
+        for(Activity activity: activities) {
             activityNames.add(activity.getName());
         }
         return activityNames;
     }
 
     public boolean hasActivity(String activity) {
-        return activityList.stream().anyMatch(a -> a.getName().equals(activity));
+        return activities.stream().anyMatch(a -> a.getName().equals(activity));
     }
 
     public void registerTimeDaily(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
@@ -167,7 +167,7 @@ public class Project {
     }
 
     public boolean activityExists(String activityName) {
-        for (Activity activity : activityList) {
+        for (Activity activity : activities) {
             if (activityName.equals(activity.getName())) {
                 return true;
             }
@@ -215,6 +215,18 @@ public class Project {
         return getActivity(activity).employeeAssigned(employee);
     }
 
+    public int numberOfAssignedActivities(Employee employee, Calendar start, Calendar end) {
+        int sum = 0;
+
+        for (Activity activity: activities) {
+            if(activity.employeeAssigned(employee)) {
+                if(!CalendarConverter.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {
+                    sum += 1;
+                }
+            }
+        }
+        return 0;
+    }
 
 //    public Map<Activity, Integer> checkRegisteredDaily(String activity, Employee employee) {
 //        // TODO: Implement. It cannot return activities as this is not allowed

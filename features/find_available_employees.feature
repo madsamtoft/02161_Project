@@ -6,7 +6,7 @@
 #    Given these employees registered in the app
 #      | "bert" | "deja" | "karl" | "mads" | "seba" |
 #    And a project
-#    And it has an activity
+#    And it has 1 activities
 #
 #  Scenario: All employees are found
 #    When searching for available employees

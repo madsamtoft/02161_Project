@@ -3,18 +3,6 @@ package app;
 import java.util.Calendar;
 
 public class CalendarConverter {
-    public static Calendar getCalendarFromString(String day, String month, String year) throws SystemAppException {
-        Calendar calendar = Calendar.getInstance();
-        try {
-            int dayInt = Integer.parseInt(day);
-            int monthInt = Integer.parseInt(month);
-            int yearInt = Integer.parseInt(year);
-            return getCalendar(dayInt, monthInt, yearInt);
-        } catch (NumberFormatException e) {
-            throw new SystemAppException("Invalid calendar date");
-        }
-    }
-
     public static Calendar getCalendar(int day, int month, int year) throws SystemAppException {
         Calendar calendar = getToday();
         calendar.set(Calendar.DAY_OF_MONTH, day);
@@ -58,5 +46,22 @@ public class CalendarConverter {
 
     public static int getCurrentYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    public static boolean dateOverlap(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
+        boolean s1null = start1 == null;
+        boolean e1null = end1 == null;
+        boolean s2null = start2 == null;
+        boolean e2null = end2 == null;
+
+        if(!(s1null | e1null | s2null | e2null)){
+            return (start1.getTimeInMillis() <= end2.getTimeInMillis()) & (start2.getTimeInMillis() <= end1.getTimeInMillis());
+        } else if(!(e1null | s2null)) {
+            return start2.getTimeInMillis() <= end1.getTimeInMillis();
+        } else if(!(e2null | s1null)) {
+            return start1.getTimeInMillis() <= end2.getTimeInMillis();
+        } else {
+            return true;
+        }
     }
 }
