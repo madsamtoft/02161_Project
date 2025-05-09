@@ -374,7 +374,17 @@ public class App {
         }
     }
 
-
+//    private void registerTimeActivity(Scanner arguments){
+//        if(!arguments.hasNext()){
+//            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+//
+//        }
+//        try{
+//             
+//        } catch (SystemAppException e){
+//            System.out.println();
+//        }
+//    }
 
 
     private void listProjects() {
@@ -414,7 +424,7 @@ public class App {
         }
         String next = arguments.next().toLowerCase();
         if (next.equals("projects")) {
-            System.out.println(systemApp.listProjects());
+            listProjects();
             return;
         } else if (next.equals("employees")) {
             listEmployees();
