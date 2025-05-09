@@ -5,6 +5,7 @@ Feature: Change Project Activities
     Given a project
 #    And a project leader
 #      Comment: A project leader is not needed on the project to test
+    And an employee
     And "huba" exists as employee
     And it has 1 activities
 

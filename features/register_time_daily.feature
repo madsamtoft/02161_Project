@@ -5,7 +5,8 @@ Feature: Register time Daily
     Given a project
 #    And a project leader
 #      Comment: A project leader is not needed on the project to test
-    And "huba" exists as employee
+#    And "huba" exists as employee
+    And an employee
 
 
   Scenario: Employee registers 5 hours to non-existing activity

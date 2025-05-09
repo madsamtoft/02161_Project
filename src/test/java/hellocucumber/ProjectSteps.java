@@ -65,6 +65,15 @@ public class ProjectSteps {
         }
     }
 
+    @Given("an employee")
+    public void anEmployee() {
+        try {
+            systemApp.registerEmployee(someEmployee);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
     @Given("{string} exists as employee")
     public void existsAsEmployee(String employeeName) {
         try {
@@ -72,7 +81,6 @@ public class ProjectSteps {
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
-
     }
 
     @When("setting employee as project leader")

@@ -3,7 +3,7 @@ Feature: Change Project
   User: Employee
   Background:
     Given a project
-    And "huba" exists as employee
+    And an employee
 
   Scenario: set new project leader for a project
     When setting employee as project leader
