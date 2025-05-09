@@ -27,8 +27,10 @@ Feature: Assign Employee
     When the employee is assigned to the activity in the project
     Then error message "Employee is already assigned to this activity" is given
 
-#  Scenario: The employee is already assigned to 20 activities
-#    Given it has 21 activities
-#    And the employee is assigned to 20 activities
-#    When the employee is assigned to activity "act21"
-#    Then error message "Too Many Activities" is given
+  Scenario: The employee is already assigned to 20 activities
+    Given it has 21 activities
+    And the employee is assigned to 20 activities
+    When the employee is assigned to activity "act21"
+    Then error message "Too Many Activities Assigned To Employee" is given
+
+    #TODO: MORE TESTING

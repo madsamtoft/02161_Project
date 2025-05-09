@@ -20,6 +20,8 @@ public class Activity {
         this.name = name;
         this.employeeDateHours = new HashMap<>();
         this.assignedEmployees = new ArrayList<>();
+        this.startWeek = null;
+        this.endWeek = null;
     }
 
     public boolean employeeAssigned(Employee employee) {
