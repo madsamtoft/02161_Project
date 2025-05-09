@@ -430,6 +430,9 @@ public class ProjectSteps {
     // ASSIGN EMPLOYEE
     @Given("{string} is assigned to {int} activities")
     public void isAssignedToActivities(String employeeName, Integer activityCount) {
+        //for (int i = 0; i < activityCount; i++) {
+            //systemApp.assignEmployeeToActivity(someProject, someActivity+(i+1), employeeName);
+        //}
 
     }
 

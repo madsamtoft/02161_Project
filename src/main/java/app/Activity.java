@@ -108,8 +108,6 @@ public class Activity {
         return hoursTotal;
     }
 
-
-
     public String getName() {
         return name;
     }
