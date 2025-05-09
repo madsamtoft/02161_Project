@@ -178,6 +178,10 @@ public class SystemApp {
         return getProject(projectName).getName();
     }
 
+    public int getProjectId(String projectName) throws SystemAppException {
+        return getProject(projectName).getId();
+    }
+
     public String getProjectCustomer(String projectName) throws SystemAppException {
         return getProject(projectName).getCustomer();
     }
