@@ -99,9 +99,12 @@ public class Project {
     }
 
 
-    public void assignEmployeeToActivity(String activityName, Employee employee) throws SystemAppException {
-        Activity activity = getActivity(activityName);
-        activity.assignEmployee(employee);
+    public void assignEmployeeToActivity(String actor, String activityName, Employee employee) throws SystemAppException {
+        if (!isProjectLeader(actor)) {
+            throw new SystemAppException("Employee is not Project Leader");
+        } else {
+            getActivity(activityName).assignEmployee(employee);
+        }
     }
 
     private Activity getActivity(String activityName) throws SystemAppException {

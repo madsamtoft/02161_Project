@@ -309,7 +309,7 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            systemApp.assignEmployeeToActivity(project, activity, employee);
+            systemApp.assignEmployeeToActivity(actor, project, activity, employee);
             System.out.println("Employee \"" + employee + "\" successfully assigned to activity \"" + activity + "\" in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -424,7 +424,7 @@ public class App {
         }
         String next = arguments.next().toLowerCase();
         if (next.equals("projects")) {
-            System.out.println(systemApp.listProjects());
+            listProjects();
             return;
         } else if (next.equals("employees")) {
             listEmployees();

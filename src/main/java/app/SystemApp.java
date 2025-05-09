@@ -12,15 +12,15 @@ public class SystemApp {
         employees.add(new Employee("huba"));
     }
 
+    private boolean projectExists(String name) {
+        return projects.stream().anyMatch(p -> p.getName().equals(name.toLowerCase()));
+    }
+
     public void createProject(String name) throws SystemAppException {
-        try  {
-            getProject(name);
+        if (projectExists(name))  {
+            throw new SystemAppException("Project with that name already exists");
         }
-        catch(Exception e){
-            Project project = new Project(name, ++projectIdCounter);
-            projects.add(project);
-        }
-        throw new SystemAppException("Project with that name already exists");
+        projects.add(new Project(name, ++projectIdCounter));
     }
 
     public void changeProjectName( String actor, String project, String name) throws SystemAppException {
@@ -234,8 +234,8 @@ public class SystemApp {
     }
 
 
-    public void assignEmployeeToActivity(String project, String activity, String employee) throws SystemAppException {
-        getProject(project).assignEmployeeToActivity(activity, getEmployee(employee));
+    public void assignEmployeeToActivity(String actor, String project, String activity, String employee) throws SystemAppException {
+        getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employee));
     }
 
     public boolean hasEmployeeAssignedToActivity(String project, String activity, String employee) throws SystemAppException {
