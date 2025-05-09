@@ -66,6 +66,7 @@ public class App {
             //System.out.println("User not authorized to add customer to project \"" + projectName + "\"");
             return;
         }
+        System.out.println("Customer \"" + customer + "\" successfully added");
     }
 
     private void changeProjectName(Scanner arguments) {
