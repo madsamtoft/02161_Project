@@ -277,5 +277,13 @@ public class SystemApp {
         return getProject(project).hasEmployeeAssignedToActivity(activity, getEmployee(employeeName));
     }
 
+    public List<String> getAvailableEmployees() {
+        ArrayList<String> availableEmployeeNames = new ArrayList<>(employees.stream().map(Employee::name).toList());
+        for (Project project : projects) {
+            availableEmployeeNames.removeAll(project.getOccupiedEmployees());
+        }
+        return availableEmployeeNames;
+    }
+
 //    checkWeeklyActivityAmount()
 }

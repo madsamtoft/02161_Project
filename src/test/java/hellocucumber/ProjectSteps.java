@@ -27,7 +27,7 @@ public class ProjectSteps {
 //    private final String someProjectLeader = "b";
 //    private Employee someProjectLeader;
 //    private List<Employee> someEmployees = new ArrayList<>();
-//    private List<Employee> availableEmployees;
+    private List<String> availableEmployeeNames = new ArrayList<>();
 
     private static final String DEFAULT_ACTIVITY_NAME = "act";
 
@@ -85,6 +85,18 @@ public class ProjectSteps {
             systemApp.registerEmployee(employeeName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
+        }
+    }
+
+    @Given("these employees registered in the app")
+    public void theseEmployeesRegisteredInTheApp(List<List<String>> dataTable) {
+        List<String> employeeNames = dataTable.getFirst();
+        for (String employeeName : employeeNames) {
+            try {
+                systemApp.registerEmployee(employeeName);
+            } catch (SystemAppException e) {
+                errorMessage = e.getMessage();
+            }
         }
     }
 
@@ -426,17 +438,6 @@ public class ProjectSteps {
         }
     }
 
-    @And("{string}, {string}, {string} exist as employees")
-    public void existAsEmployees(String empl1, String empl2, String empl3) {
-        try {
-            systemApp.registerEmployee(empl1);
-            systemApp.registerEmployee(empl2);
-            systemApp.registerEmployee(empl3);
-        } catch (SystemAppException e) {
-            errorMessage = e.getMessage();
-        }
-    }
-
     // ASSIGN EMPLOYEE
     @Given("the employee is assigned to {int} activities")
     public void isAssignedToActivities(Integer activityCount) {
@@ -460,6 +461,15 @@ public class ProjectSteps {
             systemApp.assignEmployeeToActivity(someEmployee, someProject, someActivity, someEmployee);
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            systemApp.getProject(someProject).getActivity(someActivity).assignEmployee(employee);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("the employee with name {string} is assigned to the activity in the project")
+    public void theEmployeeWithNameIsAssignedToTheActivityInTheProject(String employeeName) {
+        try {
+            systemApp.assignEmployeeToActivity(employeeName, someProject, someActivity, employeeName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -679,6 +689,25 @@ public class ProjectSteps {
         }
     }
 
+    @When("searching for available employees")
+    public void searchingForAvailableEmployees() {
+        availableEmployeeNames = systemApp.getAvailableEmployees();
+    }
+
+    @Then("employees found are")
+    public void employeesFoundAre(List<List<String>> dataTable) {
+        List<String> employeeNames = dataTable.getFirst();
+        ArrayList<String> matching = new ArrayList<>(employeeNames);
+        matching.retainAll(availableEmployeeNames);
+        assertEquals(employeeNames.size(), matching.size());
+        assertEquals(matching.size(), availableEmployeeNames.size());
+    }
+
+    @Then("no employees are found")
+    public void noEmployeesAreFound() {
+        assertEquals(0, availableEmployeeNames.size());
+    }
+
 //    @And("there exists a firm activity")
 //    public void thereExistsAFirmActivity() {
 //        try {
@@ -695,23 +724,6 @@ public class ProjectSteps {
 //            someEmployees.add(new Employee(employeeName));
 //        }
 //
-//    }
-//
-//    @When("searching for available employees")
-//    public void searchingForAvailableEmployees() {
-//        systemApp.getAvailableEmployees();
-//    }
-//
-//    @Then("employees found are")
-//    public void employeesFoundAre(List<String> employeeNames) {
-//        // Write code here that turns the phrase above into concrete actions
-//        // For automatic transformation, change DataTable to one of
-//        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-//        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-//        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-//        //
-//        // For other transformations you can register a DataTableType.
-//        throw new io.cucumber.java.PendingException();
 //    }
 
 

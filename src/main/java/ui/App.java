@@ -319,22 +319,22 @@ public class App {
 
     private void changeActivityStartWeek(Scanner arguments) {
         if (!arguments.hasNext()) {
-            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <week> <year>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <week> <year>");
             return;
         }
         String activity = arguments.next();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <week> <year>");
             return;
         }
         int week = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: changeActivityStartWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityStartWeek <project> <activity> <week> <year>");
             return;
         }
         int year = arguments.nextInt();
@@ -348,22 +348,22 @@ public class App {
 
     private void changeActivityEndWeek(Scanner arguments) {
         if (!arguments.hasNext()) {
-            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <week> <year>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <week> <year>");
             return;
         }
         String activity = arguments.next();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <week> <year>");
             return;
         }
         int week = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: changeActivityEndWeek <project> <activity> <>");
+            System.out.println("Usage: changeActivityEndWeek <project> <activity> <week> <year>");
             return;
         }
         int year = arguments.nextInt();
@@ -598,24 +598,37 @@ public class App {
         }
     }
 
+    private void listAvailableEmployees() {
+        List<String> availableEmployees = systemApp.getAvailableEmployees();
+        for (int i = 0; i < availableEmployees.size(); i++) {
+            System.out.printf("\tAvailable Employee %2d: %s\n", (i+1), availableEmployees.get(i));
+        }
+    }
+
     private void list(Scanner arguments) {
         if (!arguments.hasNext()){
-            System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist activities <project>");
+            System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>");
             return;
         }
-        String next = arguments.next().toLowerCase();
-        if (next.equals("projects")) {
-            listProjects();
-            return;
-        } else if (next.equals("employees")) {
-            listEmployees();
-            return;
-        } else if (next.equals("activities")) {
-            listActivities(arguments.next());
-            return;
-        } else {
-            System.out.println("Usage: list projects OR list activities <project>");
-            return;
+        switch (arguments.next().toLowerCase()) {
+            case "projects":
+                listProjects();
+                break;
+            case "employees":
+                listEmployees();
+                break;
+            case "availableemployees":
+                listAvailableEmployees();
+                break;
+            case "activities":
+                if (!arguments.hasNext()) {
+                    System.out.println("Usage: list activities <project>");
+                    break;
+                }
+                listActivities(arguments.next());
+                break;
+            default:
+                System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>");
         }
     }
 

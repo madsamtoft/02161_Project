@@ -228,6 +228,14 @@ public class Project {
         return 0;
     }
 
+    public List<String> getOccupiedEmployees() {
+        ArrayList<String> occupiedEmployeeNames = new ArrayList<>();
+        for (Activity activity : activities) {
+            occupiedEmployeeNames.addAll(activity.getOccupiedEmployees());
+        }
+        return occupiedEmployeeNames;
+    }
+
 //    public Map<Activity, Integer> checkRegisteredDaily(String activity, Employee employee) {
 //        // TODO: Implement. It cannot return activities as this is not allowed
 //        return null;
