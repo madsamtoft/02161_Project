@@ -552,6 +552,7 @@ public class ProjectSteps {
     }
 
 
+
     @Then("{string} has registered {int} hours and {int} minutes to day {int}, month {int}, and year {int} to Activity {string}")
     public void hasRegisteredHoursAndMinutesToDayMonthAndYearToActivity(String employeeName, int fullHours, int minutes , int day, int month, int year, String activity){
         double hours = fullHours + (minutes/60.);
@@ -598,7 +599,15 @@ public class ProjectSteps {
         assertTrue(systemApp.employeeExists(employeeID));
     }
 
-
+    @And("it has two activities")
+    public void itHasTwoActivities() {
+        try {
+            systemApp.createActivity(someEmployee, someProject, "activity1");
+            systemApp.createActivity(someEmployee, someProject, "activity2");
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
 
 
 //    @And("there exists a firm activity")
