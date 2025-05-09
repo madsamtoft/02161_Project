@@ -1,9 +1,6 @@
 package app;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Project {
     private String name;
@@ -81,7 +78,7 @@ public class Project {
 
     public void setCustomer(String actor, String customer) throws SystemAppException {
         if (!isProjectLeader(actor)) {
-            throw new SystemAppException("Employee is not Project Leader");
+            throw new SystemAppException("User not authorized to add customer to project \"" + getName() + "\"");
         }
         this.customer = customer;
     }
@@ -116,8 +113,16 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
-    public List<Activity> getActivities() throws SystemAppException {
+    private List<Activity> getActivities() throws SystemAppException {
         return activityList;
+    }
+    
+    public List<String> listActivities() {
+        List<String> activityNames = new LinkedList<>();
+        for(Activity activity: activityList) {
+            activityNames.add(activity.getName());
+        }
+        return activityNames;
     }
 
     public boolean hasActivity(String activity) {
@@ -137,14 +142,14 @@ public class Project {
         return activity.checkRegisteredDaily(employee);
     }
 
-    public void registerTimeActivity(String activityName, Employee employee, int hours, int minutes, int day, int month, int year) throws SystemAppException {
+    public void registerTimeActivity(String activityName, Employee employee, int hours, int minutes, Calendar date) throws SystemAppException {
         Activity activity = getActivity(activityName);
-        activity.registerTime(employee,hours,minutes,day,month,year);
+        activity.registerTime(employee,hours,minutes,date);
     }
 
-    public double checkRegisteredActivity(String activityName,Employee employee, int day, int month, int year) throws SystemAppException{
+    public double checkRegisteredActivity(String activityName,Employee employee, Calendar date) throws SystemAppException{
         Activity activity = getActivity(activityName);
-        return activity.checkRegistered(employee,day,month,year);
+        return activity.checkRegistered(employee,date);
     }
 
     public double checkRegisteredTotalActivity(String activityName, Employee employee) throws SystemAppException {

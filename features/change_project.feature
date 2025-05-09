@@ -47,5 +47,5 @@ Feature: Change Project
     Given employee is not the leader of the project
     # And there is no project leader assigned (evt)
     When setting project customer to "bad customer"
-    Then error message "Employee is not Project Leader" is given
+    Then error message "User not authorized to add customer to project \"proj1\"" is given
 

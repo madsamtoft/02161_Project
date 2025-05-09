@@ -22,8 +22,6 @@ public class Activity {
         this.assignedEmployees = new ArrayList<>();
     }
 
-
-
     public boolean employeeAssigned(Employee employee) {
         return this.assignedEmployees.contains(employee);
     }
@@ -69,7 +67,7 @@ public class Activity {
     }
 
     // not done yet (karl)
-    public void registerTime(Employee employee, int fullHours, int minutes, int day, int month, int year) throws SystemAppException {
+    public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -77,8 +75,6 @@ public class Activity {
             dateHours = new HashMap<>();
             employeeDateHours.put(employee, dateHours);
         }
-
-        Calendar date = getCalendar(day,month,year);
 
         double hours = fullHours + (minutes/60.);
         double putHours = Math.ceil(hours*2) / 2.;
@@ -88,8 +84,7 @@ public class Activity {
         dateHours.put(date,putHours);
     }
 
-    public double checkRegistered(Employee employee, int day, int month, int year) throws SystemAppException {
-        Calendar date = getCalendar(day, month, year);
+    public double checkRegistered(Employee employee, Calendar date ) throws SystemAppException {
         if (!employeeDateHours.containsKey(employee) || !employeeDateHours.get(employee).containsKey(date)) {
             return 0;
         }

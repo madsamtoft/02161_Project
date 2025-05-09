@@ -91,12 +91,14 @@ public class SystemApp {
 
     public void registerTimeFirmActivity(String employee, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
-        firmActivity.registerTime(getEmployee(employee),hours,minutes,day,month,year);
+        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        firmActivity.registerTime(getEmployee(employee),hours,minutes,date);
     }
 
     public double checkRegisteredFirmActivity(String employee, String firmActivityName, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
-        return firmActivity.checkRegistered(getEmployee(employee),day,month,year);
+        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        return firmActivity.checkRegistered(getEmployee(employee),date);
     }
 
 
@@ -131,12 +133,26 @@ public class SystemApp {
         getProject(project).assignProjectLeader(actor, getEmployee(employee));
     }
 
-    private List<Project> getProjects() {
-        return this.projects;
+
+    public Map<Integer, String> listProjects() {
+        // This method only works when EVERY SINGLE project ID is unique
+        Map<Integer, String> projectMap = new HashMap<>();
+        for (Project project : this.projects) {
+            projectMap.put(project.getId(), project.getName());
+        }
+        return projectMap;
     }
 
-    private List<Employee> getEmployees() {
-        return this.employees;
+    public List<String> listProjectActivities(String projectName) throws SystemAppException {
+        return getProject(projectName).listActivities();
+    }
+
+    public List<String> listEmployees() {
+        List<String> employeeNames = new LinkedList<>();
+        for (Employee employee : employees) {
+            employeeNames.add(employee.name());
+        }
+        return employeeNames;
     }
 
     public String getProjectLeader(String projectName) throws SystemAppException {
@@ -204,11 +220,13 @@ public class SystemApp {
     }
 
     public void registerTimeActivity(String employee, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
-        getProject(project).registerTimeActivity(activity,getEmployee(employee),hours,minutes,day,month,year);
+        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        getProject(project).registerTimeActivity(activity,getEmployee(employee),hours,minutes,date);
     }
 
     public double checkRegisteredActivity(String employee,String project, String activity, int day, int month , int year ) throws SystemAppException{
-        return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),day,month,year);
+        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        return getProject(project).checkRegisteredActivity(activity,getEmployee(employee),date);
     }
 
     public double checkRegisteredTotalActivity(String project, String activity, String employee) throws SystemAppException {

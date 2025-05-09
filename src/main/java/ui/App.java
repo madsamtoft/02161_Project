@@ -6,8 +6,6 @@ import java.util.*;
 
 import java.util.Scanner;
 
-import static app.CalendarConverter.getCalendarFromString;
-
 public class App {
 
     private final SystemApp systemApp = new SystemApp();
@@ -52,6 +50,7 @@ public class App {
             return;
         }
         String customer = arguments.next();
+        /*
         Project project;
         try {
             project = systemApp.getProject(projectName);
@@ -59,10 +58,12 @@ public class App {
             System.out.println("Project \"" + projectName + "\" does not exist");
             return;
         }
+         */
         try {
-            project.setCustomer(actor, customer);
+            systemApp.changeProjectCustomer(actor, projectName, customer);
         } catch (Exception e) {
-            System.out.println("User not authorized to add customer to project \"" + projectName + "\"");
+            System.out.println(e.getMessage());
+            //System.out.println("User not authorized to add customer to project \"" + projectName + "\"");
             return;
         }
     }
@@ -79,7 +80,7 @@ public class App {
         }
         String newName = arguments.next();
         try {
-            systemApp.getProject(name).setName(actor, newName);
+            systemApp.changeProjectName(actor, name, newName);
             System.out.println("Project name for \"" + name + "\" successfully changed to \"" + newName + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -109,14 +110,14 @@ public class App {
         String year = arguments.next();
         Calendar date;
         try {
-            date = getCalendarFromString(day, month, year);
+            date = CalendarConverter.getCalendarFromString(day, month, year);
         } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;
         }
         try {
 //            systemApp.changeProjectStartDate(actor, project, date);
-            systemApp.getProject(project).setStartDate(actor, date);
+            systemApp.changeProjectStartDate(actor, project, date);
             System.out.println("Start date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -147,21 +148,18 @@ public class App {
         String year = arguments.next();
         Calendar date;
         try {
-            date = getCalendarFromString(day, month, year);
+            date = CalendarConverter.getCalendarFromString(day, month, year);
         } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;
         }
         try {
-//            systemApp.changeProjectEndDate(actor, project, date);
-            systemApp.getProject(project).setEndDate(actor, date);
+            systemApp.changeProjectEndDate(actor, project, date);
             System.out.println("End date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
     }
-
-
 
     private void assignProjectLeader(Scanner arguments){
         if (!arguments.hasNext()) {
@@ -175,29 +173,8 @@ public class App {
         }
         String employee = arguments.next();
         try {
-//            systemApp.assignProjectLeader(actor, project, employee);
-            systemApp.getProject(project).assignProjectLeader(actor, systemApp.getEmployee(employee));
+            systemApp.assignProjectLeader(actor, project, employee);
             System.out.println("\"" + employee + "\" has been successfully assigned as Project Leader for the project \"" + project + "\"");
-        } catch (SystemAppException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void createActivity(Scanner arguments) {
-        if (!arguments.hasNext()){
-            System.out.println("Usage: createActivity <projectName> <activityName>");
-            return;
-        }
-        String project = arguments.next();
-        if (!arguments.hasNext()){
-            System.out.println("Usage: createActivity <projectName> <activityName>");
-            return;
-        }
-        String activityName = arguments.next();
-        try {
-//            systemApp.createActivity(actor, projectName, activityName);
-            systemApp.getProject(project).createActivity(actor, activityName);
-            System.out.println("Activity \"" + activityName + "\" successfully created in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -232,27 +209,27 @@ public class App {
             System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
             return;
         }
-        String hours = arguments.next();
-        if (!arguments.hasNext()){
+        int hours = arguments.nextInt();
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
             return;
         }
-        String minutes = arguments.next();
-        if (!arguments.hasNext()){
+        int minutes = arguments.nextInt();
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
             return;
         }
-        String day = arguments.next();
-        if (!arguments.hasNext()){
+        int day = arguments.nextInt();
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
             return;
         }
-        String month = arguments.next();
-        if (!arguments.hasNext()){
+        int month = arguments.nextInt();
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: registerHoursToFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
             return;
         }
-        String year = arguments.next();
+        int year = arguments.nextInt();
 
         try {
             systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
@@ -261,6 +238,7 @@ public class App {
             System.out.println((e.getMessage()));
         }
     }
+
     private void checkRegisteredFirmActivity(Scanner arguments){
         if (!arguments.hasNext()){
             System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
@@ -272,25 +250,68 @@ public class App {
             return;
         }
         String firmActivityName = arguments.next();
-        if (!arguments.hasNext()){
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
             return;
         }
-        String day = arguments.next();
-        if (!arguments.hasNext()){
+        int day = arguments.nextInt();
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
             return;
         }
-        String month = arguments.next();
-        if (!arguments.hasNext()){
+        int month = arguments.nextInt();
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: checkRegisteredFirmActivity <employee> <activityName> <day> <month> <year>");
             return;
         }
-        String year = arguments.next();
+        int year = arguments.nextInt();
         try {
             double hours = systemApp.checkRegisteredFirmActivity(employee,firmActivityName,day,month,year);
             System.out.println(employee + " has registered " + hours + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void createActivity(Scanner arguments) {
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createActivity <projectName> <activityName>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println("Usage: createActivity <projectName> <activityName>");
+            return;
+        }
+        String activityName = arguments.next();
+        try {
+            systemApp.createActivity(actor, project, activityName);
+            System.out.println("Activity \"" + activityName + "\" successfully created in project \"" + project + "\"");
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void assignEmployee(Scanner arguments) {
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: <project> <activity> <employee>");
+            return;
+        }
+        String project = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: <project> <activity> <employee>");
+            return;
+        }
+        String activity = arguments.next();
+        if (!arguments.hasNext()) {
+            System.out.println("Usage: <project> <activity> <employee>");
+            return;
+        }
+        String employee = arguments.next();
+        try {
+            systemApp.assignEmployeeToActivity(project, activity, employee);
+            System.out.println("Employee \"" + employee + "\" successfully assigned to activity \"" + activity + "\" in project \"" + project + "\"");
+        } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -311,16 +332,16 @@ public class App {
             return;
         }
         String employee = arguments.next();
-        if (!arguments.hasNext()){
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
             return;
         }
-        String hours = arguments.next();
-        if (!arguments.hasNext()){
+        int hours = arguments.nextInt();
+        if (!arguments.hasNextInt()){
             System.out.println("Usage: registerTimeDaily <project> <activityName> <employee> <hours> <minutes>");
             return;
         }
-        String minutes = arguments.next();
+        int minutes = arguments.nextInt();
         try {
             systemApp.registerTimeDaily(project, activityName, employee, hours, minutes);
             System.out.println("employee has registered " + hours + " to " + activityName);
@@ -346,46 +367,43 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            int hours = systemApp.checkRegisteredTimeDaily(project,activityName,employee);
+            double hours = systemApp.checkRegisteredTimeDaily(project,activityName,employee);
             System.out.println(employee + " has registered" + hours + " to " + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
     }
 
+
+
+
     private void listProjects() {
-        List<Project> projects = systemApp.getProjects();
-        for (int i = 0; i < projects.size(); i++) {
-            System.out.printf("\tProject %2d: %s#%d\n", (i+1), projects.get(i).getName(), projects.get(i).getId());
+        Map<Integer, String> projects = systemApp.listProjects();
+        int i = 1;
+        for (int id : projects.keySet()) {
+            System.out.printf("\tProject %2d: %s#%d\n", i, projects.get(id), id);
         }
     }
 
     private void listActivities(String projectName) {
         Project project;
-        List<Activity> activities;
+        List<String> activities;
         try {
-            project = systemApp.getProject(projectName);
-        } catch (Exception e) {
-            System.out.println("Project \"" + projectName + "\" does not exist");
-            return;
-        }
-
-        try {
-            activities = project.getActivities();
+            activities = systemApp.listProjectActivities(projectName);
         } catch (Exception e) {
             System.out.println("Project \"" + projectName + "\" has no activities");
             return;
         }
 
         for (int i = 0; i < activities.size(); i++) {
-            System.out.printf("\tActivity %2d: %s\n", (i+1), activities.get(i).getName());
+            System.out.printf("\tActivity %2d: %s\n", (i+1), activities.get(i));
         }
     }
 
     private void listEmployees() {
-        List<Employee> employees = systemApp.getEmployees();
+        List<String> employees = systemApp.listEmployees();
         for (int i = 0; i < employees.size(); i++) {
-            System.out.printf("\tEmployee %2d: %s\n", (i+1), employees.get(i).name());
+            System.out.printf("\tEmployee %2d: %s\n", (i+1), employees.get(i));
         }
     }
 
@@ -396,7 +414,7 @@ public class App {
         }
         String next = arguments.next().toLowerCase();
         if (next.equals("projects")) {
-            listProjects();
+            System.out.println(systemApp.listProjects());
             return;
         } else if (next.equals("employees")) {
             listEmployees();
@@ -411,26 +429,26 @@ public class App {
     }
 
     private void infoProject(String projectName) {
-        Project project;
+        String name;
+        String id;
         try {
-            project = systemApp.getProject(projectName);
+            name = systemApp.getProjectName(projectName);
+            id = "" + systemApp.getProjectIds(projectName);
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
             return;
         }
-        String name = project.getName();
-        String id = "" + project.getId();
         String leader;
         String customer;
         String startDate;
         String endDate;
         try {
-            leader = project.getProjectLeader().name();
+            leader = systemApp.getProjectLeader(name);
         } catch (Exception e) {
             leader = "<none>";
         }
         try {
-            customer = project.getCustomer();
+            customer = systemApp.getProjectCustomer(name);
             if (customer == null) {
                 customer = "<none>";
             }
@@ -438,17 +456,17 @@ public class App {
             customer = "<none>";
         }
         try {
-            int startDateDay = project.getStartDate().get(Calendar.DAY_OF_MONTH);
-            int startDateMonth = project.getStartDate().get(Calendar.MONTH) + 1;
-            int startDateYear = project.getStartDate().get(Calendar.YEAR);
+            int startDateDay = systemApp.getProjectStartDate(name).get(Calendar.DAY_OF_MONTH);
+            int startDateMonth = systemApp.getProjectStartDate(name).get(Calendar.MONTH) + 1;
+            int startDateYear = systemApp.getProjectStartDate(name).get(Calendar.YEAR);
             startDate = startDateDay + "/" + startDateMonth + "/" + startDateYear;
         } catch (Exception e) {
             startDate = "<none>";
         }
         try {
-            int endDateDay = project.getEndDate().get(Calendar.DAY_OF_MONTH);
-            int endDateMonth = project.getEndDate().get(Calendar.MONTH) + 1;
-            int endDateYear = project.getEndDate().get(Calendar.YEAR);
+            int endDateDay = systemApp.getProjectEndDate(name).get(Calendar.DAY_OF_MONTH);
+            int endDateMonth = systemApp.getProjectEndDate(name).get(Calendar.MONTH) + 1;
+            int endDateYear = systemApp.getProjectEndDate(name).get(Calendar.YEAR);
             endDate = endDateDay + "/" + endDateMonth + "/" + endDateYear;
         } catch (Exception e) {
             endDate = "<none>";
@@ -502,6 +520,8 @@ public class App {
                 case "registeremployee":
                     registerEmployee(arguments);
                     break;
+
+                // Project commands
                 case "createproject":
                     createProject(arguments);
                     break;
@@ -520,9 +540,8 @@ public class App {
                 case "assignprojectleader":
                     assignProjectLeader(arguments);
                     break;
-                case "createactivity":
-                    createActivity(arguments);
-                    break;
+
+                // Firm activity commands
                 case "createfirmactivity":
                     createFirmActivity(arguments);
                     break;
@@ -532,12 +551,22 @@ public class App {
                 case "checkregisteredfirmactivity":
                     checkRegisteredFirmActivity(arguments);
                     break;
+
+                // Activity commands
+                case "createactivity":
+                    createActivity(arguments);
+                    break;
+                case "assignemployee":
+                    assignEmployee(arguments);
+                    break;
                 case "registertimedaily":
                     registerTimeDaily(arguments);
                     break;
                 case "checkregisteredtimedaily":
                     checkRegisteredTimeDaily(arguments);
                     break;
+
+                // Help commands
                 case "list":
                     list(arguments);
                     break;

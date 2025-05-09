@@ -16,11 +16,7 @@ public class CalendarConverter {
     }
 
     public static Calendar getCalendar(int day, int month, int year) throws SystemAppException {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        Calendar calendar = getToday();
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.YEAR, year);
