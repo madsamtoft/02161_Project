@@ -8,11 +8,11 @@ Feature: Register Employee in System
 
   Scenario: Fail to add employee with too long id
     When registering an employee with identifier "asdfg"
-    Then error message "Employee username must be up to 1-4 letters" is given
+    Then error message "Employee username must be 1-4 letters" is given
 
   Scenario: Fail to add employee with numbers in id
     When registering an employee with identifier "emp1"
-    Then error message "Employee username must be up to 1-4 letters" is given
+    Then error message "Employee username must be 1-4 letters" is given
 
   Scenario: Fail to add duplicate employee
     When registering an employee with identifier "asdf"
