@@ -478,7 +478,7 @@ public class App {
             systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
             System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
-            System.out.println();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -517,7 +517,7 @@ public class App {
             double hours = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
             System.out.println(employee + " has registered " + hours + " to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
-            System.out.println();
+            System.out.println(e.getMessage());
         }
     }
     private void checkRegisteredTime(Scanner arguments) {
@@ -540,19 +540,31 @@ public class App {
         }
 
     }
+    public void setActivityEstimatedHours(Scanner arguments){
+        if(!arguments.hasNext()){
+            System.out.println("Usage: setActivityEstimatedHours <project> <activity> <hours>");
+            return;
+        }
+        String project = arguments.next();
+        if(!arguments.hasNext()){
+            System.out.println("Usage: setActivityEstimatedHours <project> <activity> <hours>");
+            return;
+        }
+        String activity = arguments.next();
+        if(!arguments.hasNextInt()){
+            System.out.println("Usage: setActivityEstimatedHours <project> <activity> <hours>");
+            return;
+        }
+        int hours = arguments.nextInt();
+        try{
+            systemApp.setActivityEstimatedHours(actor,project,activity,hours);
+            System.out.println("Estimated Hours successfully changed in activity \"" + activity + "\" in project \"" + project + " to " + hours + " Hours" );
+        } catch (SystemAppException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
 
-//    private void registerTimeActivity(Scanner arguments){
-//        if(!arguments.hasNext()){
-//            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
-//
-//        }
-//        try{
-//
-//        } catch (SystemAppException e){
-//            System.out.println();
-//        }
-//    }
 
 
     private void listProjects() {
@@ -740,10 +752,10 @@ public class App {
                 case "assignemployee":
                     assignEmployee(arguments);
                     break;
-                case "changeactivitystartdate":
+                case "changeactivitystartweek":
                     changeActivityStartWeek(arguments);
                     break;
-                case "changeactivityenddate":
+                case "changeactivityendweek":
                     changeActivityEndWeek(arguments);
                     break;
                 case "registertimedaily":
@@ -757,6 +769,9 @@ public class App {
                     break;
                 case "checkregisteredtimeactivity":
                     checkRegisteredTimeActivity(arguments);
+                    break;
+                case "setactivityestimatedhours":
+                    setActivityEstimatedHours(arguments);
                     break;
 
                 // Help commands
