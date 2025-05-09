@@ -5,28 +5,28 @@ Feature: Assign Employee
     Given a project
 #    And a project leader
 #      Comment: A project leader is not needed on the project to test
-    And it has an activity
+#    And it has 1 activities
     And "huba" exists as employee
 #    And "buba", "bepo", "nepo" exist as employees
 
   Scenario: Successfully add employee to an activity
-    Given "huba" is assigned to 0 activities
+    Given it has 1 activities
+    And "huba" is assigned to 0 activities
     And "huba" is not assigned to the activity in the project
     When "huba" is assigned to the activity in the project
     Then "huba" is successfully assigned to the activity in the project
 
   Scenario: The employee is already assigned to the given activity
-    Given "huba" is assigned to 0 activities
+    Given it has 1 activities
+    And "huba" is assigned to 0 activities
     And "huba" is not assigned to the activity in the project
     When "huba" is assigned to the activity in the project
     Then "huba" is successfully assigned to the activity in the project
     When "huba" is assigned to the activity in the project
     Then error message "Employee is already assigned to this activity" is given
 
-#    Scenario: The employee is already assigned to 20 activities
-#        And "huba" is assigned to 20 activities
-#        And "e" is not assigned to "a" in "p"
-#        When "e" is assigned to "a" in "p"
-#        Then "e" wont be assigned to "a" in "p"
-#        And error message "Too Many Activities" is given
-#
+  Scenario: The employee is already assigned to 20 activities
+    Given it has 21 activities
+    And "huba" is assigned to 20 activities
+    When "huba" is assigned to activity "act21"
+    Then error message "Too Many Activities" is given

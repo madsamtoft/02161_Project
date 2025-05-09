@@ -24,7 +24,7 @@ public class ProjectSteps {
 //    private List<Employee> someEmployees = new ArrayList<>();
 //    private List<Employee> availableEmployees;
 
-    private static final String DEFAULT_ACTIVITY_NAME = "chjk";
+    private static final String DEFAULT_ACTIVITY_NAME = "act";
 
     @When("creating a new project named {string}")
     public void creatingANewProjectNamed(String string) {
@@ -226,10 +226,12 @@ public class ProjectSteps {
     }
 
     //// ACTIVITY STEPS
-    @Given("it has an activity")
-    public void itHasAnActivity() {
+    @Given("it has {int} activities")
+    public void itHasAnActivity(int activityAmount) {
         try {
-            systemApp.createActivity(someEmployee, someProject, someActivity);
+            for(int i = 0; i < activityAmount; i++) {
+                systemApp.createActivity(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+(i+1));
+            }
 //            systemApp.getProject(someProject).createActivity(someEmployee, someActivity);
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -430,10 +432,13 @@ public class ProjectSteps {
     // ASSIGN EMPLOYEE
     @Given("{string} is assigned to {int} activities")
     public void isAssignedToActivities(String employeeName, Integer activityCount) {
-        //for (int i = 0; i < activityCount; i++) {
-            //systemApp.assignEmployeeToActivity(someProject, someActivity+(i+1), employeeName);
-        //}
-
+        try{
+            for (int i = 0; i < activityCount; i++) {
+                systemApp.assignEmployeeToActivity(someProject, DEFAULT_ACTIVITY_NAME+(i+1), employeeName);
+            }
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
     }
 
     @Given("{string} is not assigned to the activity in the project")
@@ -445,6 +450,16 @@ public class ProjectSteps {
     public void isAssignedToTheActivityInTheProject(String employeeName) {
         try {
             systemApp.assignEmployeeToActivity(someProject, someActivity, someEmployee);
+//            Employee employee = systemApp.getEmployee(someEmployee);
+//            systemApp.getProject(someProject).getActivity(someActivity).assignEmployee(employee);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+    @When("{string} is assigned to activity {string}")
+    public void isAssignedToTheActivity(String employeeName, String activityName) {
+        try {
+            systemApp.assignEmployeeToActivity(someProject, activityName, someEmployee);
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            systemApp.getProject(someProject).getActivity(someActivity).assignEmployee(employee);
         } catch (Exception e) {

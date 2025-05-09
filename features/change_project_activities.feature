@@ -6,7 +6,7 @@ Feature: Change Project Activities
 #    And a project leader
 #      Comment: A project leader is not needed on the project to test
     And "huba" exists as employee
-    And it has an activity
+    And it has 1 activities
 
   Scenario: Change project name by project leader
     Given employee is the leader of the project
@@ -22,7 +22,7 @@ Feature: Change Project Activities
 
 #  Scenario: Start- and end week set by non-project leader for an activity
 #    Given a project
-#    And it has an activity
+#    And it has 1 activities
 #    Given "huba" is not the leader of the project
 #    When the start week is set to 1 in year 2020
 #    And the end week is set to 12 in year 2020
@@ -35,7 +35,7 @@ Feature: Change Project Activities
 #
 #  Scenario: Ser estimated hours for an activity without being project leader
 #    Given a project
-#    And it has an activity
+#    And it has 1 activities
 #    And the user is not the leader of the project
 #    When setting the estimated hours of an activity to "100"
 #    Then error message "Not Project Leader" is given
