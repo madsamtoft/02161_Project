@@ -517,6 +517,37 @@ public class ProjectSteps {
         }
     }
 
+    @And("the employee has already registered {int} hours to a activity")
+    public void theEmployeeHasAlreadyRegisteredHoursToAActivity(int arg0) {
+        try {
+            systemApp.registerTimeActivity(someEmployee,someProject,DEFAULT_ACTIVITY_NAME,arg0,0,1,1,2023);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("an employee checks daily registered hours")
+    public void anEmployeeChecksDailyRegisteredHours() {
+        try {
+            systemApp.checkRegisteredTimeDaily(someProject, DEFAULT_ACTIVITY_NAME, someEmployee);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+    @Then("{int} hours is returned")
+    public void hoursIsReturned(int hours) {
+        double checkHours = -1;
+        try {
+            checkHours = systemApp.checkRegisteredTimeDaily(someProject, DEFAULT_ACTIVITY_NAME, someEmployee);
+            assertEquals(hours,checkHours);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+            fail();
+        }
+
+    }
+
+
     @Then("{string} has registered {int} hours and {int} minutes to day {int}, month {int}, and year {int} to Activity {string}")
     public void hasRegisteredHoursAndMinutesToDayMonthAndYearToActivity(String employeeName, int fullHours, int minutes , int day, int month, int year, String activity){
         double hours = fullHours + (minutes/60.);
@@ -563,6 +594,9 @@ public class ProjectSteps {
         assertTrue(systemApp.employeeExists(employeeID));
     }
 
+
+
+
 //    @And("there exists a firm activity")
 //    public void thereExistsAFirmActivity() {
 //        try {
@@ -597,4 +631,7 @@ public class ProjectSteps {
 //        // For other transformations you can register a DataTableType.
 //        throw new io.cucumber.java.PendingException();
 //    }
+
+
+
 }
