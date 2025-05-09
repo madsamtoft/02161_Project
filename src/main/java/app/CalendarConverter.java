@@ -3,18 +3,6 @@ package app;
 import java.util.Calendar;
 
 public class CalendarConverter {
-    public static Calendar getCalendarFromString(String day, String month, String year) throws SystemAppException {
-        Calendar calendar = Calendar.getInstance();
-        try {
-            int dayInt = Integer.parseInt(day);
-            int monthInt = Integer.parseInt(month);
-            int yearInt = Integer.parseInt(year);
-            return getCalendar(dayInt, monthInt, yearInt);
-        } catch (NumberFormatException e) {
-            throw new SystemAppException("Invalid calendar date");
-        }
-    }
-
     public static Calendar getCalendar(int day, int month, int year) throws SystemAppException {
         Calendar calendar = getToday();
         calendar.set(Calendar.DAY_OF_MONTH, day);

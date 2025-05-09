@@ -94,24 +94,24 @@ public class App {
             return;
         }
         String project = arguments.next();
-        if (!arguments.hasNext()) {
+        if (!arguments.hasNextInt()) {
             System.out.println("Usage: changeProjectStartDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String day = arguments.next();
-        if (!arguments.hasNext()) {
+        int day = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
             System.out.println("Usage: changeProjectStartDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String month = arguments.next();
-        if (!arguments.hasNext()) {
+        int month = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
             System.out.println("Usage: changeProjectStartDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String year = arguments.next();
+        int year = arguments.nextInt();
         Calendar date;
         try {
-            date = CalendarConverter.getCalendarFromString(day, month, year);
+            date = CalendarConverter.getCalendar(day, month, year);
         } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;
@@ -132,24 +132,24 @@ public class App {
         }
 
         String project = arguments.next();
-        if (!arguments.hasNext()) {
+        if (!arguments.hasNextInt()) {
             System.out.println("Usage: changeProjectEndDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String day = arguments.next();
-        if (!arguments.hasNext()) {
+        int day = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
             System.out.println("Usage: changeProjectEndDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String month = arguments.next();
-        if (!arguments.hasNext()) {
+        int month = arguments.nextInt();
+        if (!arguments.hasNextInt()) {
             System.out.println("Usage: changeProjectEndDate <project> <dd> <mm> <yyyy>");
             return;
         }
-        String year = arguments.next();
+        int year = arguments.nextInt();
         Calendar date;
         try {
-            date = CalendarConverter.getCalendarFromString(day, month, year);
+            date = CalendarConverter.getCalendar(day, month, year);
         } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;
