@@ -329,6 +329,30 @@ public class App {
 //        }
 //    }
 
+//    private void checkRegisteredTimeDaily(Scanner arguments){
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+//            return;
+//        }
+//        String project = arguments.next();
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+//            return;
+//        }
+//        String activityName = arguments.next();
+//        if (!arguments.hasNext()){
+//            System.out.println("Usage: checkRegisteredTimeDaily <project> <activityName> <employee>");
+//            return;
+//        }
+//        String employee = arguments.next();
+//        try {
+//            int hours = systemApp.checkRegisteredTimeDaily(project,activityName,employee);
+//            System.out.println(employee + " has registered" + hours + " to " + activityName);
+//        } catch (SystemAppException e){
+//            System.out.println(e.getMessage());
+//        }
+//    }
+
     private void listProjects() {
         List<Project> projects = systemApp.getProjects();
         for (int i = 0; i < projects.size(); i++) {
@@ -510,6 +534,9 @@ public class App {
 //                    break;
 //                case "registertimedaily":
 //                    registerTimeDaily(arguments);
+//                    break;
+//                case "checkregisteredtimedaily":
+//                    checkRegisteredTimeDaily(arguments);
 //                    break;
                 case "list":
                     list(arguments);
