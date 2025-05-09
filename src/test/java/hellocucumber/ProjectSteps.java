@@ -433,26 +433,26 @@ public class ProjectSteps {
     }
 
     // ASSIGN EMPLOYEE
-    @Given("{string} is assigned to {int} activities")
-    public void isAssignedToActivities(String employeeName, Integer activityCount) {
+    @Given("the employee is assigned to {int} activities")
+    public void isAssignedToActivities(Integer activityCount) {
         try{
             for (int i = 0; i < activityCount; i++) {
-                systemApp.assignEmployeeToActivity(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+(i+1), employeeName);
+                systemApp.assignEmployeeToActivity(someEmployee, someProject, DEFAULT_ACTIVITY_NAME+(i+1), someEmployee);
             }
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
 
-    @Given("{string} is not assigned to the activity in the project")
-    public void isNotAssignedToTheActivityInTheProject(String employeeName) {
+    @Given("the employee is not assigned to the activity in the project")
+    public void isNotAssignedToTheActivityInTheProject() {
 
     }
 
-    @When("{string} is assigned to the activity in the project")
-    public void isAssignedToTheActivityInTheProject(String employeeName) {
+    @When("the employee is assigned to the activity in the project")
+    public void isAssignedToTheActivityInTheProject() {
         try {
-            systemApp.assignEmployeeToActivity(employeeName, someProject, someActivity, employeeName);
+            systemApp.assignEmployeeToActivity(someEmployee, someProject, someActivity, someEmployee);
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            systemApp.getProject(someProject).getActivity(someActivity).assignEmployee(employee);
         } catch (Exception e) {
@@ -460,19 +460,19 @@ public class ProjectSteps {
         }
     }
 
-    @When("{string} is assigned to activity {string}")
-    public void isAssignedToTheActivity(String employeeName, String activityName) {
+    @When("the employee is assigned to activity {string}")
+    public void isAssignedToTheActivity(String activityName) {
         try {
-            systemApp.assignEmployeeToActivity(employeeName, someProject, activityName, employeeName);
+            systemApp.assignEmployeeToActivity(someEmployee, someProject, activityName, someEmployee);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
 
-    @Then("{string} is successfully assigned to the activity in the project")
-    public void isSuccessfullyAssignedToTheActivityInTheProject(String employeeName) {
+    @Then("the employee is successfully assigned to the activity in the project")
+    public void isSuccessfullyAssignedToTheActivityInTheProject() {
         try {
-            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, employeeName));
+            assertTrue(systemApp.hasEmployeeAssignedToActivity(someProject, someActivity, someEmployee));
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            assertTrue(systemApp.getProject(someProject).getActivity(someActivity).employeeAssigned(employee));
         } catch (Exception e) {
