@@ -234,8 +234,8 @@ public class SystemApp {
     }
 
 
-    public void assignEmployeeToActivity(String project, String activity, String employee) throws SystemAppException {
-        getProject(project).assignEmployeeToActivity(activity, getEmployee(employee));
+    public void assignEmployeeToActivity(String actor, String project, String activity, String employee) throws SystemAppException {
+        getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employee));
     }
 
     public boolean hasEmployeeAssignedToActivity(String project, String activity, String employee) throws SystemAppException {

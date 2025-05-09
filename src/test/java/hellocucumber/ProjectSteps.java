@@ -444,7 +444,7 @@ public class ProjectSteps {
     @When("{string} is assigned to the activity in the project")
     public void isAssignedToTheActivityInTheProject(String employeeName) {
         try {
-            systemApp.assignEmployeeToActivity(someProject, someActivity, someEmployee);
+            systemApp.assignEmployeeToActivity(employeeName, someProject, someActivity, employeeName);
 //            Employee employee = systemApp.getEmployee(someEmployee);
 //            systemApp.getProject(someProject).getActivity(someActivity).assignEmployee(employee);
         } catch (Exception e) {
