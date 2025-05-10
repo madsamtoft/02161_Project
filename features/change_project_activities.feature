@@ -11,6 +11,11 @@ Feature: Change Project Activities
     When the name of the activity is changed to "newName"
     Then the name of the activity is "newName"
 
+  Scenario: Change project name by non project leader
+    Given employee is not the leader of the project
+    When the name of the activity is changed to "newName"
+    Then error message "Employee is not Project Leader" is given
+
   Scenario: Start- and end week set by project leader for an activity
     Given employee is the leader of the project
     When the start week is set to 1 in year 2020
