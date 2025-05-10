@@ -90,7 +90,8 @@ public class Project {
     public void createActivity(String actor, String activityName) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
-        } else if (activities.stream().anyMatch(a -> activityName.equals(a.getName()))) {
+//        } else if (activities.stream().anyMatch(a -> activityName.equals(a.getName()))) {
+        } else if (activityExists(activityName)) {
             throw new SystemAppException("Activity Name already taken");
         }
         else {
@@ -159,20 +160,17 @@ public class Project {
         return getActivity(activityName).checkRegisteredTotal(employee);
     }
 
-    public void setActivityName(String actor, String activity, String name) throws SystemAppException {
+    public void setActivityName(String actor, String activity, String newName) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
+        } else if (activityExists(newName)) {
+            throw new SystemAppException("Activity Name already taken");
         }
-        getActivity(activity).setName(name);
+        getActivity(activity).setName(newName);
     }
 
     public boolean activityExists(String activityName) {
-        for (Activity activity : activities) {
-            if (activityName.equals(activity.getName())) {
-                return true;
-            }
-        }
-        return false;
+        return activities.stream().anyMatch(a -> activityName.equals(a.getName()));
     }
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
