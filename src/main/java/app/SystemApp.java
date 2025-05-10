@@ -14,7 +14,7 @@ public class SystemApp {
     }
 
     private boolean projectExists(String name) {
-        return projects.stream().anyMatch(p -> p.getName().equals(name.toLowerCase()));
+        return projects.stream().anyMatch(p -> p.getName().equals(name));
     }
 
     private int getNewProjectId() {

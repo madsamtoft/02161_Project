@@ -42,6 +42,11 @@ Feature: Change Project
     When setting project name to "new"
     Then error message "Employee is not Project Leader" is given
 
+  Scenario: set already used name for a project
+    When creating a new project named "OtherProject"
+    And setting project name to "OtherProject"
+    Then error message "Project with that name already exists" is given
+
   Scenario: set new customer for a project as project leader
     Given employee is the leader of the project
     When setting project customer to "badabing"
