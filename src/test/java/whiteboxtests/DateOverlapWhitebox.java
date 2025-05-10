@@ -1,7 +1,6 @@
 package whiteboxtests;
 
 import app.CalendarConverter;
-import app.SystemAppException;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
