@@ -211,6 +211,10 @@ public class Project {
         return getActivity(activity).getEstimatedHours();
     }
 
+    public double getActivityTotalHours(String activity) throws SystemAppException {
+        return getActivity(activity).getTotalHours();
+    }
+
     public boolean hasEmployeeAssignedToActivity(String activity, Employee employee) throws SystemAppException {
         return getActivity(activity).employeeAssigned(employee);
     }
@@ -235,6 +239,8 @@ public class Project {
         }
         return occupiedEmployeeNames;
     }
+
+
 
 //    public Map<Activity, Integer> checkRegisteredDaily(String activity, Employee employee) {
 //        // TODO: Implement. It cannot return activities as this is not allowed
