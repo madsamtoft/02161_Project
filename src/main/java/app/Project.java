@@ -224,12 +224,12 @@ public class Project {
 
         for (Activity activity: activities) {
             if(activity.employeeAssigned(employee)) {
-                if(!CalendarConverter.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {
+                if(CalendarConverter.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {
                     sum += 1;
                 }
             }
         }
-        return 0;
+        return sum;
     }
 
     public List<String> getOccupiedEmployees() {

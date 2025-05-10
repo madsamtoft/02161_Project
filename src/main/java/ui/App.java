@@ -403,7 +403,8 @@ public class App {
         int minutes = arguments.nextInt();
         try {
             systemApp.registerTimeDaily(project, activityName, employee, hours, minutes);
-            System.out.println(hours + ":" + minutes + " have been registered to \"" + employee + "\" in activity" + activityName);
+            double registered = systemApp.checkRegisteredTimeDaily(project, activityName, employee);
+            System.out.println(registered + "hours have been registered to \"" + employee + "\" in activity" + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -477,7 +478,8 @@ public class App {
         int year = arguments.nextInt();
         try{
             systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
-            System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + activity + " at " + day+ "/" + month + "/" + year);
+            double registered = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
+            System.out.println(employee + " has registered " + registered + "hours to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
