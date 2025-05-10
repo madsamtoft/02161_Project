@@ -1,0 +1,34 @@
+public void registerEmployee(String name) throws SystemAppException {
+        if (name.isEmpty() || name.length() > 4) {                                         // 1
+            throw new SystemAppException("Employee username must be 1-4 letters");         // 2
+        }
+        if (!name.toLowerCase().matches("[a-z]+")) {                                       // 3
+            throw new SystemAppException("Employee username must be 1-4 letters");         // 4
+        }
+        if (employeeExists(name)) {                                                        // 5
+            throw new SystemAppException("An employee with that username already exists"); // 6
+        }
+        employees.add(new Employee(name.toLowerCase()));                                   // 7
+    }
+
+TABLE 1
+
+paths                           input		input property
+1(true),2                       A           The name given does not match the length criteria
+1(false),3(true),4              B           The name given matches the length criteria but does not the letters only criteria
+1(false),3(false),5(true),6     C           The name given matches both the length and letters only criteria but employees contains an employee with name name
+1(false),3(false),5(false),7    D           The name given matches both the length and letters only criteria and employees does not contain an employee with name name
+
+TABLE 2
+input set   input data                          expected results
+A           name = "Sebastian1"                 Exception with message "Employee username must be 1-4 letters" is thrown
+            employees = ["huba", "seba"]
+
+B           name = "Seb1"                       Exception with message "Employee username must be 1-4 letters" is thrown
+            employees = ["huba", "seba"]
+
+C           name = "Seba"                       Exception with message "An employee with that username already exists" is thrown
+            employees = ["huba", "seba"]
+
+D           name = "Seba"                       employees contains an employee with name "seba"
+            employees = ["huba"]
