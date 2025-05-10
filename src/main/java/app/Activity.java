@@ -68,9 +68,8 @@ public class Activity {
         return employeeDateHours.get(employee).get(getToday());
     }
 
-    // not done yet (karl)
     public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
-        //assert fullHours >= 0 && minutes >= 0:"precondition";
+        assert fullHours >= 0 && minutes >= 0:"precondition";
 
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
@@ -86,7 +85,7 @@ public class Activity {
             throw new SystemAppException("Cannot work more than 24 hours a day");
         }
         dateHours.put(date,putHours);
-        //assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) :"postcondition" ;
+        assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) :"postcondition" ;
     }
 
     public double checkRegistered(Employee employee, Calendar date ) throws SystemAppException {

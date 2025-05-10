@@ -235,7 +235,7 @@ public class App {
         try {
             systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
             System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
-        } catch (SystemAppException e){
+        } catch (Exception e){
             System.out.println((e.getMessage()));
         }
     }
@@ -776,7 +776,7 @@ public class App {
                     registerTimeDaily(arguments);
                     break;
                 case "checkregisteredtimedaily":
-                    checkRegisteredTime(arguments);
+                    checkRegisteredTimeDaily(arguments);
                     break;
                 case "registertimeactivity":
                     registerTimeActivity(arguments);
