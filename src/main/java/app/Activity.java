@@ -62,10 +62,7 @@ public class Activity {
     }
 
     public double checkRegisteredDaily(Employee employee) {
-        if (!employeeDateHours.containsKey(employee) || !employeeDateHours.get(employee).containsKey(getToday())) {
-            return 0;
-        }
-        return employeeDateHours.get(employee).get(getToday());
+        return checkRegistered(employee, getToday());
     }
 
     public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
@@ -88,11 +85,15 @@ public class Activity {
         assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) :"postcondition" ;
     }
 
-    public double checkRegistered(Employee employee, Calendar date ) throws SystemAppException {
-        if (!employeeDateHours.containsKey(employee) || !employeeDateHours.get(employee).containsKey(date)) {
+    public double checkRegistered(Employee employee, Calendar date ) {
+        if (!employeeDateHours.containsKey(employee)) {
             return 0;
         }
-        return employeeDateHours.get(employee).get(date);
+        Map<Calendar, Double> dateHours = employeeDateHours.get(employee);
+        if (!dateHours.containsKey(date)) {
+            return 0;
+        }
+        return dateHours.get(date);
     }
 
     public double checkRegisteredTotal(Employee employee) {
