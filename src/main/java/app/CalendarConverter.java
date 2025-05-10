@@ -22,7 +22,7 @@ public class CalendarConverter {
 
     public static Calendar getCalendar(int week, int year) throws SystemAppException {
         Calendar calendar = getToday();
-        // TODO: set day of week to 0
+        calendar.set(Calendar.DAY_OF_WEEK, 0);
         calendar.set(Calendar.WEEK_OF_YEAR, week);
         calendar.set(Calendar.YEAR, year);
 
