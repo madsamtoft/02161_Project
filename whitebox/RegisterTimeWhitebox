@@ -1,0 +1,40 @@
+public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
+    Map<Calendar, Double> dateHours;						                    //1
+    if (employeeDateHours.containsKey(employee)) {					            //2
+        dateHours = employeeDateHours.get(employee);				            //3
+    } else {
+        dateHours = new HashMap<>();						                    //4
+        employeeDateHours.put(employee, dateHours);					            //5
+    }
+
+    double hours = fullHours + (minutes/60.);					                //6
+    double putHours = Math.ceil(hours*2) / 2.;					                //7
+    if (putHours > 24.) {								                        //8
+        throw new SystemAppException("Cannot work more than 24 hours a day");	//9
+    }
+    dateHours.put(date,putHours);							                    //10
+}
+
+
+
+TABLE 1
+
+paths				            input		input property
+1,2(true),6,7,8(true),9		    A		    Employee exists in activity and tries to input more than 24 hours
+1,2(true),6,7,8(false),10	    B		    Employee exists in activity and inputs 24 or less hours
+1,2(false),6,7,8(true),9	    C		    Employee doesn't exist in activity and is added and tries to input more than 24 hours
+1,2(false),6,7,8(false),10	    D		    Employee doesn't exist in activity and is added inputs 24 or less hours
+
+TABLE 2
+input set	input data						                        expected results
+A		    employeeDateHours = Map<"Huba",Map<Calendar,4.>>	    Exception with message "Cannot work more than 24 hours a day" is thrown
+		    Hours = 25
+
+B		    employeeDateHours = Map<"Huba",Map<Calendar,4.>>	    employeeDateHours is updated to contain "Huba" and a map containing a date and 4 hours
+		    Hours = 4
+
+C		    employeeDateHours is empty				                Exception with message "Cannot work more than 24 hours a day" is thrown
+		    hours = 25
+
+D		    employeeDateHours is empty				                employeeDateHours is updated to contain "Huba" and a map containing a date and 4 hours
+		    hours = 4
