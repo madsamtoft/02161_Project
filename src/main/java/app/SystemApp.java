@@ -33,15 +33,11 @@ public class SystemApp {
         projects.add(new Project(name, getNewProjectId()));
     }
 
-    public void changeProjectName( String actor, String project, String name) throws SystemAppException {
-        try  {
-            getProject(name);
+    public void changeProjectName( String actor, String project, String newName) throws SystemAppException {
+        if (projectExists(newName)) {
+            throw new SystemAppException("Project with that name already exists");
         }
-        catch(Exception e){
-            getProject(project).setName(actor, name);
-        }
-        throw new SystemAppException("Project with that name already exists");
-
+        getProject(project).setName(actor, newName);
     }
 
     public void changeProjectStartDate(String actor, String project, Calendar startDate) throws SystemAppException {
