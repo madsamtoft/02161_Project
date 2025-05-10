@@ -33,15 +33,11 @@ public class SystemApp {
         projects.add(new Project(name, getNewProjectId()));
     }
 
-    public void changeProjectName( String actor, String project, String name) throws SystemAppException {
-        try  {
-            getProject(name);
+    public void changeProjectName( String actor, String project, String newName) throws SystemAppException {
+        if (projectExists(newName)) {
+            throw new SystemAppException("Project with that name already exists");
         }
-        catch(Exception e){
-            getProject(project).setName(actor, name);
-        }
-        throw new SystemAppException("Project with that name already exists");
-
+        getProject(project).setName(actor, newName);
     }
 
     public void changeProjectStartDate(String actor, String project, Calendar startDate) throws SystemAppException {
@@ -57,7 +53,10 @@ public class SystemApp {
     }
 
     public void registerEmployee(String name) throws SystemAppException {
-        if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
+        if (name.isEmpty() || name.length() > 4) {
+            throw new SystemAppException("Employee username must be 1-4 letters");
+        }
+        if (!name.toLowerCase().matches("[a-z]+")) {
             throw new SystemAppException("Employee username must be 1-4 letters");
         }
         if (employeeExists(name)) {
@@ -258,8 +257,9 @@ public class SystemApp {
     public void assignEmployeeToActivity(String actor, String project, String activity, String employeeName) throws SystemAppException {
         if(numberOfAssignedActivities(employeeName, project, activity) < 20){
             getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employeeName));
+        } else {
+            throw new SystemAppException("Too Many Activities Assigned To Employee");
         }
-        throw new SystemAppException("Too Many Activities Assigned To Employee");
     }
 
     public int numberOfAssignedActivities(String employeeName, String projectName, String activityName) throws SystemAppException {
@@ -283,6 +283,24 @@ public class SystemApp {
             availableEmployeeNames.removeAll(project.getOccupiedEmployees());
         }
         return availableEmployeeNames;
+    }
+
+    public int getProjectEstimatedHours(String projectName) throws SystemAppException {
+        Project project = getProject(projectName);
+        int sum = 0;
+        for (String activity : project.listActivities()) {
+            sum += project.getActivityEstimatedHours(activity);
+        }
+        return sum;
+    }
+
+    public double getProjectTotalHours(String projectName) throws SystemAppException {
+        Project project = getProject(projectName);
+        double sum = 0;
+        for (String activity : project.listActivities()) {
+            sum += project.getActivityTotalHours(activity);
+        }
+        return sum;
     }
 
 //    checkWeeklyActivityAmount()

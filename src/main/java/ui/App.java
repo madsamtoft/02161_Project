@@ -403,7 +403,8 @@ public class App {
         int minutes = arguments.nextInt();
         try {
             systemApp.registerTimeDaily(project, activityName, employee, hours, minutes);
-            System.out.println("employee has registered " + hours + " to " + activityName);
+            double registered = systemApp.checkRegisteredTimeDaily(project, activityName, employee);
+            System.out.println(registered + "hours have been registered to \"" + employee + "\" in activity" + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -477,7 +478,8 @@ public class App {
         int year = arguments.nextInt();
         try{
             systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
-            System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + activity + " at " + day+ "/" + month + "/" + year);
+            double registered = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
+            System.out.println(employee + " has registered " + registered + "hours to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -521,6 +523,7 @@ public class App {
             System.out.println(e.getMessage());
         }
     }
+
     private void checkRegisteredTime(Scanner arguments) {
         if (!arguments.hasNext()) {
             System.out.println("Usage: checkRegisteredTime <project> <employee>");
@@ -541,6 +544,7 @@ public class App {
         }
 
     }
+
     public void setActivityEstimatedHours(Scanner arguments){
         if(!arguments.hasNext()){
             System.out.println("Usage: setActivityEstimatedHours <project> <activity> <hours>");
@@ -559,14 +563,11 @@ public class App {
         int hours = arguments.nextInt();
         try{
             systemApp.setActivityEstimatedHours(actor,project,activity,hours);
-            System.out.println("Estimated Hours successfully changed in activity \"" + activity + "\" in project \"" + project + " to " + hours + " Hours" );
+            System.out.println("Estimated Hours set to \"" + hours + " hours for activity" + activity + "\" in project \"" + project + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
     }
-
-
-
 
     private void listProjects() {
         Map<Integer, String> projects = systemApp.listProjects();
@@ -694,6 +695,33 @@ public class App {
         infoProject(projectName);
     }
 
+    private void generateReport(Scanner arguments){
+        if(!arguments.hasNext()){
+            System.out.println("Usage: generateReport <project>");
+            return;
+        }
+        String projectName = arguments.next();
+        double estimatedHours;
+        try {
+            estimatedHours = systemApp.getProjectEstimatedHours(projectName);
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        double totalHours;
+        try {
+            totalHours = systemApp.getProjectTotalHours(projectName);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
+
+        System.out.println("[" + projectName + "]:");
+        System.out.println("Estimated Hours.."+ estimatedHours);
+        System.out.println("Total Hours......"+ totalHours);
+    }
+
     public void login(Scanner arguments) {
         if (!arguments.hasNext()){
             System.out.println("Usage: login <name>");
@@ -721,6 +749,9 @@ public class App {
                 command = arguments.next();
             }
             switch (command.toLowerCase()) {
+                case "generatereport":
+                    generateReport(arguments);
+                    break;
                 case "registeremployee":
                     registerEmployee(arguments);
                     break;
