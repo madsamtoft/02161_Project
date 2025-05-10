@@ -57,7 +57,10 @@ public class SystemApp {
     }
 
     public void registerEmployee(String name) throws SystemAppException {
-        if (name.length() > 4 || !name.toLowerCase().matches("[a-z]+")) {
+        if (name.isEmpty() || name.length() > 4) {
+            throw new SystemAppException("Employee username must be 1-4 letters");
+        }
+        if (!name.toLowerCase().matches("[a-z]+")) {
             throw new SystemAppException("Employee username must be 1-4 letters");
         }
         if (employeeExists(name)) {
