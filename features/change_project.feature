@@ -5,9 +5,14 @@ Feature: Change Project
     Given a project
     And an employee
 
-  Scenario: set new project leader for a project
+  Scenario: set project leader for a project
     When setting employee as project leader
     Then the project leader is employee
+
+  Scenario: set project leader for a project
+    Given employee is not the leader of the project
+    When setting employee as project leader
+    Then error message "Employee is not Project Leader" is given
 
   Scenario: Start- and end date changed for a project
     Given employee is the leader of the project
