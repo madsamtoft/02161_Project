@@ -1,4 +1,4 @@
-package hellocucumber;
+package whiteboxtests;
 
 import app.SystemApp;
 import org.junit.jupiter.api.Test;
