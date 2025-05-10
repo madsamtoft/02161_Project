@@ -749,6 +749,7 @@ public class App {
             switch (command.toLowerCase()) {
                 case "generatereport":
                     generateReport(arguments);
+                    break;
                 case "registeremployee":
                     registerEmployee(arguments);
                     break;
