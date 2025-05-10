@@ -22,7 +22,7 @@ public class CalendarConverter {
 
     public static Calendar getCalendar(int week, int year) throws SystemAppException {
         Calendar calendar = getToday();
-        // TODO: set day of week to 0
+        calendar.set(Calendar.DAY_OF_WEEK, 0);
         calendar.set(Calendar.WEEK_OF_YEAR, week);
         calendar.set(Calendar.YEAR, year);
 
@@ -56,19 +56,24 @@ public class CalendarConverter {
     }
 
     public static boolean dateOverlap(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
+        assert (true);
         boolean s1null = start1 == null;
         boolean e1null = end1 == null;
         boolean s2null = start2 == null;
         boolean e2null = end2 == null;
+        boolean overlap = true;
 
         if(!(s1null | e1null | s2null | e2null)){
-            return (start1.getTimeInMillis() <= end2.getTimeInMillis()) & (start2.getTimeInMillis() <= end1.getTimeInMillis());
+            overlap = (start1.getTimeInMillis() <= end2.getTimeInMillis()) & (start2.getTimeInMillis() <= end1.getTimeInMillis());
+            return overlap;
         } else if(!(e1null | s2null)) {
-            return start2.getTimeInMillis() <= end1.getTimeInMillis();
+            overlap = start2.getTimeInMillis() <= end1.getTimeInMillis();
+            return overlap;
         } else if(!(e2null | s1null)) {
-            return start1.getTimeInMillis() <= end2.getTimeInMillis();
+            overlap = start1.getTimeInMillis() <= end2.getTimeInMillis();
+            return overlap;
         } else {
-            return true;
+            return overlap;
         }
     }
 }

@@ -1,11 +1,11 @@
-package hellocucumber;
+package whiteboxtests;
 
 import app.SystemApp;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
 
 
-public class WhiteBoxTests {
+public class RegisterTimeWhitebox {
     private SystemApp systemApp = new SystemApp();
     private String errorMessage;
 

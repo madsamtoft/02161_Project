@@ -24,6 +24,12 @@ Feature: Change Project Activities
     And the end week is set to 12 in year 2020
     Then error message "Employee is not Project Leader" is given
 
+  Scenario: Start- and end week set by project leader for an activity with invalid date
+    Given employee is the leader of the project
+    When the start week is set to -1 in year 2020
+    And the end week is set to 56 in year 2020
+    Then error message "Invalid calendar date" is given
+
   Scenario: Set estimated hours for an activity as project leader
     Given employee is the leader of the project
     When setting the estimated hours of an activity to 100

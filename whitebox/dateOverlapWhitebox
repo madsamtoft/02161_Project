@@ -1,0 +1,41 @@
+public static boolean dateOverlap(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
+    boolean s1null = start1 == null;                                                                                        //1
+    boolean e1null = end1 == null;                                                                                          //2
+    boolean s2null = start2 == null;                                                                                        //3
+    boolean e2null = end2 == null;                                                                                          //4
+
+    if(!(s1null | e1null | s2null | e2null)){                                                                               //5
+        return (start1.getTimeInMillis() <= end2.getTimeInMillis()) & (start2.getTimeInMillis() <= end1.getTimeInMillis()); //6
+    } else if(!(e1null | s2null)) {                                                                                         //7
+        return start2.getTimeInMillis() <= end1.getTimeInMillis();                                                          //8
+    } else if(!(e2null | s1null)) {                                                                                         //9
+        return start1.getTimeInMillis() <= end2.getTimeInMillis();                                                          //10
+    } else {
+        return true;                                                                                                        //11
+    }
+}
+
+TABLE 1
+
+paths                                           input	input property  
+1, 2, 3, 4, 5(false), 7(false), 9(false), 11    A       All dates have not been set
+1, 2, 3, 4, 5(false), 7(true), 8                B       Only end date of first and start date of second are set with overlap
+1, 2, 3, 4, 5(false), 7(true), 8                C       Only end date of first and start date of second are set with no overlap
+1, 2, 3, 4, 5(false), 7(false), 9(true), 10     D       Only start date of first and end date of second are set with overlap
+1, 2, 3, 4, 5(false), 7(false), 9(true), 10     E       Only start date of first and end date of second are set with no overlap
+1, 2, 3, 4, 5(true), 6                          F       All dates have been set and overlap
+1, 2, 3, 4, 5(true), 6                          G       All dates have been set but no overlap (first date is before second)
+1, 2, 3, 4, 5(true), 6                          H       All dates have been set but no overlap (second date is before first)
+
+
+
+TABLE 2
+input set	input data						                                            expected results
+A		    start1 = null, end1 = null, start2 = null, end2 = null                      true    
+B		    start1 = null, end1 = 1/2/2000, start2 = 1/1/2000, end2 = null              true
+C		    start1 = null, end1 = 1/1/2000, start2 = 1/2/2000, end2 = null              false
+D		    start1 = 1/1/2000, end1 = null, start2 = null, end2 = 1/2/2000              true
+E		    start1 = 1/2/2000, end1 = null, start2 = null, end2 = 1/1/2000              false
+F		    start1 = 1/1/2000, end1 = 30/6/2000, start2 = 1/6/2000, end2 = 1/12/2000    true
+G           start1 = 1/1/2000, end1 = 30/6/2000, start2 = 1/7/2000, end2 = 1/12/2000    false
+H           start1 = 1/7/2000, end1 = 1/12/2000, start2 = 1/1/2000, end2 = 30/6/2000    false
