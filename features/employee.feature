@@ -6,6 +6,10 @@ Feature: Register Employee in System
     When registering an employee with identifier "asdf"
     Then "asdf" is a registered employee
 
+  Scenario: Fail to add employee with blank id
+    When registering an employee with identifier ""
+    Then error message "Employee username must be 1-4 letters" is given
+
   Scenario: Fail to add employee with too long id
     When registering an employee with identifier "asdfg"
     Then error message "Employee username must be 1-4 letters" is given
