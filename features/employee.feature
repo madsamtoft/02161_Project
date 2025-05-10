@@ -23,3 +23,9 @@ Feature: Register Employee in System
     Then "asdf" is a registered employee
     When registering an employee with identifier "asdf"
     Then error message "An employee with that username already exists" is given
+
+  Scenario: Employee does not exist
+    Given a project
+    And it has 1 activities
+    When the employee with name "none" is assigned to the activity in the project
+    Then error message "Employee none does not exist" is given
