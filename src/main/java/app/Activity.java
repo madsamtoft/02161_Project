@@ -141,4 +141,14 @@ public class Activity {
             return new ArrayList<>();
         }
     }
+
+    public double getTotalHours() {
+        double totalHours = 0;
+        for (Map<Calendar, Double> dateHours : employeeDateHours.values()) {
+            for (double hours : dateHours.values()) {
+                totalHours += hours;
+            }
+        }
+        return totalHours;
+    }
 }

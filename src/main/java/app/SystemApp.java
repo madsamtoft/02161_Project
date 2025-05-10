@@ -258,8 +258,9 @@ public class SystemApp {
     public void assignEmployeeToActivity(String actor, String project, String activity, String employeeName) throws SystemAppException {
         if(numberOfAssignedActivities(employeeName, project, activity) < 20){
             getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employeeName));
+        } else {
+            throw new SystemAppException("Too Many Activities Assigned To Employee");
         }
-        throw new SystemAppException("Too Many Activities Assigned To Employee");
     }
 
     public int numberOfAssignedActivities(String employeeName, String projectName, String activityName) throws SystemAppException {
@@ -283,6 +284,24 @@ public class SystemApp {
             availableEmployeeNames.removeAll(project.getOccupiedEmployees());
         }
         return availableEmployeeNames;
+    }
+
+    public int getProjectEstimatedHours(String projectName) throws SystemAppException {
+        Project project = getProject(projectName);
+        int sum = 0;
+        for (String activity : project.listActivities()) {
+            sum += project.getActivityEstimatedHours(activity);
+        }
+        return sum;
+    }
+
+    public double getProjectTotalHours(String projectName) throws SystemAppException {
+        Project project = getProject(projectName);
+        double sum = 0;
+        for (String activity : project.listActivities()) {
+            sum += project.getActivityTotalHours(activity);
+        }
+        return sum;
     }
 
 //    checkWeeklyActivityAmount()
