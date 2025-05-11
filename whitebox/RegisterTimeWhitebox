@@ -1,3 +1,4 @@
+
 public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
     Map<Calendar, Double> dateHours;						                    //1
     if (employeeDateHours.containsKey(employee)) {					            //2
