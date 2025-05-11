@@ -18,11 +18,11 @@ public class SystemApp {
     }
 
     private int getNewProjectId() {
-        if (currentYear != SystemCalendar.getCurrentYear()) {
+        int currentYear = SystemCalendar.getCurrentYear();
+        if (this.currentYear != currentYear) {
             projectIdCounter = 1;
-            currentYear = SystemCalendar.getCurrentYear();
+            this.currentYear = currentYear;
         }
-
         return (currentYear % 100) * 1000 + projectIdCounter++;
     }
 
