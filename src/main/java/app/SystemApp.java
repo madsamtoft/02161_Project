@@ -27,6 +27,9 @@ public class SystemApp {
     }
 
     public void createProject(String name) throws SystemAppException {
+        if (name.isEmpty()) {
+            throw new SystemAppException("Project Name cannot be empty");
+        }
         if (projectExists(name))  {
             throw new SystemAppException("Project with that name already exists");
         }
@@ -100,6 +103,9 @@ public class SystemApp {
     public void registerTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = SystemCalendar.getCalendar(day, month, year);
+        if (!(hours >= 0 && minutes >= 0 )){
+            throw new SystemAppException("Hours and minutes can't be negative");
+        }
         firmActivity.registerTime(getEmployee(employeeName),hours,minutes,date);
     }
 
@@ -242,6 +248,9 @@ public class SystemApp {
 
     public void registerTimeActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Calendar date = SystemCalendar.getCalendar(day, month, year);
+        if (!(hours >= 0 && minutes >= 0 )){
+            throw new SystemAppException("Hours and minutes can't be negative");
+        }
         getProject(project).registerTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
     }
 
