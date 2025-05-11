@@ -27,6 +27,9 @@ public class SystemApp {
     }
 
     public void createProject(String name) throws SystemAppException {
+        if (name.isEmpty()) {
+            throw new SystemAppException("Project Name cannot be empty");
+        }
         if (projectExists(name))  {
             throw new SystemAppException("Project with that name already exists");
         }

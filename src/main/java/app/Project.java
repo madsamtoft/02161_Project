@@ -11,10 +11,7 @@ public class Project {
     private Employee projectLeader;
     private final List<Activity> activities;
 
-    public Project(String name, int id) throws SystemAppException {
-        if (name.isEmpty()) {
-            throw new SystemAppException("Project Name cannot be empty");
-        }
+    public Project(String name, int id) {
         this.name = name;
         this.id = id;
         this.activities = new ArrayList<>();
