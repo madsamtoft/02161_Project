@@ -35,7 +35,6 @@ public class Project {
     public String getName() {
         return this.name;
     }
-
     public void setName(String actor, String name) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
@@ -53,29 +52,33 @@ public class Project {
     public Calendar getStartDate() {
         return startDate;
     }
-
     public void setStartDate(String actor, Calendar startDate) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
+        } else if (endDate == null || startDate.before(endDate)) {
+            this.startDate = startDate;
+        } else {
+            throw new SystemAppException("Start date must be before end date");
         }
-        this.startDate = startDate;
+
     }
 
     public Calendar getEndDate() {
         return endDate;
     }
-
     public void setEndDate(String actor, Calendar endDate) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
+        } else if (startDate == null || startDate.before(endDate)) {
+            this.endDate = endDate;
+        } else {
+            throw new SystemAppException("End date must be after start date");
         }
-        this.endDate = endDate;
     }
 
     public String getCustomer() {
         return customer;
     }
-
     public void setCustomer(String actor, String customer) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("User not authorized to add customer to project \"" + getName() + "\"");
@@ -98,7 +101,6 @@ public class Project {
             activities.add(new Activity(activityName));
         }
     }
-
 
     public void assignEmployeeToActivity(String actor, String activityName, Employee employee) throws SystemAppException {
         if (!isProjectLeader(actor)) {
@@ -165,6 +167,9 @@ public class Project {
         return activities.stream().anyMatch(a -> activityName.equals(a.getName()));
     }
 
+    public Calendar getActivityStartWeek(String activity) throws SystemAppException {
+        return getActivity(activity).getStartWeek();
+    }
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
         if (isProjectLeader(actor)) {
             getActivity(activity).setStartWeek(startWeek);
@@ -173,6 +178,9 @@ public class Project {
         }
     }
 
+    public Calendar getActivityEndWeek(String activity) throws SystemAppException {
+        return getActivity(activity).getEndWeek();
+    }
     public void setActivityEndWeek(String actor, String activity, Calendar endWeek) throws SystemAppException {
         if (isProjectLeader(actor)) {
             getActivity(activity).setEndWeek(endWeek);
@@ -181,24 +189,15 @@ public class Project {
         }
     }
 
+    public int getActivityEstimatedHours(String activity) throws SystemAppException {
+        return getActivity(activity).getEstimatedHours();
+    }
     public void setActivityEstimatedHours(String actor, String activity, int hours) throws SystemAppException {
         if (isProjectLeader(actor)) {
             getActivity(activity).setEstimatedHours(hours);
         } else {
             throw new SystemAppException("Employee is not Project Leader");
         }
-    }
-
-    public Calendar getActivityStartWeek(String activity) throws SystemAppException {
-        return getActivity(activity).getStartWeek();
-    }
-
-    public Calendar getActivityEndWeek(String activity) throws SystemAppException {
-        return getActivity(activity).getEndWeek();
-    }
-
-    public int getActivityEstimatedHours(String activity) throws SystemAppException {
-        return getActivity(activity).getEstimatedHours();
     }
 
     public double getActivityTotalHours(String activity) throws SystemAppException {
@@ -211,7 +210,6 @@ public class Project {
 
     public int numberOfAssignedActivities(Employee employee, Calendar start, Calendar end) {
         int sum = 0;
-
         for (Activity activity: activities) {
             if(activity.employeeAssigned(employee)) {
                 if(CalendarConverter.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {

@@ -101,10 +101,10 @@ public class DateOverlapWhitebox {
     @Test
     void testDateOverlapH() {
         try {
-            start2 = CalendarConverter.getCalendar(1, 1, 2000);
-            end2 = CalendarConverter.getCalendar(30, 6, 2000);
             start1 = CalendarConverter.getCalendar(1, 7, 2000);
             end1 = CalendarConverter.getCalendar(1, 12, 2000);
+            start2 = CalendarConverter.getCalendar(1, 1, 2000);
+            end2 = CalendarConverter.getCalendar(30, 6, 2000);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -112,4 +112,17 @@ public class DateOverlapWhitebox {
         assertFalse(overlap);
     }
 
+    @Test
+    void testDateOverlapI() {
+        try {
+            start1 = CalendarConverter.getCalendar(1, 12, 2000);
+            end1 = CalendarConverter.getCalendar(1, 7, 2000);
+            start2 = CalendarConverter.getCalendar(30, 6, 2000);
+            end2 = CalendarConverter.getCalendar(1, 1, 2000);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+        overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
+        assertFalse(overlap);
+    }
 }

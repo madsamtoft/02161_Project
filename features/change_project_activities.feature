@@ -28,6 +28,13 @@ Feature: Change Project Activities
     Then the start week is 1 in year 2020
     And the end week is 12 in year 2020
 
+  Scenario: End- and start week set by project leader for an activity
+    Given employee is the leader of the project
+    When the end week is set to 12 in year 2020
+    And the start week is set to 1 in year 2020
+    Then the end week is 12 in year 2020
+    And the start week is 1 in year 2020
+
   Scenario: Start- and end week set by non-project leader for an activity
     Given employee is not the leader of the project
     When the start week is set to 1 in year 2020
@@ -39,6 +46,18 @@ Feature: Change Project Activities
     When the start week is set to -1 in year 2020
     And the end week is set to 56 in year 2020
     Then error message "Invalid calendar date" is given
+
+  Scenario: Start- and end week set by project leader for an activity where start week is after end week
+    Given employee is the leader of the project
+    When the start week is set to 12 in year 2020
+    And the end week is set to 1 in year 2020
+    Then error message "End date must be after start date" is given
+
+  Scenario: Start- and end week set by project leader for an activity where end week is before start week
+    Given employee is the leader of the project
+    When the end week is set to 1 in year 2020
+    And the start week is set to 12 in year 2020
+    Then error message "Start date must be before end date" is given
 
   Scenario: Set estimated hours for an activity as project leader
     Given employee is the leader of the project
