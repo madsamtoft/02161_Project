@@ -11,10 +11,7 @@ public class Project {
     private Employee projectLeader;
     private final List<Activity> activities;
 
-    public Project(String name, int id) throws SystemAppException {
-        if (name.isEmpty()) {
-            throw new SystemAppException("Project Name cannot be empty");
-        }
+    public Project(String name, int id) {
         this.name = name;
         this.id = id;
         this.activities = new ArrayList<>();
@@ -119,7 +116,7 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
-    public List<String> listActivities() {
+    public List<String> getActivityList() {
         List<String> activityNames = new LinkedList<>();
         for(Activity activity: activities) {
             activityNames.add(activity.getName());
@@ -131,27 +128,27 @@ public class Project {
         return activities.stream().anyMatch(a -> a.getName().equals(activity));
     }
 
-    public void registerTimeDaily(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
-        getActivity(activityName).registerTimeDaily(employee, fullHours, minutes);
+    public void addTimeToday(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
+        getActivity(activityName).setTimeToday(employee, fullHours, minutes);
     }
 
-    public double checkRegisteredDaily(String activityName, Employee employee) throws SystemAppException {
+    public double getRegisteredToday(String activityName, Employee employee) throws SystemAppException {
         Activity activity = getActivity(activityName);
-        return activity.checkRegisteredDaily(employee);
+        return activity.getRegisteredToday(employee);
     }
 
-    public void registerTimeActivity(String activityName, Employee employee, int hours, int minutes, Calendar date) throws SystemAppException {
+    public void setTimeActivity(String activityName, Employee employee, int hours, int minutes, Calendar date) throws SystemAppException {
         Activity activity = getActivity(activityName);
-        activity.registerTime(employee,hours,minutes,date);
+        activity.setTime(employee,hours,minutes,date);
     }
 
-    public double checkRegisteredActivity(String activityName,Employee employee, Calendar date) throws SystemAppException{
+    public double getActivityHoursEmployee(String activityName, Employee employee, Calendar date) throws SystemAppException{
         Activity activity = getActivity(activityName);
-        return activity.checkRegistered(employee,date);
+        return activity.getRegisteredHours(employee,date);
     }
 
-    public double checkRegisteredTotalActivity(String activityName, Employee employee) throws SystemAppException {
-        return getActivity(activityName).checkRegisteredTotal(employee);
+    public double getActivityTotalHoursEmployee(String activityName, Employee employee) throws SystemAppException {
+        return getActivity(activityName).getRegisteredHoursTotal(employee);
     }
 
     public void setActivityName(String actor, String activity, String newName) throws SystemAppException {
@@ -205,14 +202,14 @@ public class Project {
     }
 
     public boolean hasEmployeeAssignedToActivity(String activity, Employee employee) throws SystemAppException {
-        return getActivity(activity).employeeAssigned(employee);
+        return getActivity(activity).isEmployeeAssigned(employee);
     }
 
     public int numberOfAssignedActivities(Employee employee, Calendar start, Calendar end) {
         int sum = 0;
         for (Activity activity: activities) {
-            if(activity.employeeAssigned(employee)) {
-                if(CalendarConverter.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {
+            if(activity.isEmployeeAssigned(employee)) {
+                if(SystemCalendar.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {
                     sum += 1;
                 }
             }
@@ -223,7 +220,7 @@ public class Project {
     public List<String> getOccupiedEmployees() {
         ArrayList<String> occupiedEmployeeNames = new ArrayList<>();
         for (Activity activity : activities) {
-            occupiedEmployeeNames.addAll(activity.getOccupiedEmployees());
+            occupiedEmployeeNames.addAll(activity.getOccupiedEmployeeList());
         }
         return occupiedEmployeeNames;
     }

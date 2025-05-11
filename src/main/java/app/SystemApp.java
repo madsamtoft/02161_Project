@@ -18,41 +18,44 @@ public class SystemApp {
     }
 
     private int getNewProjectId() {
-        if (currentYear != CalendarConverter.getCurrentYear()) {
+        int currentYear = SystemCalendar.getCurrentYear();
+        if (this.currentYear != currentYear) {
             projectIdCounter = 1;
-            currentYear = CalendarConverter.getCurrentYear();
+            this.currentYear = currentYear;
         }
-
         return (currentYear % 100) * 1000 + projectIdCounter++;
     }
 
     public void createProject(String name) throws SystemAppException {
+        if (name.isEmpty()) {
+            throw new SystemAppException("Project Name cannot be empty");
+        }
         if (projectExists(name))  {
             throw new SystemAppException("Project with that name already exists");
         }
         projects.add(new Project(name, getNewProjectId()));
     }
 
-    public void changeProjectName( String actor, String project, String newName) throws SystemAppException {
+    public void setProjectName(String actor, String project, String newName) throws SystemAppException {
         if (projectExists(newName)) {
             throw new SystemAppException("Project with that name already exists");
         }
         getProject(project).setName(actor, newName);
     }
 
-    public void changeProjectStartDate(String actor, String project, Calendar startDate) throws SystemAppException {
+    public void setProjectStartDate(String actor, String project, Calendar startDate) throws SystemAppException {
         getProject(project).setStartDate(actor, startDate);
     }
 
-    public void changeProjectEndDate(String actor, String project, Calendar endDate) throws SystemAppException {
+    public void setProjectEndDate(String actor, String project, Calendar endDate) throws SystemAppException {
         getProject(project).setEndDate(actor, endDate);
     }
 
-    public void changeProjectCustomer(String actor, String project, String customer) throws SystemAppException {
+    public void setProjectCustomer(String actor, String project, String customer) throws SystemAppException {
         getProject(project).setCustomer(actor, customer);
     }
 
-    public void registerEmployee(String name) throws SystemAppException {
+    public void createEmployee(String name) throws SystemAppException {
         if (name.isEmpty() || name.length() > 4) {
             throw new SystemAppException("Employee username must be 1-4 letters");
         }
@@ -97,19 +100,19 @@ public class SystemApp {
         return firmActivityList.stream().anyMatch(a -> a.getName().equals(name));
     }
 
-    public void registerTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
+    public void setTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
         if (!(hours >= 0 && minutes >= 0 )){
             throw new SystemAppException("Hours and minutes can't be negative");
         }
-        firmActivity.registerTime(getEmployee(employeeName),hours,minutes,date);
+        firmActivity.setTime(getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double checkRegisteredFirmActivity(String employeeName, String firmActivityName, int day, int month, int year) throws SystemAppException{
+    public double getFirmActivityHoursEmployee(String employeeName, String firmActivityName, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
-        return firmActivity.checkRegistered(getEmployee(employeeName),date);
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
+        return firmActivity.getRegisteredHours(getEmployee(employeeName),date);
     }
 
     public void createActivity(String actor, String project, String activityName) throws SystemAppException {
@@ -138,7 +141,7 @@ public class SystemApp {
         return employees.stream().anyMatch(e -> e.name().equals(name.toLowerCase()));
     }
 
-    public void assignProjectLeader(String actor, String project, String employeeName) throws SystemAppException {
+    public void setProjectLeader(String actor, String project, String employeeName) throws SystemAppException {
         // TODO: this should be changed to use project IDs
         getProject(project).assignProjectLeader(actor, getEmployee(employeeName));
     }
@@ -152,11 +155,11 @@ public class SystemApp {
         return projectMap;
     }
 
-    public List<String> listProjectActivities(String projectName) throws SystemAppException {
-        return getProject(projectName).listActivities();
+    public List<String> getProjectActivityList(String projectName) throws SystemAppException {
+        return getProject(projectName).getActivityList();
     }
 
-    public List<String> listEmployees() {
+    public List<String> getEmployeeList() {
         List<String> employeeNames = new LinkedList<>();
         for (Employee employee : employees) {
             employeeNames.add(employee.name());
@@ -193,12 +196,12 @@ public class SystemApp {
     }
 
     public void setActivityStartWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
-        Calendar startWeek = CalendarConverter.getCalendar(week, year);
+        Calendar startWeek = SystemCalendar.getCalendar(week, year);
         getProject(project).setActivityStartWeek(actor, activity, startWeek);
     }
 
     public void setActivityEndWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
-        Calendar endWeek = CalendarConverter.getCalendar(week, year);
+        Calendar endWeek = SystemCalendar.getCalendar(week, year);
         getProject(project).setActivityEndWeek(actor, activity, endWeek);
     }
 
@@ -226,38 +229,38 @@ public class SystemApp {
         return getProject(project).hasActivity(activity);
     }
 
-    public void registerTimeDaily(String project, String activity, String employeeName, int fullHours, int minutes) throws SystemAppException {
-        getProject(project).registerTimeDaily(activity, getEmployee(employeeName), fullHours, minutes);
+    public void addTimeToday(String project, String activity, String employeeName, int fullHours, int minutes) throws SystemAppException {
+        getProject(project).addTimeToday(activity, getEmployee(employeeName), fullHours, minutes);
     }
 
-    public double checkRegisteredTimeDaily(String project, String activity, String employeeName) throws SystemAppException {
-        return getProject(project).checkRegisteredDaily(activity, getEmployee(employeeName));
+    public double getRegisteredToday(String project, String activity, String employeeName) throws SystemAppException {
+        return getProject(project).getRegisteredToday(activity, getEmployee(employeeName));
     }
 
-    public double checkRegisteredTime(String project,String actor)throws SystemAppException{
+    public double getRegisteredTotalToday(String project, String actor)throws SystemAppException{
        double output = 0;
-        for (String activity : getProject(project).listActivities()){
-              output += checkRegisteredTimeDaily(project, activity, actor);
+        for (String activity : getProject(project).getActivityList()){
+              output += getRegisteredToday(project, activity, actor);
 
         }
         return output;
     }
 
-    public void registerTimeActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
+    public void addTimeToActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
         if (!(hours >= 0 && minutes >= 0 )){
             throw new SystemAppException("Hours and minutes can't be negative");
         }
-        getProject(project).registerTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
+        getProject(project).setTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double checkRegisteredActivity(String employeeName,String project, String activity, int day, int month , int year ) throws SystemAppException{
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
-        return getProject(project).checkRegisteredActivity(activity,getEmployee(employeeName),date);
+    public double getActivityHoursEmployee(String employeeName, String project, String activity, int day, int month , int year ) throws SystemAppException{
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
+        return getProject(project).getActivityHoursEmployee(activity,getEmployee(employeeName),date);
     }
 
-    public double checkRegisteredTotalActivity(String project, String activity, String employeeName) throws SystemAppException {
-        return getProject(project).checkRegisteredTotalActivity(activity, getEmployee(employeeName));
+    public double getActivityTotalHoursEmployee(String project, String activity, String employeeName) throws SystemAppException {
+        return getProject(project).getActivityTotalHoursEmployee(activity, getEmployee(employeeName));
     }
 
     public void assignEmployeeToActivity(String actor, String project, String activity, String employeeName) throws SystemAppException {
@@ -283,7 +286,7 @@ public class SystemApp {
         return getProject(project).hasEmployeeAssignedToActivity(activity, getEmployee(employeeName));
     }
 
-    public List<String> getAvailableEmployees() {
+    public List<String> getAvailableEmployeesList() {
         ArrayList<String> availableEmployeeNames = new ArrayList<>(employees.stream().map(Employee::name).toList());
         for (Project project : projects) {
             availableEmployeeNames.removeAll(project.getOccupiedEmployees());
@@ -294,7 +297,7 @@ public class SystemApp {
     public int getProjectEstimatedHours(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         int sum = 0;
-        for (String activity : project.listActivities()) {
+        for (String activity : project.getActivityList()) {
             sum += project.getActivityEstimatedHours(activity);
         }
         return sum;
@@ -303,7 +306,7 @@ public class SystemApp {
     public double getProjectTotalHours(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         double sum = 0;
-        for (String activity : project.listActivities()) {
+        for (String activity : project.getActivityList()) {
             sum += project.getActivityTotalHours(activity);
         }
         return sum;

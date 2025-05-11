@@ -2,7 +2,7 @@ package app;
 
 import java.util.*;
 
-import static app.CalendarConverter.*;
+import static app.SystemCalendar.*;
 
 public class Activity {
     private String name;
@@ -23,18 +23,18 @@ public class Activity {
         this.endWeek = null;
     }
 
-    public boolean employeeAssigned(Employee employee) {
+    public boolean isEmployeeAssigned(Employee employee) {
         return this.assignedEmployees.contains(employee);
     }
 
     public void assignEmployee(Employee employee) throws SystemAppException {
-        if(employeeAssigned(employee)) {
+        if(isEmployeeAssigned(employee)) {
             throw new SystemAppException("Employee is already assigned to this activity");
         }
         this.assignedEmployees.add(employee);
     }
 
-    public void registerTimeDaily(Employee employee, int fullHours, int minutes) throws SystemAppException {
+    public void setTimeToday(Employee employee, int fullHours, int minutes) throws SystemAppException {
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -57,11 +57,11 @@ public class Activity {
         dateHours.put(today, putHours + alreadyRegistered);
     }
 
-    public double checkRegisteredDaily(Employee employee) {
-        return checkRegistered(employee, getToday());
+    public double getRegisteredToday(Employee employee) {
+        return getRegisteredHours(employee, getToday());
     }
 
-    public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
+    public void setTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
 
         assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
 
@@ -83,7 +83,7 @@ public class Activity {
         assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) && putHours <= 24:"postcondition" ;
     }
 
-    public double checkRegistered(Employee employee, Calendar date ) {
+    public double getRegisteredHours(Employee employee, Calendar date ) {
         if (!employeeDateHours.containsKey(employee)) {
             return 0;
         }
@@ -94,7 +94,7 @@ public class Activity {
         return dateHours.get(date);
     }
 
-    public double checkRegisteredTotal(Employee employee) {
+    public double getRegisteredHoursTotal(Employee employee) {
         if (!employeeDateHours.containsKey(employee)) {
             return 0;
         }
@@ -143,9 +143,9 @@ public class Activity {
         this.estimatedHours = estimatedHours;
     }
 
-    public List<String> getOccupiedEmployees() {
-        Calendar thisWeek = CalendarConverter.getThisWeek();
-        if (CalendarConverter.dateOverlap(startWeek, endWeek, thisWeek, thisWeek)) {
+    public List<String> getOccupiedEmployeeList() {
+        Calendar thisWeek = SystemCalendar.getThisWeek();
+        if (SystemCalendar.dateOverlap(startWeek, endWeek, thisWeek, thisWeek)) {
             return assignedEmployees.stream().map(Employee::name).toList();
         } else {
             return new ArrayList<>();

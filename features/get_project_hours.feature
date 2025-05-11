@@ -15,5 +15,5 @@ Feature: Get project hours
 
   Scenario: Register time then get project total hours
     When the employee registers 5 hours and 30 minutes to the activity today
-    When getting the project total hours
+    And getting the project total hours
     Then the project total hours are 5.5
