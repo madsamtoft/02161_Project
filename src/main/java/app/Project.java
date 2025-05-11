@@ -128,13 +128,13 @@ public class Project {
         return activities.stream().anyMatch(a -> a.getName().equals(activity));
     }
 
-    public void addTimeDaily(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
-        getActivity(activityName).setTimeDaily(employee, fullHours, minutes);
+    public void addTimeToday(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
+        getActivity(activityName).setTimeToday(employee, fullHours, minutes);
     }
 
-    public double getRegisteredDaily(String activityName, Employee employee) throws SystemAppException {
+    public double getRegisteredToday(String activityName, Employee employee) throws SystemAppException {
         Activity activity = getActivity(activityName);
-        return activity.getRegisteredDaily(employee);
+        return activity.getRegisteredToday(employee);
     }
 
     public void setTimeActivity(String activityName, Employee employee, int hours, int minutes, Calendar date) throws SystemAppException {

@@ -393,8 +393,8 @@ public class App {
         }
         int minutes = arguments.nextInt();
         try {
-            systemApp.addTimeDaily(project, activityName, employee, hours, minutes);
-            double registered = systemApp.getRegisteredDaily(project, activityName, employee);
+            systemApp.addTimeToday(project, activityName, employee, hours, minutes);
+            double registered = systemApp.getRegisteredToday(project, activityName, employee);
             System.out.println(registered + " hours have been registered to \"" + employee + "\" in activity \"" + activityName + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -419,7 +419,7 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            double hours = systemApp.getRegisteredDaily(project,activityName,employee);
+            double hours = systemApp.getRegisteredToday(project,activityName,employee);
             System.out.println(employee + " has registered " + hours + " to " + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -527,7 +527,7 @@ public class App {
         }
         String actor = arguments.next();
         try {
-            System.out.println(systemApp.getRegisteredDailyTotal(project,actor)+ "hours");
+            System.out.println(systemApp.getRegisteredTotalToday(project,actor)+ "hours");
 
 
         } catch (SystemAppException e) {

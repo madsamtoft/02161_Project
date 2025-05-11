@@ -372,7 +372,7 @@ public class ProjectSteps {
     @When("employee tries to register daily time to {int}:{int} for activity")
     public void triesToRegisterDailyTimeToForActivity(int fullHours, int minutes) {
         try {
-            systemApp.addTimeDaily(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
+            systemApp.addTimeToday(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -382,7 +382,7 @@ public class ProjectSteps {
     public void hoursHaveBeenRegisteredToTheActivity(int fullHours, int minutes) {
         double hours = calcHours(fullHours, minutes);
         try {
-            assertEquals(hours, systemApp.getRegisteredDaily(someProjectName, someActivityName, someEmployeeName));
+            assertEquals(hours, systemApp.getRegisteredToday(someProjectName, someActivityName, someEmployeeName));
         } catch (Exception e){
             errorMessage = e.getMessage();
             fail();
@@ -491,7 +491,7 @@ public class ProjectSteps {
     @And("the employee has already registered {int} hours to a activity")
     public void theEmployeeHasAlreadyRegisteredHoursToAActivity(int hours) {
         try {
-            systemApp.addTimeDaily(someProjectName, someActivityName, someEmployeeName, hours,0);
+            systemApp.addTimeToday(someProjectName, someActivityName, someEmployeeName, hours,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -500,7 +500,7 @@ public class ProjectSteps {
     @When("an employee checks daily registered hours")
     public void anEmployeeChecksDailyRegisteredHours() {
         try {
-            systemApp.getRegisteredDailyTotal(someProjectName, someEmployeeName);
+            systemApp.getRegisteredTotalToday(someProjectName, someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -509,7 +509,7 @@ public class ProjectSteps {
     public void hoursIsReturned(int hours) {
         double checkHours = -1;
         try {
-            checkHours = systemApp.getRegisteredDailyTotal(someProjectName, someEmployeeName);
+            checkHours = systemApp.getRegisteredTotalToday(someProjectName, someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -581,7 +581,7 @@ public class ProjectSteps {
     @When("the employee registers {int} hours to {string}")
     public void theEmployeeRegistersHoursTo(int hours, String activityName) {
         try {
-            systemApp.addTimeDaily(someProjectName, activityName, someEmployeeName, hours,0);
+            systemApp.addTimeToday(someProjectName, activityName, someEmployeeName, hours,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -707,7 +707,7 @@ public class ProjectSteps {
     @When("the employee registers {int} hours and {int} minutes to the activity today")
     public void theEmployeeRegistersHoursAndMinutesToTheActivityToday(int fullHours, int minutes) {
         try {
-            systemApp.addTimeDaily(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
+            systemApp.addTimeToday(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }

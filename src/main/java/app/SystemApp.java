@@ -229,18 +229,18 @@ public class SystemApp {
         return getProject(project).hasActivity(activity);
     }
 
-    public void addTimeDaily(String project, String activity, String employeeName, int fullHours, int minutes) throws SystemAppException {
-        getProject(project).addTimeDaily(activity, getEmployee(employeeName), fullHours, minutes);
+    public void addTimeToday(String project, String activity, String employeeName, int fullHours, int minutes) throws SystemAppException {
+        getProject(project).addTimeToday(activity, getEmployee(employeeName), fullHours, minutes);
     }
 
-    public double getRegisteredDaily(String project, String activity, String employeeName) throws SystemAppException {
-        return getProject(project).getRegisteredDaily(activity, getEmployee(employeeName));
+    public double getRegisteredToday(String project, String activity, String employeeName) throws SystemAppException {
+        return getProject(project).getRegisteredToday(activity, getEmployee(employeeName));
     }
 
-    public double getRegisteredDailyTotal(String project, String actor)throws SystemAppException{
+    public double getRegisteredTotalToday(String project, String actor)throws SystemAppException{
        double output = 0;
         for (String activity : getProject(project).getActivityList()){
-              output += getRegisteredDaily(project, activity, actor);
+              output += getRegisteredToday(project, activity, actor);
 
         }
         return output;

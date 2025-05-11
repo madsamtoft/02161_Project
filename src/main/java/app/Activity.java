@@ -34,7 +34,7 @@ public class Activity {
         this.assignedEmployees.add(employee);
     }
 
-    public void setTimeDaily(Employee employee, int fullHours, int minutes) throws SystemAppException {
+    public void setTimeToday(Employee employee, int fullHours, int minutes) throws SystemAppException {
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -57,7 +57,7 @@ public class Activity {
         dateHours.put(today, putHours + alreadyRegistered);
     }
 
-    public double getRegisteredDaily(Employee employee) {
+    public double getRegisteredToday(Employee employee) {
         return getRegisteredHours(employee, getToday());
     }
 
