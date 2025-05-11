@@ -18,7 +18,7 @@ public class App {
         }
         String name = arguments.next();
         try {
-            systemApp.registerEmployee(name);
+            systemApp.createEmployee(name);
             System.out.println("Employee \"" + name + "\" successfully registered");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -51,7 +51,7 @@ public class App {
         }
         String customer = arguments.next();
         try {
-            systemApp.changeProjectCustomer(actor, projectName, customer);
+            systemApp.setProjectCustomer(actor, projectName, customer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             //System.out.println("User not authorized to add customer to project \"" + projectName + "\"");
@@ -72,7 +72,7 @@ public class App {
         }
         String newName = arguments.next();
         try {
-            systemApp.changeProjectName(actor, name, newName);
+            systemApp.setProjectName(actor, name, newName);
             System.out.println("Project name for \"" + name + "\" successfully changed to \"" + newName + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -109,7 +109,7 @@ public class App {
         }
         try {
 //            systemApp.changeProjectStartDate(actor, project, date);
-            systemApp.changeProjectStartDate(actor, project, date);
+            systemApp.setProjectStartDate(actor, project, date);
             System.out.println("Start date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -146,7 +146,7 @@ public class App {
             return;
         }
         try {
-            systemApp.changeProjectEndDate(actor, project, date);
+            systemApp.setProjectEndDate(actor, project, date);
             System.out.println("End date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -165,7 +165,7 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            systemApp.assignProjectLeader(actor, project, employee);
+            systemApp.setProjectLeader(actor, project, employee);
             System.out.println("\"" + employee + "\" has been successfully assigned as Project Leader for the project \"" + project + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
@@ -224,7 +224,7 @@ public class App {
         int year = arguments.nextInt();
 
         try {
-            systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
+            systemApp.setTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
             System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
         } catch (Exception e){
             System.out.println((e.getMessage()));
@@ -258,7 +258,7 @@ public class App {
         }
         int year = arguments.nextInt();
         try {
-            double hours = systemApp.checkRegisteredFirmActivity(employee,firmActivityName,day,month,year);
+            double hours = systemApp.getFirmActivityHoursEmployee(employee,firmActivityName,day,month,year);
             System.out.println(employee + " has registered " + hours + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -393,8 +393,8 @@ public class App {
         }
         int minutes = arguments.nextInt();
         try {
-            systemApp.registerTimeDaily(project, activityName, employee, hours, minutes);
-            double registered = systemApp.checkRegisteredTimeDaily(project, activityName, employee);
+            systemApp.addTimeDaily(project, activityName, employee, hours, minutes);
+            double registered = systemApp.getRegisteredDaily(project, activityName, employee);
             System.out.println(registered + " hours have been registered to \"" + employee + "\" in activity \"" + activityName + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -419,7 +419,7 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            double hours = systemApp.checkRegisteredTimeDaily(project,activityName,employee);
+            double hours = systemApp.getRegisteredDaily(project,activityName,employee);
             System.out.println(employee + " has registered " + hours + " to " + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -468,7 +468,7 @@ public class App {
         }
         int year = arguments.nextInt();
         try{
-            systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
+            systemApp.addTimeToActivity(employee,project,activity,hours,minutes,day,month,year);
             double registered = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
             System.out.println(employee + " has registered " + registered + "hours to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
@@ -571,7 +571,7 @@ public class App {
     private void listActivities(String projectName) {
         List<String> activities;
         try {
-            activities = systemApp.listProjectActivities(projectName);
+            activities = systemApp.getProjectActivityList(projectName);
         } catch (Exception e) {
             System.out.println("Project \"" + projectName + "\" has no activities");
             return;
@@ -583,7 +583,7 @@ public class App {
     }
 
     private void listEmployees() {
-        List<String> employees = systemApp.listEmployees();
+        List<String> employees = systemApp.getEmployeeList();
         for (int i = 0; i < employees.size(); i++) {
             System.out.printf("\tEmployee %2d: %s\n", (i+1), employees.get(i));
         }

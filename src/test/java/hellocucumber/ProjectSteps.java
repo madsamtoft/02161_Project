@@ -73,7 +73,7 @@ public class ProjectSteps {
     @Given("an employee")
     public void anEmployee() {
         try {
-            systemApp.registerEmployee(someEmployeeName);
+            systemApp.createEmployee(someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -82,7 +82,7 @@ public class ProjectSteps {
     @Given("{string} exists as employee")
     public void existsAsEmployee(String employeeName) {
         try {
-            systemApp.registerEmployee(employeeName);
+            systemApp.createEmployee(employeeName);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -93,7 +93,7 @@ public class ProjectSteps {
         List<String> employeeNames = dataTable.getFirst();
         for (String employeeName : employeeNames) {
             try {
-                systemApp.registerEmployee(employeeName);
+                systemApp.createEmployee(employeeName);
             } catch (SystemAppException e) {
                 errorMessage = e.getMessage();
             }
@@ -103,7 +103,7 @@ public class ProjectSteps {
     @When("setting employee as project leader")
     public void settingEmployeeAsProjectLeader() {
         try {
-            systemApp.assignProjectLeader("", someProjectName, someEmployeeName);
+            systemApp.setProjectLeader("", someProjectName, someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -128,7 +128,7 @@ public class ProjectSteps {
         startDate.set(Calendar.MONTH, month-1);
         startDate.set(Calendar.YEAR, year);
         try {
-            systemApp.changeProjectStartDate(someEmployeeName, someProjectName, startDate);
+            systemApp.setProjectStartDate(someEmployeeName, someProjectName, startDate);
 //            systemApp.getProject(someProject).setStartDate(someEmployee, startDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -143,7 +143,7 @@ public class ProjectSteps {
         endDate.set(Calendar.MONTH, month-1);
         endDate.set(Calendar.YEAR, year);
         try {
-            systemApp.changeProjectEndDate(someEmployeeName, someProjectName, endDate);
+            systemApp.setProjectEndDate(someEmployeeName, someProjectName, endDate);
 //            systemApp.getProject(someProject).setEndDate(someEmployee, endDate);
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -189,7 +189,7 @@ public class ProjectSteps {
     @Given("employee is the leader of the project")
     public void employeeIsTheLeaderOfTheProject() {
         try {
-            systemApp.assignProjectLeader(someEmployeeName, someProjectName, someEmployeeName);
+            systemApp.setProjectLeader(someEmployeeName, someProjectName, someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -198,7 +198,7 @@ public class ProjectSteps {
     @When("setting project name to {string}")
     public void settingProjectNameTo(String string) {
         try {
-            systemApp.changeProjectName(someEmployeeName, someProjectName, string);
+            systemApp.setProjectName(someEmployeeName, someProjectName, string);
 //            systemApp.getProject(someProject).setName(someEmployee, string);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
@@ -218,7 +218,7 @@ public class ProjectSteps {
     @Given("employee is not the leader of the project")
     public void isNotTheLeaderOfTheProject() {
         try {
-            systemApp.assignProjectLeader(someEmployeeName, someProjectName, otherEmployeeName);
+            systemApp.setProjectLeader(someEmployeeName, someProjectName, otherEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -227,7 +227,7 @@ public class ProjectSteps {
     @When("setting project customer to {string}")
     public void settingProjectCustomerTo(String customer) {
         try {
-            systemApp.changeProjectCustomer(someEmployeeName, someProjectName, customer);
+            systemApp.setProjectCustomer(someEmployeeName, someProjectName, customer);
 //            systemApp.getProject(someProject).setCustomer(someEmployee, customer);
         } catch (Exception e) {
             errorMessage = e.getMessage();
@@ -372,7 +372,7 @@ public class ProjectSteps {
     @When("employee tries to register daily time to {int}:{int} for activity")
     public void triesToRegisterDailyTimeToForActivity(int fullHours, int minutes) {
         try {
-            systemApp.registerTimeDaily(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
+            systemApp.addTimeDaily(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -382,7 +382,7 @@ public class ProjectSteps {
     public void hoursHaveBeenRegisteredToTheActivity(int fullHours, int minutes) {
         double hours = calcHours(fullHours, minutes);
         try {
-            assertEquals(hours, systemApp.checkRegisteredTimeDaily(someProjectName, someActivityName, someEmployeeName));
+            assertEquals(hours, systemApp.getRegisteredDaily(someProjectName, someActivityName, someEmployeeName));
         } catch (Exception e){
             errorMessage = e.getMessage();
             fail();
@@ -461,7 +461,7 @@ public class ProjectSteps {
     @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to firm Activity {string}")
     public void registersHoursAndMinutesToDayMonthAndYearToFirmActivity(String employeeName, int hours, int minutes, int day, int month, int year, String firmActivityName) {
         try {
-            systemApp.registerTimeFirmActivity(employeeName, firmActivityName, hours, minutes, day, month, year);
+            systemApp.setTimeFirmActivity(employeeName, firmActivityName, hours, minutes, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -472,7 +472,7 @@ public class ProjectSteps {
         double roundHours = calcHours(fullHours, minutes);
         double checkHours = -1;
         try {
-            checkHours = systemApp.checkRegisteredFirmActivity(employeeName, firmActivityName, day, month, year);
+            checkHours = systemApp.getFirmActivityHoursEmployee(employeeName, firmActivityName, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -482,7 +482,7 @@ public class ProjectSteps {
     @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to Activity {string}")
     public void registersHoursAndMinutesToDayMonthAndYearToActivity(String employeeName, int fullHours, int minutes, int day, int month, int year, String activity) {
         try {
-            systemApp.registerTimeActivity(employeeName, someProjectName,activity,fullHours,minutes,day,month,year);
+            systemApp.addTimeToActivity(employeeName, someProjectName,activity,fullHours,minutes,day,month,year);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -491,7 +491,7 @@ public class ProjectSteps {
     @And("the employee has already registered {int} hours to a activity")
     public void theEmployeeHasAlreadyRegisteredHoursToAActivity(int hours) {
         try {
-            systemApp.registerTimeDaily(someProjectName, someActivityName, someEmployeeName, hours,0);
+            systemApp.addTimeDaily(someProjectName, someActivityName, someEmployeeName, hours,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -546,7 +546,7 @@ public class ProjectSteps {
     @Given("the employee is registered in the system")
     public void theEmployeeIsRegisteredInTheSystem() {
         try {
-            systemApp.registerEmployee(someEmployeeName);
+            systemApp.createEmployee(someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -555,7 +555,7 @@ public class ProjectSteps {
     @When("registering an employee with identifier {string}")
     public void registeringAnEmployeeWithIdentifier(String employeeID) {
         try {
-            systemApp.registerEmployee(employeeID);
+            systemApp.createEmployee(employeeID);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -581,7 +581,7 @@ public class ProjectSteps {
     @When("the employee registers {int} hours to {string}")
     public void theEmployeeRegistersHoursTo(int hours, String activityName) {
         try {
-            systemApp.registerTimeDaily(someProjectName, activityName, someEmployeeName, hours,0);
+            systemApp.addTimeDaily(someProjectName, activityName, someEmployeeName, hours,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -661,7 +661,7 @@ public class ProjectSteps {
     @When("getting the activity list")
     public void gettingTheActivityList() {
         try {
-            listActivitiesList = systemApp.listProjectActivities(someProjectName);
+            listActivitiesList = systemApp.getProjectActivityList(someProjectName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -707,7 +707,7 @@ public class ProjectSteps {
     @When("the employee registers {int} hours and {int} minutes to the activity today")
     public void theEmployeeRegistersHoursAndMinutesToTheActivityToday(int fullHours, int minutes) {
         try {
-            systemApp.registerTimeDaily(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
+            systemApp.addTimeDaily(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }

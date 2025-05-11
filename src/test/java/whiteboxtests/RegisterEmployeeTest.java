@@ -15,13 +15,13 @@ public class RegisterEmployeeTest {
     @Test
     void testRegisterEmployeeA() {
         try {
-            systemApp.registerEmployee("seba");
+            systemApp.createEmployee("seba");
         } catch (SystemAppException ignored) {
 
         }
-        assertEquals(List.of("huba", "seba"),systemApp.listEmployees());
+        assertEquals(List.of("huba", "seba"),systemApp.getEmployeeList());
         try {
-            systemApp.registerEmployee("Sebastian1");
+            systemApp.createEmployee("Sebastian1");
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -31,13 +31,13 @@ public class RegisterEmployeeTest {
     @Test
     void testRegisterEmployeeB() {
         try {
-            systemApp.registerEmployee("seba");
+            systemApp.createEmployee("seba");
         } catch (SystemAppException ignored) {
 
         }
-        assertEquals(List.of("huba", "seba"),systemApp.listEmployees());
+        assertEquals(List.of("huba", "seba"),systemApp.getEmployeeList());
         try {
-            systemApp.registerEmployee("Seb1");
+            systemApp.createEmployee("Seb1");
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -47,13 +47,13 @@ public class RegisterEmployeeTest {
     @Test
     void testRegisterEmployeeC() {
         try {
-            systemApp.registerEmployee("seba");
+            systemApp.createEmployee("seba");
         } catch (SystemAppException ignored) {
 
         }
-        assertEquals(List.of("huba", "seba"),systemApp.listEmployees());
+        assertEquals(List.of("huba", "seba"),systemApp.getEmployeeList());
         try {
-            systemApp.registerEmployee("Seba");
+            systemApp.createEmployee("Seba");
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -62,12 +62,12 @@ public class RegisterEmployeeTest {
 
     @Test
     void testRegisterEmployeeD() {
-        assertEquals(List.of("huba"),systemApp.listEmployees());
+        assertEquals(List.of("huba"),systemApp.getEmployeeList());
         try {
-            systemApp.registerEmployee("Seba");
+            systemApp.createEmployee("Seba");
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
-        assertEquals(List.of("huba", "seba"),systemApp.listEmployees());
+        assertEquals(List.of("huba", "seba"),systemApp.getEmployeeList());
     }
 }

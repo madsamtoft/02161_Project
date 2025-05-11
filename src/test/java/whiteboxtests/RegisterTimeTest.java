@@ -18,7 +18,7 @@ public class RegisterTimeTest {
         }
 
         try {
-            systemApp.registerTimeFirmActivity("huba", "a", 25, 0, 1, 1, 2025);
+            systemApp.setTimeFirmActivity("huba", "a", 25, 0, 1, 1, 2025);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -33,12 +33,12 @@ public class RegisterTimeTest {
         }
 
         try {
-            systemApp.registerTimeFirmActivity("huba", "a", 4, 0, 1, 1, 2025);
+            systemApp.setTimeFirmActivity("huba", "a", 4, 0, 1, 1, 2025);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
         try {
-            assertEquals(4.0,systemApp.checkRegisteredFirmActivity("huba","a",1,1,2025),0);
+            assertEquals(4.0,systemApp.getFirmActivityHoursEmployee("huba","a",1,1,2025),0);
         }
         catch (Exception e){
             errorMessage = e.getMessage();
@@ -53,7 +53,7 @@ public class RegisterTimeTest {
         }
 
         try {
-            systemApp.registerTimeFirmActivity("huba", "a", 25, 0, 1, 1, 2025);
+            systemApp.setTimeFirmActivity("huba", "a", 25, 0, 1, 1, 2025);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -68,12 +68,12 @@ public class RegisterTimeTest {
         }
 
         try {
-            systemApp.registerTimeFirmActivity("huba", "a", 4, 0, 1, 1, 2025);
+            systemApp.setTimeFirmActivity("huba", "a", 4, 0, 1, 1, 2025);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
         try {
-            assertEquals(4.0,systemApp.checkRegisteredFirmActivity("huba","a",1,1,2025),0);
+            assertEquals(4.0,systemApp.getFirmActivityHoursEmployee("huba","a",1,1,2025),0);
         }
         catch (Exception e){
             errorMessage = e.getMessage();
