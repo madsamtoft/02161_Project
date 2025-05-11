@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class RegisterEmployeeWhiteboxTest {
+public class RegisterEmployeeTest {
     private final SystemApp systemApp = new SystemApp();
     private String errorMessage = "";
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
 
 
-public class RegisterTimeWhitebox {
+public class RegisterTimeTest {
     private SystemApp systemApp = new SystemApp();
     private String errorMessage;
 

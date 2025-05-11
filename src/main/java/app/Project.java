@@ -212,7 +212,7 @@ public class Project {
         int sum = 0;
         for (Activity activity: activities) {
             if(activity.employeeAssigned(employee)) {
-                if(CalendarConverter.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {
+                if(SystemCalendar.dateOverlap(start, end, activity.getStartWeek(), activity.getEndWeek())) {
                     sum += 1;
                 }
             }

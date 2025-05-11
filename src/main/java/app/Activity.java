@@ -2,7 +2,7 @@ package app;
 
 import java.util.*;
 
-import static app.CalendarConverter.*;
+import static app.SystemCalendar.*;
 
 public class Activity {
     private String name;
@@ -149,8 +149,8 @@ public class Activity {
     }
 
     public List<String> getOccupiedEmployees() {
-        Calendar thisWeek = CalendarConverter.getThisWeek();
-        if (CalendarConverter.dateOverlap(startWeek, endWeek, thisWeek, thisWeek)) {
+        Calendar thisWeek = SystemCalendar.getThisWeek();
+        if (SystemCalendar.dateOverlap(startWeek, endWeek, thisWeek, thisWeek)) {
             return assignedEmployees.stream().map(Employee::name).toList();
         } else {
             return new ArrayList<>();

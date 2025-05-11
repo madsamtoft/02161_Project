@@ -2,7 +2,7 @@ package app;
 
 import java.util.Calendar;
 
-public class CalendarConverter {
+public class SystemCalendar {
     public static Calendar getCalendar(int day, int month, int year) throws SystemAppException {
         Calendar calendar = getToday();
         calendar.set(Calendar.DAY_OF_MONTH, day);
@@ -56,7 +56,7 @@ public class CalendarConverter {
     }
 
     public static boolean dateOverlap(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
-        assert ((start1 == null | end1 == null) || (start1.before(end1)) & ((start2 == null | end2 == null) || start2.before(end2)));
+        //assert ((start1 == null | end1 == null) || (start1.before(end1)) & ((start2 == null | end2 == null) || start2.before(end2)));
         boolean s1null = start1 == null;
         boolean e1null = end1 == null;
         boolean s2null = start2 == null;
@@ -73,7 +73,7 @@ public class CalendarConverter {
             //assert (end1 == null || start1.before(end1));
             overlap = start1.getTimeInMillis() <= end2.getTimeInMillis();
         }
-        //assert ();
+        assert ((start1 == null | end1 == null) || (start1.before(end1)) & ((start2 == null | end2 == null) || start2.before(end2)));
         return overlap;
     }
 }

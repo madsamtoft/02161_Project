@@ -102,7 +102,7 @@ public class App {
         int year = arguments.nextInt();
         Calendar date;
         try {
-            date = CalendarConverter.getCalendar(day, month, year);
+            date = SystemCalendar.getCalendar(day, month, year);
         } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;
@@ -140,7 +140,7 @@ public class App {
         int year = arguments.nextInt();
         Calendar date;
         try {
-            date = CalendarConverter.getCalendar(day, month, year);
+            date = SystemCalendar.getCalendar(day, month, year);
         } catch (Exception e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;

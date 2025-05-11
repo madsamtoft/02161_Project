@@ -314,7 +314,7 @@ public class ProjectSteps {
     @Then("the start week is {int} in year {int}")
     public void theStartWeekIs(int startWeek, int startYear) {
         try {
-            Calendar startDate = CalendarConverter.getCalendar(startWeek, startYear);
+            Calendar startDate = SystemCalendar.getCalendar(startWeek, startYear);
             Calendar actualStartDate = systemApp.getActivityStartWeek(someProjectName, someActivityName);
             assertEquals(startDate.getTimeInMillis(), actualStartDate.getTimeInMillis());
         } catch (Exception e) {
@@ -327,7 +327,7 @@ public class ProjectSteps {
     @Then("the end week is {int} in year {int}")
     public void theEndWeekIs(int endWeek, int endYear) {
         try {
-            Calendar endDate = CalendarConverter.getCalendar(endWeek, endYear);
+            Calendar endDate = SystemCalendar.getCalendar(endWeek, endYear);
             Calendar actualEndDate = systemApp.getActivityEndWeek(someProjectName, someActivityName);
             assertEquals(endDate.getTimeInMillis(), actualEndDate.getTimeInMillis());
         } catch (Exception e) {
@@ -597,7 +597,7 @@ public class ProjectSteps {
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
-        int checkId = (CalendarConverter.getCurrentYear() % 100) * 1000 + id;
+        int checkId = (SystemCalendar.getCurrentYear() % 100) * 1000 + id;
         assertEquals(project, actualName);
         assertEquals(checkId, actualId);
     }
@@ -651,7 +651,7 @@ public class ProjectSteps {
 
     @Then("the output map is equal to the project list reference map")
     public void theOutputMapIsEqualToTheProjectListReferenceMap() {
-        int referenceProjectId = (CalendarConverter.getCurrentYear() % 100) * 1000 + 1;
+        int referenceProjectId = (SystemCalendar.getCurrentYear() % 100) * 1000 + 1;
         Map<Integer, String> referenceMap = new HashMap<>();
         referenceMap.put(referenceProjectId, someProjectName);
         assertEquals(referenceMap, listProjectMap);

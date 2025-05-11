@@ -18,9 +18,9 @@ public class SystemApp {
     }
 
     private int getNewProjectId() {
-        if (currentYear != CalendarConverter.getCurrentYear()) {
+        if (currentYear != SystemCalendar.getCurrentYear()) {
             projectIdCounter = 1;
-            currentYear = CalendarConverter.getCurrentYear();
+            currentYear = SystemCalendar.getCurrentYear();
         }
 
         return (currentYear % 100) * 1000 + projectIdCounter++;
@@ -99,13 +99,13 @@ public class SystemApp {
 
     public void registerTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month,int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
         firmActivity.registerTime(getEmployee(employeeName),hours,minutes,date);
     }
 
     public double checkRegisteredFirmActivity(String employeeName, String firmActivityName, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
         return firmActivity.checkRegistered(getEmployee(employeeName),date);
     }
 
@@ -190,12 +190,12 @@ public class SystemApp {
     }
 
     public void setActivityStartWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
-        Calendar startWeek = CalendarConverter.getCalendar(week, year);
+        Calendar startWeek = SystemCalendar.getCalendar(week, year);
         getProject(project).setActivityStartWeek(actor, activity, startWeek);
     }
 
     public void setActivityEndWeek(String actor, String project, String activity, int week, int year) throws SystemAppException {
-        Calendar endWeek = CalendarConverter.getCalendar(week, year);
+        Calendar endWeek = SystemCalendar.getCalendar(week, year);
         getProject(project).setActivityEndWeek(actor, activity, endWeek);
     }
 
@@ -241,12 +241,12 @@ public class SystemApp {
     }
 
     public void registerTimeActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
         getProject(project).registerTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
     }
 
     public double checkRegisteredActivity(String employeeName,String project, String activity, int day, int month , int year ) throws SystemAppException{
-        Calendar date = CalendarConverter.getCalendar(day, month, year);
+        Calendar date = SystemCalendar.getCalendar(day, month, year);
         return getProject(project).checkRegisteredActivity(activity,getEmployee(employeeName),date);
     }
 
