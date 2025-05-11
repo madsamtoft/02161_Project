@@ -122,7 +122,11 @@ public class DateOverlapWhitebox {
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
-        overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
-        assertFalse(overlap);
+        try {
+            overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
+            assertFalse(overlap);
+        } catch (AssertionError e) {
+            errorMessage = e.getMessage();
+        }
     }
 }

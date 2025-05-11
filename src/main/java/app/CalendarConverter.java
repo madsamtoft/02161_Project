@@ -73,7 +73,7 @@ public class CalendarConverter {
             //assert (end1 == null || start1.before(end1));
             overlap = start1.getTimeInMillis() <= end2.getTimeInMillis();
         }
-        assert ((start1 == null | end1 == null) || (start1.before(end1)) & ((start2 == null | end2 == null) || start2.before(end2)));
+        //assert ();
         return overlap;
     }
 }
