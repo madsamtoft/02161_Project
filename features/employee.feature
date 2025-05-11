@@ -1,4 +1,4 @@
-Feature: Register Employee in System
+Feature: Employee
   Description: Register a new employee in the system
   User: Employee
 
@@ -29,3 +29,11 @@ Feature: Register Employee in System
     And it has 1 activities
     When the employee with name "none" is assigned to the activity in the project
     Then error message "Employee none does not exist" is given
+
+  Scenario: Compare employee with null (Unit)
+    When comparing if an employee object equals null
+    Then the boolean result is false
+
+  Scenario: Compare employee with different class (Unit)
+    When comparing if an employee object equals an activity object
+    Then the boolean result is false
