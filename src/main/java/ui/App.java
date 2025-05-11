@@ -469,7 +469,7 @@ public class App {
         int year = arguments.nextInt();
         try{
             systemApp.addTimeToActivity(employee,project,activity,hours,minutes,day,month,year);
-            double registered = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
+            double registered = systemApp.getActivityHoursEmployee(employee,project,activity,day,month,year);
             System.out.println(employee + " has registered " + registered + "hours to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -508,7 +508,7 @@ public class App {
         }
         int year = arguments.nextInt();
         try{
-            double hours = systemApp.checkRegisteredActivity(employee,project,activity,day,month,year);
+            double hours = systemApp.getActivityHoursEmployee(employee,project,activity,day,month,year);
             System.out.println(employee + " has registered " + hours + " to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -527,7 +527,7 @@ public class App {
         }
         String actor = arguments.next();
         try {
-            System.out.println(systemApp.checkRegisteredTime(project,actor)+ "hours");
+            System.out.println(systemApp.getRegisteredDailyTotal(project,actor)+ "hours");
 
 
         } catch (SystemAppException e) {
@@ -590,7 +590,7 @@ public class App {
     }
 
     private void listAvailableEmployees() {
-        List<String> availableEmployees = systemApp.getAvailableEmployees();
+        List<String> availableEmployees = systemApp.getAvailableEmployeesList();
         for (int i = 0; i < availableEmployees.size(); i++) {
             System.out.printf("\tAvailable Employee %2d: %s\n", (i+1), availableEmployees.get(i));
         }

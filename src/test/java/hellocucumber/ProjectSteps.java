@@ -500,7 +500,7 @@ public class ProjectSteps {
     @When("an employee checks daily registered hours")
     public void anEmployeeChecksDailyRegisteredHours() {
         try {
-            systemApp.checkRegisteredTime(someProjectName, someEmployeeName);
+            systemApp.getRegisteredDailyTotal(someProjectName, someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -509,7 +509,7 @@ public class ProjectSteps {
     public void hoursIsReturned(int hours) {
         double checkHours = -1;
         try {
-            checkHours = systemApp.checkRegisteredTime(someProjectName, someEmployeeName);
+            checkHours = systemApp.getRegisteredDailyTotal(someProjectName, someEmployeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -523,7 +523,7 @@ public class ProjectSteps {
         double roundHours = calcHours(fullHours, minutes);
         double checkHours = -1;
         try {
-            checkHours = systemApp.checkRegisteredActivity(employeeName, someProjectName, activity, day, month, year);
+            checkHours = systemApp.getActivityHoursEmployee(employeeName, someProjectName, activity, day, month, year);
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
@@ -536,7 +536,7 @@ public class ProjectSteps {
         double hours = calcHours(fullHours, minutes);
         double checkHours = -1;
         try {
-            checkHours = systemApp.checkRegisteredTotalActivity(someProjectName, activity, employeeName);
+            checkHours = systemApp.getActivityTotalHoursEmployee(someProjectName, activity, employeeName);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -626,7 +626,7 @@ public class ProjectSteps {
 
     @When("searching for available employees")
     public void searchingForAvailableEmployees() {
-        availableEmployeeNames = systemApp.getAvailableEmployees();
+        availableEmployeeNames = systemApp.getAvailableEmployeesList();
     }
 
     @Then("employees found are")

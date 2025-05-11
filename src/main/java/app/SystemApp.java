@@ -237,7 +237,7 @@ public class SystemApp {
         return getProject(project).getRegisteredDaily(activity, getEmployee(employeeName));
     }
 
-    public double checkRegisteredTime(String project,String actor)throws SystemAppException{
+    public double getRegisteredDailyTotal(String project, String actor)throws SystemAppException{
        double output = 0;
         for (String activity : getProject(project).getActivityList()){
               output += getRegisteredDaily(project, activity, actor);
@@ -254,12 +254,12 @@ public class SystemApp {
         getProject(project).setTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double checkRegisteredActivity(String employeeName,String project, String activity, int day, int month , int year ) throws SystemAppException{
+    public double getActivityHoursEmployee(String employeeName, String project, String activity, int day, int month , int year ) throws SystemAppException{
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         return getProject(project).getActivityHoursEmployee(activity,getEmployee(employeeName),date);
     }
 
-    public double checkRegisteredTotalActivity(String project, String activity, String employeeName) throws SystemAppException {
+    public double getActivityTotalHoursEmployee(String project, String activity, String employeeName) throws SystemAppException {
         return getProject(project).getActivityTotalHoursEmployee(activity, getEmployee(employeeName));
     }
 
@@ -286,7 +286,7 @@ public class SystemApp {
         return getProject(project).hasEmployeeAssignedToActivity(activity, getEmployee(employeeName));
     }
 
-    public List<String> getAvailableEmployees() {
+    public List<String> getAvailableEmployeesList() {
         ArrayList<String> availableEmployeeNames = new ArrayList<>(employees.stream().map(Employee::name).toList());
         for (Project project : projects) {
             availableEmployeeNames.removeAll(project.getOccupiedEmployees());
