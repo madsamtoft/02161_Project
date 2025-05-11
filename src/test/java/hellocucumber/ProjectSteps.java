@@ -1,18 +1,10 @@
 package hellocucumber;
 
 import app.*;
-import io.cucumber.java.ca.Cal;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-
 import java.util.*;
 
+import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class ProjectSteps {
     private SystemApp systemApp = new SystemApp();
@@ -28,6 +20,7 @@ public class ProjectSteps {
 //    private Employee someProjectLeader;
 //    private List<Employee> someEmployees = new ArrayList<>();
     private List<String> availableEmployeeNames = new ArrayList<>();
+
 
     private static final String DEFAULT_ACTIVITY_NAME = "act";
 
@@ -618,7 +611,6 @@ public class ProjectSteps {
         assertEquals(hours, checkHours);
     }
 
-// EMPLOYEE STEPS
     @When("registering an employee with identifier {string}")
     public void registeringAnEmployeeWithIdentifier(String employeeID) {
         try {
@@ -632,6 +624,8 @@ public class ProjectSteps {
     public void isARegisteredEmployee(String employeeID) {
         assertTrue(systemApp.employeeExists(employeeID));
     }
+
+
 
     @And("it has two activities")
     public void itHasTwoActivities() {
@@ -707,6 +701,7 @@ public class ProjectSteps {
     public void noEmployeesAreFound() {
         assertEquals(0, availableEmployeeNames.size());
     }
+
 
 //    @And("there exists a firm activity")
 //    public void thereExistsAFirmActivity() {
