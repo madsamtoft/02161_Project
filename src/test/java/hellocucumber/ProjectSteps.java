@@ -61,6 +61,15 @@ public class ProjectSteps {
         }
     }
 
+    @Given("an activity in the project")
+    public void anActivityInTheProject() {
+        try {
+            systemApp.createActivity("", someProjectName, someActivityName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
     @Given("an employee")
     public void anEmployee() {
         try {
@@ -480,9 +489,9 @@ public class ProjectSteps {
     }
 
     @And("the employee has already registered {int} hours to a activity")
-    public void theEmployeeHasAlreadyRegisteredHoursToAActivity(int arg0) {
+    public void theEmployeeHasAlreadyRegisteredHoursToAActivity(int hours) {
         try {
-            systemApp.registerTimeDaily(someProjectName, someActivityName, someEmployeeName, arg0,0);
+            systemApp.registerTimeDaily(someProjectName, someActivityName, someEmployeeName, hours,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -534,6 +543,15 @@ public class ProjectSteps {
         assertEquals(hours, checkHours);
     }
 
+    @Given("the employee is registered in the system")
+    public void theEmployeeIsRegisteredInTheSystem() {
+        try {
+            systemApp.registerEmployee(someEmployeeName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
     @When("registering an employee with identifier {string}")
     public void registeringAnEmployeeWithIdentifier(String employeeID) {
         try {
@@ -563,7 +581,7 @@ public class ProjectSteps {
     @When("the employee registers {int} hours to {string}")
     public void theEmployeeRegistersHoursTo(int hours, String activityName) {
         try {
-            systemApp.registerTimeDaily(someProjectName,activityName, someEmployeeName, hours,0);
+            systemApp.registerTimeDaily(someProjectName, activityName, someEmployeeName, hours,0);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -654,5 +672,44 @@ public class ProjectSteps {
         List<String> referenceList = new LinkedList<>();
         referenceList.add(activityName);
         assertEquals(referenceList, listActivitiesList);
+    }
+
+    private int projectEstimatedHours;
+    private double projectTotalHours;
+    @When("getting the project estimated hours")
+    public void gettingTheProjectEstimatedHours() {
+        try {
+            projectEstimatedHours = systemApp.getProjectEstimatedHours(someProjectName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @When("getting the project total hours")
+    public void gettingTheProjectTotalHours() {
+        try {
+            projectTotalHours = systemApp.getProjectTotalHours(someProjectName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the project estimated hours are {int}")
+    public void theProjectEstimatedHoursAre(int hours) {
+        assertEquals(hours, projectEstimatedHours);
+    }
+
+    @Then("the project total hours are {double}")
+    public void theProjectTotalHoursAre(double hours) {
+        assertEquals(hours, projectTotalHours);
+    }
+
+    @When("the employee registers {int} hours and {int} minutes to the activity today")
+    public void theEmployeeRegistersHoursAndMinutesToTheActivityToday(int fullHours, int minutes) {
+        try {
+            systemApp.registerTimeDaily(someProjectName, someActivityName, someEmployeeName, fullHours, minutes);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
     }
 }
