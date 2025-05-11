@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-public class CreateProjectWhiteboxTest {
+public class CreateProjectTest {
     private final SystemApp systemApp = new SystemApp();
     private String errorMessage = "";
 
