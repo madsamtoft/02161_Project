@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Project {
     private String name;
-    private int id; // Read-only
+    private final int id; // Read-only
     private Calendar startDate;
     private Calendar endDate;
     private String customer;
     private Employee projectLeader;
-    private List<Activity> activities;
+    private final List<Activity> activities;
 
     public Project(String name, int id) throws SystemAppException {
         if (name.isEmpty()) {
@@ -90,7 +90,8 @@ public class Project {
     public void createActivity(String actor, String activityName) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
-        } else if (activities.stream().anyMatch(a -> activityName.equals(a.getName()))) {
+//        } else if (activities.stream().anyMatch(a -> activityName.equals(a.getName()))) {
+        } else if (activityExists(activityName)) {
             throw new SystemAppException("Activity Name already taken");
         }
         else {
@@ -116,10 +117,6 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
-    private List<Activity> getActivities() throws SystemAppException {
-        return activities;
-    }
-    
     public List<String> listActivities() {
         List<String> activityNames = new LinkedList<>();
         for(Activity activity: activities) {
@@ -133,10 +130,6 @@ public class Project {
     }
 
     public void registerTimeDaily(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
-//        Activity activity;
-////        System.out.println("Registering time daily " + activityName + " " + employee + " " + hours + " hours");
-//        activity = getActivity(activityName);
-////        System.out.println("Registering time daily " + activity + " " + employee + " " + hours + " hours");
         getActivity(activityName).registerTimeDaily(employee, fullHours, minutes);
     }
 
@@ -159,20 +152,17 @@ public class Project {
         return getActivity(activityName).checkRegisteredTotal(employee);
     }
 
-    public void setActivityName(String actor, String activity, String name) throws SystemAppException {
+    public void setActivityName(String actor, String activity, String newName) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
+        } else if (activityExists(newName)) {
+            throw new SystemAppException("Activity Name already taken");
         }
-        getActivity(activity).setName(name);
+        getActivity(activity).setName(newName);
     }
 
     public boolean activityExists(String activityName) {
-        for (Activity activity : activities) {
-            if (activityName.equals(activity.getName())) {
-                return true;
-            }
-        }
-        return false;
+        return activities.stream().anyMatch(a -> activityName.equals(a.getName()));
     }
 
     public void setActivityStartWeek(String actor, String activity, Calendar startWeek) throws SystemAppException {
@@ -239,19 +229,4 @@ public class Project {
         }
         return occupiedEmployeeNames;
     }
-
-
-
-//    public Map<Activity, Integer> checkRegisteredDaily(String activity, Employee employee) {
-//        // TODO: Implement. It cannot return activities as this is not allowed
-//        return null;
-//    }
-
-//    public void setProjectLeader(Employee projectLeader) {
-//        this.projectLeader = projectLeader;
-//    }
-
-//    public int getWeeklyActivityAmount(Employee employee) {
-//        return 0;
-//    }
 }

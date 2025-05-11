@@ -3,18 +3,18 @@ package app;
 import java.util.*;
 
 public class SystemApp {
-    private List<Project> projects = new LinkedList<>();
-    private List<Activity> firmActivityList = new ArrayList<>();
+    private final List<Project> projects = new LinkedList<>();
+    private final List<Activity> firmActivityList = new ArrayList<>();
     private int projectIdCounter = 1;
     private int currentYear = 0;
-    private List<Employee> employees = new ArrayList<>();
+    private final List<Employee> employees = new ArrayList<>();
 
     public SystemApp() {
         employees.add(new Employee("huba"));
     }
 
     private boolean projectExists(String name) {
-        return projects.stream().anyMatch(p -> p.getName().equals(name.toLowerCase()));
+        return projects.stream().anyMatch(p -> p.getName().equals(name));
     }
 
     private int getNewProjectId() {

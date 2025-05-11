@@ -27,6 +27,11 @@ Feature: Register and Check time
     Then "huba" has registered 0 hours and 0 minutes to day 2, month 2, and year 2021 to Activity "a"
     And "huba" has registered 0 hours and 0 minutes in total to Activity "a"
 
+  Scenario: Employee checks hours on date not assigned hours to
+    Given creating a new activity "a" in the project
+    When "huba" registers 2 hours and 30 minutes to day 2, month 2 and year 2021 to Activity "a"
+    Then "huba" has registered 0 hours and 0 minutes to day 3, month 2, and year 2021 to Activity "a"
+
   Scenario: Employee registers more than 24 hours to existing activity
     When creating a new activity "a" in the project
     And "huba" registers 100 hours and 0 minutes to day 2, month 2 and year 2021 to Activity "a"

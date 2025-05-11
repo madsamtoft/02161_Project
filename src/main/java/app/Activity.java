@@ -2,13 +2,12 @@ package app;
 
 import java.util.*;
 
-import static app.CalendarConverter.getCalendar;
-import static app.CalendarConverter.getToday;
+import static app.CalendarConverter.*;
 
 public class Activity {
     private String name;
-    private Map<Employee, Map<Calendar, Double>> employeeDateHours;
-    private List<Employee> assignedEmployees;
+    private final Map<Employee, Map<Calendar, Double>> employeeDateHours;
+    private final List<Employee> assignedEmployees;
     private Calendar startWeek;
     private Calendar endWeek;
     private int estimatedHours;
@@ -44,9 +43,6 @@ public class Activity {
             employeeDateHours.put(employee, dateHours);
         }
         Calendar today = getToday();
-//        long time = today.getTime().getTime();
-//        System.out.println(time);
-//        System.out.println(today.hashCode());
 
         double alreadyRegistered = 0;
         if (dateHours.containsKey(today)) {
@@ -62,10 +58,7 @@ public class Activity {
     }
 
     public double checkRegisteredDaily(Employee employee) {
-        if (!employeeDateHours.containsKey(employee) || !employeeDateHours.get(employee).containsKey(getToday())) {
-            return 0;
-        }
-        return employeeDateHours.get(employee).get(getToday());
+        return checkRegistered(employee, getToday());
     }
 
     public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
@@ -95,11 +88,15 @@ public class Activity {
         assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) :"postcondition" ;
     }
 
-    public double checkRegistered(Employee employee, Calendar date ) throws SystemAppException {
-        if (!employeeDateHours.containsKey(employee) || !employeeDateHours.get(employee).containsKey(date)) {
+    public double checkRegistered(Employee employee, Calendar date ) {
+        if (!employeeDateHours.containsKey(employee)) {
             return 0;
         }
-        return employeeDateHours.get(employee).get(date);
+        Map<Calendar, Double> dateHours = employeeDateHours.get(employee);
+        if (!dateHours.containsKey(date)) {
+            return 0;
+        }
+        return dateHours.get(date);
     }
 
     public double checkRegisteredTotal(Employee employee) {

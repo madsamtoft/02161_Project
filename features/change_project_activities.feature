@@ -6,10 +6,20 @@ Feature: Change Project Activities
     And an employee
     And it has 1 activities
 
-  Scenario: Change project name by project leader
+  Scenario: Change activity name by project leader
     Given employee is the leader of the project
     When the name of the activity is changed to "newName"
     Then the name of the activity is "newName"
+
+  Scenario: Change activity name by non project leader
+    Given employee is not the leader of the project
+    When the name of the activity is changed to "newName"
+    Then error message "Employee is not Project Leader" is given
+
+  Scenario: Change activity name to existing name
+    When creating a new activity "OtherActivity" in the project
+    And the name of the activity is changed to "OtherActivity"
+    Then error message "Activity Name already taken" is given
 
   Scenario: Start- and end week set by project leader for an activity
     Given employee is the leader of the project

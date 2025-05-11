@@ -5,9 +5,14 @@ Feature: Change Project
     Given a project
     And an employee
 
-  Scenario: set new project leader for a project
+  Scenario: set project leader for a project
     When setting employee as project leader
     Then the project leader is employee
+
+  Scenario: set project leader for a project
+    Given employee is not the leader of the project
+    When setting employee as project leader
+    Then error message "Employee is not Project Leader" is given
 
   Scenario: Start- and end date changed for a project
     Given employee is the leader of the project
@@ -36,6 +41,11 @@ Feature: Change Project
     Given employee is not the leader of the project
     When setting project name to "new"
     Then error message "Employee is not Project Leader" is given
+
+  Scenario: set already used name for a project
+    When creating a new project named "OtherProject"
+    And setting project name to "OtherProject"
+    Then error message "Project with that name already exists" is given
 
   Scenario: set new customer for a project as project leader
     Given employee is the leader of the project

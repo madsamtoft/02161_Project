@@ -50,15 +50,6 @@ public class App {
             return;
         }
         String customer = arguments.next();
-        /*
-        Project project;
-        try {
-            project = systemApp.getProject(projectName);
-        } catch (Exception e) {
-            System.out.println("Project \"" + projectName + "\" does not exist");
-            return;
-        }
-         */
         try {
             systemApp.changeProjectCustomer(actor, projectName, customer);
         } catch (Exception e) {
@@ -578,7 +569,6 @@ public class App {
     }
 
     private void listActivities(String projectName) {
-        Project project;
         List<String> activities;
         try {
             activities = systemApp.listProjectActivities(projectName);
