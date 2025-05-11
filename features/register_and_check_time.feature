@@ -41,3 +41,13 @@ Feature: Register and Check time
     When creating a new activity "a" in the project
     And "huba" registers 5 hours and 0 minutes to day 32, month 13 and year -1 to Activity "a"
     Then error message "Invalid calendar date" is given
+
+  Scenario: Employee registers negative hours to existing activity
+    When creating a new activity "a" in the project
+    And "huba" registers -1 hours and 0 minutes to day 2, month 2 and year 2021 to Activity "a"
+    Then error message "Cannot register negative hours" is given
+
+  Scenario: Employee registers negative minutes to existing activity
+    When creating a new activity "a" in the project
+    And "huba" registers 0 hours and -1 minutes to day 2, month 2 and year 2021 to Activity "a"
+    Then error message "Cannot register negative minutes" is given

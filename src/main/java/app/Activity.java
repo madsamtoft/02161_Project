@@ -63,10 +63,10 @@ public class Activity {
 
     public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
         if(!(fullHours >= 0)){
-            throw new SystemAppException("Cannot work less than 0 hours a day");
+            throw new SystemAppException("Cannot register negative hours");
         }
         if(!(minutes >= 0)){
-            throw new SystemAppException("Cannot work less than 0 minutes a day");
+            throw new SystemAppException("Cannot register negative minutes");
         }
         assert fullHours >= 0 && minutes >= 0:"precondition";
 
