@@ -1,9 +1,11 @@
 package whiteboxtests;
 
 import app.CalendarConverter;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
+import java.sql.SQLOutput;
 import java.util.Calendar;
 
 public class DateOverlapWhitebox {
@@ -27,7 +29,7 @@ public class DateOverlapWhitebox {
             end1 = CalendarConverter.getCalendar(1, 2, 2000);
             start2 = CalendarConverter.getCalendar(1, 1, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            fail(e.getMessage());
         }
 
         overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
@@ -40,7 +42,7 @@ public class DateOverlapWhitebox {
             end1 = CalendarConverter.getCalendar(1, 1, 2000);
             start2 = CalendarConverter.getCalendar(1, 2, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            fail(e.getMessage());
         }
         overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
         assertFalse(overlap);
@@ -52,7 +54,7 @@ public class DateOverlapWhitebox {
             start1 = CalendarConverter.getCalendar(1, 1, 2000);
             end2 = CalendarConverter.getCalendar(1, 2, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            fail(e.getMessage());
         }
         overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
         assertTrue(overlap);
@@ -64,7 +66,7 @@ public class DateOverlapWhitebox {
             start1 = CalendarConverter.getCalendar(1, 2, 2000);
             end2 = CalendarConverter.getCalendar(1, 1, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            fail(e.getMessage());
         }
         overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
         assertFalse(overlap);
@@ -78,7 +80,7 @@ public class DateOverlapWhitebox {
             start2 = CalendarConverter.getCalendar(1, 6, 2000);
             end2 = CalendarConverter.getCalendar(1, 12, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            fail(e.getMessage());
         }
         overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
         assertTrue(overlap);
@@ -92,7 +94,7 @@ public class DateOverlapWhitebox {
             start2 = CalendarConverter.getCalendar(1, 7, 2000);
             end2 = CalendarConverter.getCalendar(1, 12, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            fail(e.getMessage());
         }
         overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
         assertFalse(overlap);
@@ -106,10 +108,10 @@ public class DateOverlapWhitebox {
             start2 = CalendarConverter.getCalendar(1, 1, 2000);
             end2 = CalendarConverter.getCalendar(30, 6, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            Assertions.fail(e.getMessage());
         }
         overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
-        assertFalse(overlap);
+        Assertions.assertFalse(overlap);
     }
 
     @Test
@@ -120,13 +122,14 @@ public class DateOverlapWhitebox {
             start2 = CalendarConverter.getCalendar(30, 6, 2000);
             end2 = CalendarConverter.getCalendar(1, 1, 2000);
         } catch (Exception e) {
-            errorMessage = e.getMessage();
+            Assertions.fail(e.getMessage());
         }
         try {
             overlap = CalendarConverter.dateOverlap(start1, end1, start2, end2);
-            assertFalse(overlap);
         } catch (AssertionError e) {
             errorMessage = e.getMessage();
+            return;
         }
+        Assertions.fail("Expected AssertionError");
     }
 }
