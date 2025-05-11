@@ -7,7 +7,7 @@ import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectSteps {
-    private SystemApp systemApp = new SystemApp();
+    private final SystemApp systemApp = new SystemApp();
     private String errorMessage;
 //    private  someProjectOld;
     private final String someProject = "proj1";
@@ -96,9 +96,7 @@ public class ProjectSteps {
     @When("setting employee as project leader")
     public void settingEmployeeAsProjectLeader() {
         try {
-            systemApp.assignProjectLeader(someEmployee, someProject, someEmployee);
-//            Employee employee = systemApp.getEmployee(someEmployee);
-//            systemApp.getProject(someProject).assignProjectLeader(someEmployee, employee);
+            systemApp.assignProjectLeader("", someProject, someEmployee);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -106,13 +104,13 @@ public class ProjectSteps {
 
     @Then("the project leader is employee")
     public void theProjectLeaderIsEmployee() {
+        String projectLeader = "";
         try {
-            String projectLeader = systemApp.getProjectLeader(someProject);
-//            String projectLeader = systemApp.getProject(someProject).getProjectLeader().name();
-//            assertEquals(someEmployee, projectLeader);
+            projectLeader = systemApp.getProjectLeader(someProject);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
+        assertEquals(someEmployee, projectLeader);
     }
 
     @When("the start date is set to day {int}, month {int}, and year {int}")
@@ -569,13 +567,10 @@ public class ProjectSteps {
         double checkHours = -1;
         try {
             checkHours = systemApp.checkRegisteredTime(someProject, someEmployee);
-            assertEquals(hours,checkHours);
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
-            System.out.println(errorMessage);
-            fail();
         }
-
+        assertEquals(hours,checkHours);
     }
 
 
