@@ -638,4 +638,21 @@ public class ProjectSteps {
         referenceMap.put(referenceProjectId, someProjectName);
         assertEquals(referenceMap, listProjectMap);
     }
+
+    private List<String> listActivitiesList;
+    @When("getting the activity list")
+    public void gettingTheActivityList() {
+        try {
+            listActivitiesList = systemApp.listProjectActivities(someProjectName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the output list is equal to the activity list reference list containing {string}")
+    public void theOutputListIsEqualToTheActivityListReferenceListContaining(String activityName) {
+        List<String> referenceList = new LinkedList<>();
+        referenceList.add(activityName);
+        assertEquals(referenceList, listActivitiesList);
+    }
 }
