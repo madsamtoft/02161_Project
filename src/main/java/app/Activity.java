@@ -114,15 +114,24 @@ public class Activity {
     public Calendar getStartWeek() {
         return startWeek;
     }
-    public void setStartWeek(Calendar startWeek) {
-        this.startWeek = startWeek;
+    public void setStartWeek(Calendar startWeek) throws SystemAppException {
+        if (endWeek == null || startWeek.before(endWeek)) {
+            this.startWeek = startWeek;
+        } else {
+            throw new SystemAppException("Start date must be before end date");
+        }
     }
 
     public Calendar getEndWeek() {
+
         return endWeek;
     }
-    public void setEndWeek(Calendar endWeek) {
-        this.endWeek = endWeek;
+    public void setEndWeek(Calendar endWeek) throws SystemAppException {
+        if (startWeek == null || startWeek.before(endWeek)) {
+            this.endWeek = endWeek;
+        } else {
+            throw new SystemAppException("End date must be after start date");
+        }
     }
 
     public int getEstimatedHours() {
@@ -139,6 +148,7 @@ public class Activity {
         } else {
             return new ArrayList<>();
         }
+
     }
 
     public double getTotalHours() {

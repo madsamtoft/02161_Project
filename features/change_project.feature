@@ -27,6 +27,18 @@ Feature: Change Project
     And the end date is set to day 5, month 5, and year 2021
     Then error message "Employee is not Project Leader" is given
 
+  Scenario: Start- and end date changed for a project, but end date is before start date
+    Given employee is the leader of the project
+    When the start date is set to day 5, month 5, and year 2021
+    And the end date is set to day 1, month 1, and year 2021
+    Then error message "End date must be after start date" is given
+
+  Scenario: Start- and end date changed for a project, but start date is after end date
+    Given employee is the leader of the project
+    When the end date is set to day 1, month 1, and year 2021
+    And the start date is set to day 5, month 5, and year 2021
+    Then error message "Start date must be before end date" is given
+
   Scenario: set new name for a project as project leader
     Given employee is the leader of the project
     When setting project name to "new"
