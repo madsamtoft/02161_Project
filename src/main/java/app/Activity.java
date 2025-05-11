@@ -143,7 +143,7 @@ public class Activity {
         this.estimatedHours = estimatedHours;
     }
 
-    public List<String> getOccupiedEmployeeList() {
+    public List<String> getEmployeesThisWeekList() {
         Calendar thisWeek = SystemCalendar.getThisWeek();
         if (SystemCalendar.dateOverlap(startWeek, endWeek, thisWeek, thisWeek)) {
             return assignedEmployees.stream().map(Employee::name).toList();

@@ -54,7 +54,6 @@ public class App {
             systemApp.setProjectCustomer(actor, projectName, customer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            //System.out.println("User not authorized to add customer to project \"" + projectName + "\"");
             return;
         }
         System.out.println("Customer \"" + customer + "\" successfully added");
@@ -108,7 +107,6 @@ public class App {
             return;
         }
         try {
-//            systemApp.setProjectStartDate(actor, project, date);
             systemApp.setProjectStartDate(actor, project, date);
             System.out.println("Start date successfully changed in project \"" + project + "\"");
         } catch (SystemAppException e) {
@@ -259,7 +257,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             double hours = systemApp.getFirmActivityHours(employee,firmActivityName,day,month,year);
-            System.out.println(employee + " has registered " + hours + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
+            System.out.println(employee + " has registered " + hours + " hours to firm activity \"" + firmActivityName + "\" at " + day + "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -420,7 +418,7 @@ public class App {
         String employee = arguments.next();
         try {
             double hours = systemApp.getActivityHoursToday(project,activityName,employee);
-            System.out.println(employee + " has registered " + hours + " to " + activityName);
+            System.out.println(employee + " has registered " + hours + " hours to " + activityName);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -470,7 +468,7 @@ public class App {
         try{
             systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
             double registered = systemApp.getActivityHours(employee,project,activity,day,month,year);
-            System.out.println(employee + " has registered " + registered + "hours to " + activity + " at " + day+ "/" + month + "/" + year);
+            System.out.println(employee + " has registered " + registered + " hours to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -509,7 +507,7 @@ public class App {
         int year = arguments.nextInt();
         try{
             double hours = systemApp.getActivityHours(employee,project,activity,day,month,year);
-            System.out.println(employee + " has registered " + hours + " to " + activity + " at " + day+ "/" + month + "/" + year);
+            System.out.println(employee + " has registered " + hours + " hours to " + activity + " at " + day+ "/" + month + "/" + year);
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -527,7 +525,7 @@ public class App {
         }
         String actor = arguments.next();
         try {
-            System.out.println(systemApp.getTodayHoursProject(project,actor)+ "hours");
+            System.out.println(systemApp.getTodayHoursProject(project,actor)+ " hours");
 
 
         } catch (SystemAppException e) {

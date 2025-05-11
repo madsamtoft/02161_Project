@@ -220,7 +220,7 @@ public class Project {
     public List<String> getOccupiedEmployees() {
         ArrayList<String> occupiedEmployeeNames = new ArrayList<>();
         for (Activity activity : activities) {
-            occupiedEmployeeNames.addAll(activity.getOccupiedEmployeeList());
+            occupiedEmployeeNames.addAll(activity.getEmployeesThisWeekList());
         }
         return occupiedEmployeeNames;
     }
