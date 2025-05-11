@@ -11,6 +11,7 @@ public class ProjectSteps {
     private String errorMessage;
     private final String someProject = "proj1";
     private final String someEmployee = "abcd";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String otherEmployee = "huba";
     private final String someActivity = "act1";
     private List<String> availableEmployeeNames = new ArrayList<>();
