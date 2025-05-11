@@ -395,7 +395,7 @@ public class App {
         try {
             systemApp.registerTimeDaily(project, activityName, employee, hours, minutes);
             double registered = systemApp.checkRegisteredTimeDaily(project, activityName, employee);
-            System.out.println(registered + "hours have been registered to \"" + employee + "\" in activity" + activityName);
+            System.out.println(registered + " hours have been registered to \"" + employee + "\" in activity \"" + activityName + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -554,7 +554,7 @@ public class App {
         int hours = arguments.nextInt();
         try{
             systemApp.setActivityEstimatedHours(actor,project,activity,hours);
-            System.out.println("Estimated Hours set to \"" + hours + " hours for activity" + activity + "\" in project \"" + project + "\"");
+            System.out.println("Estimated Hours set to " + hours + " hours for activity \"" + activity + "\" in project \"" + project + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
