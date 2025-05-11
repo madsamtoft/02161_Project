@@ -16,8 +16,11 @@ public class ProjectSteps {
     private final String someActivity = "act1";
     private List<String> availableEmployeeNames = new ArrayList<>();
 
-
     private static final String DEFAULT_ACTIVITY_NAME = "act";
+
+    private double calcHours(int hours, int minutes) {
+        return Math.ceil((hours + (minutes/60.))*2) / 2.;
+    }
 
     @When("creating a new project named {string}")
     public void creatingANewProjectNamed(String string) {
@@ -368,7 +371,7 @@ public class ProjectSteps {
 
     @Then("{int}:{int} hours have been registered to the activity by employee")
     public void hoursHaveBeenRegisteredToTheActivity(int fullHours, int minutes) {
-        double hours = fullHours + (minutes/60.);
+        double hours = calcHours(fullHours, minutes);
         try {
             assertEquals(hours, systemApp.checkRegisteredTimeDaily(someProject, someActivity, someEmployee));
         } catch (Exception e){
@@ -457,8 +460,7 @@ public class ProjectSteps {
 
     @Then("{string} has registered {int} hours and {int} minutes to day {int}, month {int}, and year {int} to firm Activity {string}")
     public void hasRegisteredHoursAndMinutesToDayMonthAndYearToFirmActivity(String employeeName, int fullHours, int minutes, int day, int month, int year, String firmActivityName) {
-        double hours = fullHours + (minutes/60.);
-        double roundHours = Math.ceil(hours*2) / 2.;
+        double roundHours = calcHours(fullHours, minutes);
         double checkHours = -1;
         try {
             checkHours = systemApp.checkRegisteredFirmActivity(employeeName, firmActivityName, day, month, year);
@@ -509,8 +511,7 @@ public class ProjectSteps {
 
     @Then("{string} has registered {int} hours and {int} minutes to day {int}, month {int}, and year {int} to Activity {string}")
     public void hasRegisteredHoursAndMinutesToDayMonthAndYearToActivity(String employeeName, int fullHours, int minutes , int day, int month, int year, String activity){
-        double hours = fullHours + (minutes/60.);
-        double roundHours = Math.ceil(hours*2) / 2.;
+        double roundHours = calcHours(fullHours, minutes);
         double checkHours = -1;
         try {
             checkHours = systemApp.checkRegisteredActivity(employeeName, someProject, activity, day, month, year);
@@ -523,7 +524,7 @@ public class ProjectSteps {
 
     @Then("{string} has registered {int} hours and {int} minutes in total to Activity {string}")
     public void hasRegisteredHoursAndMinutesInTotalToActivity(String employeeName, int fullHours, int minutes, String activity) {
-        double hours = Math.ceil((fullHours + (minutes/60.))*2) / 2.;
+        double hours = calcHours(fullHours, minutes);
         double checkHours = -1;
         try {
             checkHours = systemApp.checkRegisteredTotalActivity(someProject, activity, employeeName);
