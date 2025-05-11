@@ -624,4 +624,18 @@ public class ProjectSteps {
     public void noEmployeesAreFound() {
         assertEquals(0, availableEmployeeNames.size());
     }
+
+    private Map<Integer, String> listProjectMap;
+    @When("getting the project list")
+    public void gettingTheProjectList() {
+        listProjectMap = systemApp.listProjects();
+    }
+
+    @Then("the output map is equal to the project list reference map")
+    public void theOutputMapIsEqualToTheProjectListReferenceMap() {
+        int referenceProjectId = (CalendarConverter.getCurrentYear() % 100) * 1000 + 1;
+        Map<Integer, String> referenceMap = new HashMap<>();
+        referenceMap.put(referenceProjectId, someProjectName);
+        assertEquals(referenceMap, listProjectMap);
+    }
 }
