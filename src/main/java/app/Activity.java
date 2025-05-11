@@ -2,13 +2,12 @@ package app;
 
 import java.util.*;
 
-import static app.CalendarConverter.getCalendar;
-import static app.CalendarConverter.getToday;
+import static app.CalendarConverter.*;
 
 public class Activity {
     private String name;
-    private Map<Employee, Map<Calendar, Double>> employeeDateHours;
-    private List<Employee> assignedEmployees;
+    private final Map<Employee, Map<Calendar, Double>> employeeDateHours;
+    private final List<Employee> assignedEmployees;
     private Calendar startWeek;
     private Calendar endWeek;
     private int estimatedHours;
@@ -44,9 +43,6 @@ public class Activity {
             employeeDateHours.put(employee, dateHours);
         }
         Calendar today = getToday();
-//        long time = today.getTime().getTime();
-//        System.out.println(time);
-//        System.out.println(today.hashCode());
 
         double alreadyRegistered = 0;
         if (dateHours.containsKey(today)) {
