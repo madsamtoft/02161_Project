@@ -1,6 +1,6 @@
 package whiteboxtests;
 
-import app.CalendarConverter;
+import app.SystemCalendar;
 import app.SystemApp;
 import app.SystemAppException;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +30,7 @@ public class CreateProjectWhiteboxTest {
         int referenceProjectId = 0;
         try {
             systemApp.createProject("a");
-            referenceProjectId = (CalendarConverter.getCurrentYear() % 100) * 1000 + 1;
+            referenceProjectId = (SystemCalendar.getCurrentYear() % 100) * 1000 + 1;
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
@@ -44,7 +44,7 @@ public class CreateProjectWhiteboxTest {
         int referenceProjectId = 0;
         try {
             systemApp.createProject("a");
-            referenceProjectId = (CalendarConverter.getCurrentYear() % 100) * 1000 + 1;
+            referenceProjectId = (SystemCalendar.getCurrentYear() % 100) * 1000 + 1;
             systemApp.createProject("a");
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
