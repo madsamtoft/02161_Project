@@ -23,7 +23,7 @@ paths				            input		input property
 1,2(true),6,7,8(true),9		    A		    Employee exists in activity and tries to input more than 24 hours
 1,2(true),6,7,8(false),10	    B		    Employee exists in activity and inputs 24 or less hours
 1,2(false),6,7,8(true),9	    C		    Employee doesn't exist in activity and is added and tries to input more than 24 hours
-1,2(false),6,7,8(false),10	    D		    Employee doesn't exist in activity and is added inputs 24 or less hours
+1,2(false),6,7,8(false),10	    D		    Employee doesn't exist in activity and is added and inputs 24 or less hours
 
 TABLE 2
 input set	input data						                        expected results
