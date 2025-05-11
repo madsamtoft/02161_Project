@@ -99,7 +99,7 @@ public class Project {
         }
     }
 
-    public void assignEmployeeToActivity(String actor, String activityName, Employee employee) throws SystemAppException {
+    public void assignEmployee(String actor, String activityName, Employee employee) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         } else {
@@ -128,23 +128,23 @@ public class Project {
         return activities.stream().anyMatch(a -> a.getName().equals(activity));
     }
 
-    public void addTimeToday(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
-        getActivity(activityName).setTimeToday(employee, fullHours, minutes);
+    public void registerTimeToday(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
+        getActivity(activityName).registerTimeToday(employee, fullHours, minutes);
     }
 
-    public double getRegisteredToday(String activityName, Employee employee) throws SystemAppException {
+    public double getActivityHoursToday(String activityName, Employee employee) throws SystemAppException {
         Activity activity = getActivity(activityName);
-        return activity.getRegisteredToday(employee);
+        return activity.getHoursToday(employee);
     }
 
     public void setTimeActivity(String activityName, Employee employee, int hours, int minutes, Calendar date) throws SystemAppException {
         Activity activity = getActivity(activityName);
-        activity.setTime(employee,hours,minutes,date);
+        activity.registerTime(employee,hours,minutes,date);
     }
 
-    public double getActivityHoursEmployee(String activityName, Employee employee, Calendar date) throws SystemAppException{
+    public double getActivityHours(String activityName, Employee employee, Calendar date) throws SystemAppException{
         Activity activity = getActivity(activityName);
-        return activity.getRegisteredHours(employee,date);
+        return activity.getHours(employee,date);
     }
 
     public double getActivityTotalHoursEmployee(String activityName, Employee employee) throws SystemAppException {
@@ -205,7 +205,7 @@ public class Project {
         return getActivity(activity).isEmployeeAssigned(employee);
     }
 
-    public int numberOfAssignedActivities(Employee employee, Calendar start, Calendar end) {
+    public int assignedActivityAmount(Employee employee, Calendar start, Calendar end) {
         int sum = 0;
         for (Activity activity: activities) {
             if(activity.isEmployeeAssigned(employee)) {

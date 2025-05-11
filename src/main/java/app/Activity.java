@@ -34,7 +34,7 @@ public class Activity {
         this.assignedEmployees.add(employee);
     }
 
-    public void setTimeToday(Employee employee, int fullHours, int minutes) throws SystemAppException {
+    public void registerTimeToday(Employee employee, int fullHours, int minutes) throws SystemAppException {
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -57,11 +57,11 @@ public class Activity {
         dateHours.put(today, putHours + alreadyRegistered);
     }
 
-    public double getRegisteredToday(Employee employee) {
-        return getRegisteredHours(employee, getToday());
+    public double getHoursToday(Employee employee) {
+        return getHours(employee, getToday());
     }
 
-    public void setTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
+    public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
 
         assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
 
@@ -83,7 +83,7 @@ public class Activity {
         assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) && putHours <= 24:"postcondition" ;
     }
 
-    public double getRegisteredHours(Employee employee, Calendar date ) {
+    public double getHours(Employee employee, Calendar date ) {
         if (!employeeDateHours.containsKey(employee)) {
             return 0;
         }

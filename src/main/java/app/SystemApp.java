@@ -100,19 +100,19 @@ public class SystemApp {
         return firmActivityList.stream().anyMatch(a -> a.getName().equals(name));
     }
 
-    public void setTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+    public void registerTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         if (!(hours >= 0 && minutes >= 0 )){
             throw new SystemAppException("Hours and minutes can't be negative");
         }
-        firmActivity.setTime(getEmployee(employeeName),hours,minutes,date);
+        firmActivity.registerTime(getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double getFirmActivityHoursEmployee(String employeeName, String firmActivityName, int day, int month, int year) throws SystemAppException{
+    public double getFirmActivityHours(String employeeName, String firmActivityName, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = SystemCalendar.getCalendar(day, month, year);
-        return firmActivity.getRegisteredHours(getEmployee(employeeName),date);
+        return firmActivity.getHours(getEmployee(employeeName),date);
     }
 
     public void createActivity(String actor, String project, String activityName) throws SystemAppException {
@@ -229,24 +229,24 @@ public class SystemApp {
         return getProject(project).hasActivity(activity);
     }
 
-    public void addTimeToday(String project, String activity, String employeeName, int fullHours, int minutes) throws SystemAppException {
-        getProject(project).addTimeToday(activity, getEmployee(employeeName), fullHours, minutes);
+    public void registerTimeToday(String project, String activity, String employeeName, int fullHours, int minutes) throws SystemAppException {
+        getProject(project).registerTimeToday(activity, getEmployee(employeeName), fullHours, minutes);
     }
 
-    public double getRegisteredToday(String project, String activity, String employeeName) throws SystemAppException {
-        return getProject(project).getRegisteredToday(activity, getEmployee(employeeName));
+    public double getActivityHoursToday(String project, String activity, String employeeName) throws SystemAppException {
+        return getProject(project).getActivityHoursToday(activity, getEmployee(employeeName));
     }
 
-    public double getRegisteredTotalToday(String project, String actor)throws SystemAppException{
+    public double getTodayHoursProject(String project, String actor)throws SystemAppException{
        double output = 0;
         for (String activity : getProject(project).getActivityList()){
-              output += getRegisteredToday(project, activity, actor);
+              output += getActivityHoursToday(project, activity, actor);
 
         }
         return output;
     }
 
-    public void addTimeToActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+    public void registerTimeActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         if (!(hours >= 0 && minutes >= 0 )){
             throw new SystemAppException("Hours and minutes can't be negative");
@@ -254,30 +254,30 @@ public class SystemApp {
         getProject(project).setTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double getActivityHoursEmployee(String employeeName, String project, String activity, int day, int month , int year ) throws SystemAppException{
+    public double getActivityHours(String employeeName, String project, String activity, int day, int month , int year ) throws SystemAppException{
         Calendar date = SystemCalendar.getCalendar(day, month, year);
-        return getProject(project).getActivityHoursEmployee(activity,getEmployee(employeeName),date);
+        return getProject(project).getActivityHours(activity,getEmployee(employeeName),date);
     }
 
     public double getActivityTotalHoursEmployee(String project, String activity, String employeeName) throws SystemAppException {
         return getProject(project).getActivityTotalHoursEmployee(activity, getEmployee(employeeName));
     }
 
-    public void assignEmployeeToActivity(String actor, String project, String activity, String employeeName) throws SystemAppException {
-        if(numberOfAssignedActivities(employeeName, project, activity) < 20){
-            getProject(project).assignEmployeeToActivity(actor, activity, getEmployee(employeeName));
+    public void assignEmployee(String actor, String project, String activity, String employeeName) throws SystemAppException {
+        if(assignedActivityAmount(employeeName, project, activity) < 20){
+            getProject(project).assignEmployee(actor, activity, getEmployee(employeeName));
         } else {
             throw new SystemAppException("Too Many Activities Assigned To Employee");
         }
     }
 
-    public int numberOfAssignedActivities(String employeeName, String projectName, String activityName) throws SystemAppException {
+    public int assignedActivityAmount(String employeeName, String projectName, String activityName) throws SystemAppException {
         Employee employee = getEmployee(employeeName);
         Calendar startWeek = getActivityStartWeek(projectName, activityName);
         Calendar endWeek = getActivityEndWeek(projectName, activityName);
         int sum = 0;
         for(Project project: projects) {
-            sum += project.numberOfAssignedActivities(employee, startWeek, endWeek);
+            sum += project.assignedActivityAmount(employee, startWeek, endWeek);
         }
         return sum;
     }
