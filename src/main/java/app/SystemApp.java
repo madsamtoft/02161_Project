@@ -68,17 +68,6 @@ public class SystemApp {
         employees.add(new Employee(name.toLowerCase()));
     }
 
-    public List<Integer> getProjectIds(String name) {
-        List<Integer> ids = new LinkedList<>();
-        for (Project project : projects) {
-            String projectName = project.getName();
-            if (name.equals(projectName)) {
-                ids.add(project.getId());
-            }
-        }
-        return ids;
-    }
-
     public void createFirmActivity(String activityName) throws SystemAppException {
         if (firmActivityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
             throw new SystemAppException("Firm Activity Name already taken");

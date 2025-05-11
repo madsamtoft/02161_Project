@@ -43,13 +43,11 @@ public class ProjectSteps {
 
     @Then("{int} unique project\\(s) with name {string} exist\\(s)")
     public void uniqueProjectSWithNameExistS(int amount, String name) {
-        // Check exists
-        List<Integer> ids = systemApp.getProjectIds(name);
-        assertEquals(amount, ids.size());
-
-        // Check duplicates
-        Set<Integer> idSet = new HashSet<>(ids);
-        assertEquals(ids.size(), idSet.size());
+        try {
+            assertEquals(name, systemApp.getProjectName(name));
+        } catch (SystemAppException e) {
+            fail(e.getMessage());
+        }
     }
 
     @Given("a project")

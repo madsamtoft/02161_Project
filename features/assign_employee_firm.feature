@@ -35,3 +35,12 @@ Feature: Assign an employee to a firm activity
     When creating a new firm activity "a"
     And "huba" registers -1 hours and 0 minutes to day 2, month 2 and year 2021 to firm Activity "a"
     Then error message "Hours and minutes can't be negative" is given
+
+  Scenario: Register time to second firm activity
+    When creating a new firm activity "a"
+    When creating a new firm activity "b"
+    When "huba" registers 1 hours and 30 minutes to day 2, month 2 and year 2021 to firm Activity "b"
+    Then "huba" has registered 1 hours and 30 minutes to day 2, month 2, and year 2021 to firm Activity "b"
+
+
+
