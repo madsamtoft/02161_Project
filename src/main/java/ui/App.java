@@ -419,7 +419,7 @@ public class App {
         try {
             systemApp.registerTimeToday(project, activityName, employee, hours, minutes);
             double registered = systemApp.getActivityHoursToday(project, activityName, employee);
-            System.out.println(registered + " hours have been registered to \"" + employee + "\" in activity \"" + activityName + "\"");
+            System.out.println("\""+employee + "\" has registered " + registered + " to \"" + activityName + "\" today");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
