@@ -15,8 +15,9 @@ public class App {
     }
 
     private void createEmployee(Scanner arguments) {
+        usage = "Usage: createEmployee <name>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: createEmployee <name>");
+            System.out.println(usage);
             return;
         }
         String name = arguments.next();
@@ -289,7 +290,6 @@ public class App {
             System.out.printf("\tFirm activity %2d: %s\n", (i+1), activities.get(i));
         }
     }
-
 
     private void createActivity(Scanner arguments) {
         usage = "Usage: createActivity <project> <activity>";
