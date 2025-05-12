@@ -56,7 +56,7 @@ public class App {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("Project Customer for project \"" + projectName + "\" successfully set to \"" + customer + "\"");
+        System.out.println("Customer for project \"" + projectName + "\" successfully set to \"" + customer + "\"");
 
     }
 
@@ -73,7 +73,7 @@ public class App {
         String newName = arguments.next();
         try {
             systemApp.setProjectName(actor, name, newName);
-            System.out.println("Project name for project \"" + name + "\" successfully set to \"" + newName + "\"");
+            System.out.println("Name for project \"" + name + "\" successfully set to \"" + newName + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -146,7 +146,6 @@ public class App {
         }
         try {
             systemApp.setProjectEndDate(actor, project, date);
-            System.out.println("End date successfully changed in project \"" + project + "\"");
             System.out.println("End date for project \"" + project + "\" successfully set to \"" + day + "/" + month + "/" + year + "\"");
 
         } catch (SystemAppException e) {
