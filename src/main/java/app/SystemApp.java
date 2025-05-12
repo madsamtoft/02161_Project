@@ -14,7 +14,7 @@ public class SystemApp {
     }
 
     private boolean projectExists(String name) {
-        return projects.stream().anyMatch(p -> p.getName().equals(name));
+        return projects.stream().anyMatch(p -> p.getName().equals(name.toLowerCase()));
     }
 
     private int getNewProjectId() {
@@ -69,10 +69,10 @@ public class SystemApp {
     }
 
     public void createFirmActivity(String activityName) throws SystemAppException {
-        if (firmActivityList.stream().anyMatch(a -> activityName.equals(a.getName()))) {
+        if (firmActivityList.stream().anyMatch(a -> activityName.toLowerCase().equals(a.getName()))) {
             throw new SystemAppException("Firm Activity Name already taken");
         } else {
-            firmActivityList.add(new Activity(activityName));
+            firmActivityList.add(new Activity(activityName.toLowerCase()));
         }
     }
 
@@ -118,7 +118,7 @@ public class SystemApp {
 
     private Project getProject(String name) throws SystemAppException {
         for (Project project : projects) {
-            if (project.getName().equals(name)) {
+            if (project.getName().equals(name.toLowerCase())) {
                 return project;
             }
         }
@@ -332,6 +332,4 @@ public class SystemApp {
         }
         return sum;
     }
-
-//    checkWeeklyActivityAmount()
 }

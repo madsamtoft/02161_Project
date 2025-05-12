@@ -4,7 +4,7 @@
         } else if (name.isEmpty()) {                                                // 3
             throw new SystemAppException("Project Name cannot be empty");           // 4
         } else {
-            this.name = name;                                                       // 5
+            this.name = name.toLowerCase();;                                                       // 5
         }
     }
 
@@ -20,16 +20,16 @@
     ------------------------------------------------------------------------------------------------
     input set	input data						                    Expected Results
     A		                                                        Exception with message "Employee is not Project Leader" is thrown
-    		    ProjectLeader = "bobi"  					        Projects = [25001,"a"]
+    		    ProjectLeader = "bobi"  					        Project name is unchanged
                 Actor = "huba"
                 Name = "b"
 
     B		                                                        Exception with message "Project Name cannot be empty" is thrown
-    		    ProjectLeader = "huba"                              Projects = [25001,"a"]
+    		    ProjectLeader = "huba"                              Project name is unchanged
                 Actor = "huba"
                 Name = ""
 
-    C		                        			                    Projects = [25001,"b"]
+    C		                        			                    Project name is changed to "b"
     		    ProjectLeader = "huba"
                 Actor = "huba"
                 Name = "b"

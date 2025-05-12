@@ -6,7 +6,7 @@ Feature: Assign an employee to a firm activity
 
   Scenario: Creating a new firm activity
     When creating a new firm activity "A1"
-    Then the firm activity with name "A1" exists
+    Then the firm activity with name "a1" exists
 
   Scenario: Creating a firm activity with duplicate name
     When creating a new firm activity "traktortræk"
