@@ -1,9 +1,7 @@
 package ui;
 
 import app.*;
-
 import java.util.*;
-
 import java.util.Scanner;
 
 public class App {

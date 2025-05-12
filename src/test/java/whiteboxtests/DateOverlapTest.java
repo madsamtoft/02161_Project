@@ -3,7 +3,6 @@ package whiteboxtests;
 import app.SystemCalendar;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
 
 import java.util.Calendar;
 
@@ -19,7 +18,7 @@ public class DateOverlapTest {
     @Test
     void testDateOverlapA() {
         overlap = SystemCalendar.dateOverlap(start1, end1, start2, end2);
-        assertTrue(overlap);
+        Assertions.assertTrue(overlap);
     }
 
     @Test
@@ -28,11 +27,11 @@ public class DateOverlapTest {
             end1 = SystemCalendar.getCalendar(1, 2, 2000);
             start2 = SystemCalendar.getCalendar(1, 1, 2000);
         } catch (Exception e) {
-            fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
 
         overlap = SystemCalendar.dateOverlap(start1, end1, start2, end2);
-        assertTrue(overlap);
+        Assertions.assertTrue(overlap);
     }
 
     @Test
@@ -41,10 +40,10 @@ public class DateOverlapTest {
             end1 = SystemCalendar.getCalendar(1, 1, 2000);
             start2 = SystemCalendar.getCalendar(1, 2, 2000);
         } catch (Exception e) {
-            fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         overlap = SystemCalendar.dateOverlap(start1, end1, start2, end2);
-        assertFalse(overlap);
+        Assertions.assertFalse(overlap);
     }
 
     @Test
@@ -53,10 +52,10 @@ public class DateOverlapTest {
             start1 = SystemCalendar.getCalendar(1, 1, 2000);
             end2 = SystemCalendar.getCalendar(1, 2, 2000);
         } catch (Exception e) {
-            fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         overlap = SystemCalendar.dateOverlap(start1, end1, start2, end2);
-        assertTrue(overlap);
+        Assertions.assertTrue(overlap);
     }
 
     @Test
@@ -65,10 +64,10 @@ public class DateOverlapTest {
             start1 = SystemCalendar.getCalendar(1, 2, 2000);
             end2 = SystemCalendar.getCalendar(1, 1, 2000);
         } catch (Exception e) {
-            fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         overlap = SystemCalendar.dateOverlap(start1, end1, start2, end2);
-        assertFalse(overlap);
+        Assertions.assertFalse(overlap);
     }
 
     @Test
@@ -79,10 +78,10 @@ public class DateOverlapTest {
             start2 = SystemCalendar.getCalendar(1, 6, 2000);
             end2 = SystemCalendar.getCalendar(1, 12, 2000);
         } catch (Exception e) {
-            fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         overlap = SystemCalendar.dateOverlap(start1, end1, start2, end2);
-        assertTrue(overlap);
+        Assertions.assertTrue(overlap);
     }
 
     @Test
@@ -93,10 +92,10 @@ public class DateOverlapTest {
             start2 = SystemCalendar.getCalendar(1, 7, 2000);
             end2 = SystemCalendar.getCalendar(1, 12, 2000);
         } catch (Exception e) {
-            fail(e.getMessage());
+            Assertions.fail(e.getMessage());
         }
         overlap = SystemCalendar.dateOverlap(start1, end1, start2, end2);
-        assertFalse(overlap);
+        Assertions.assertFalse(overlap);
     }
 
     @Test
