@@ -1,15 +1,15 @@
-public void registerEmployee(String name) throws SystemAppException {
-        if (name.isEmpty() || name.length() > 4) {                                         // 1
-            throw new SystemAppException("Employee username must be 1-4 letters");         // 2
-        }
-        if (!name.toLowerCase().matches("[a-z]+")) {                                       // 3
-            throw new SystemAppException("Employee username must be 1-4 letters");         // 4
-        }
-        if (employeeExists(name)) {                                                        // 5
-            throw new SystemAppException("An employee with that username already exists"); // 6
-        }
-        employees.add(new Employee(name.toLowerCase()));                                   // 7
+public void createEmployee(String name) throws SystemAppException {
+    if (name.isEmpty() || name.length() > 4) {                                         // 1
+        throw new SystemAppException("Employee username must be 1-4 letters");         // 2
     }
+    if (!name.toLowerCase().matches("[a-z]+")) {                                       // 3
+        throw new SystemAppException("Employee username must be 1-4 letters");         // 4
+    }
+    if (employeeExists(name)) {                                                        // 5
+        throw new SystemAppException("An employee with that username already exists"); // 6
+    }
+    employees.add(new Employee(name.toLowerCase()));                                   // 7
+}
 
 TABLE 1
 
