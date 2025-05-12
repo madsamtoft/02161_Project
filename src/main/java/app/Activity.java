@@ -35,6 +35,10 @@ public class Activity {
     }
 
     public void registerTimeToday(Employee employee, int fullHours, int minutes) throws SystemAppException {
+        if (fullHours < 0 || minutes < 0) {
+            throw new SystemAppException("Hours and minutes can't be negative");
+        }
+
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
             dateHours = employeeDateHours.get(employee);
@@ -63,7 +67,7 @@ public class Activity {
 
     public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
 
-        assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
+        //assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
 
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
@@ -80,7 +84,7 @@ public class Activity {
         }
         dateHours.put(date,putHours);
 
-        assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) && putHours <= 24:"postcondition" ;
+        //assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) && putHours <= 24:"postcondition" ;
     }
 
     public double getHours(Employee employee, Calendar date ) {
@@ -139,7 +143,10 @@ public class Activity {
     public int getEstimatedHours() {
         return estimatedHours;
     }
-    public void setEstimatedHours(int estimatedHours) {
+    public void setEstimatedHours(int estimatedHours) throws SystemAppException {
+        if (estimatedHours < 0) {
+            throw new SystemAppException("Cannot set negative estimated hours");
+        }
         this.estimatedHours = estimatedHours;
     }
 

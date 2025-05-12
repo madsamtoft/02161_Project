@@ -78,7 +78,7 @@ public class SystemApp {
 
     private Activity getFirmActivity(String name) throws SystemAppException{
         for (Activity activity : firmActivityList) {
-            if (name.equals(activity.getName())) {
+            if (name.toLowerCase().equals(activity.getName())) {
                 return activity;
             }
         }
@@ -97,7 +97,7 @@ public class SystemApp {
         return firmActivityList.stream().anyMatch(a -> a.getName().equals(name));
     }
 
-    public void registerTimeFirmActivity(String employeeName, String firmActivityName, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+    public void registerTimeFirmActivity(String firmActivityName, String employeeName, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         if (!(hours >= 0 && minutes >= 0 )){
@@ -106,7 +106,7 @@ public class SystemApp {
         firmActivity.registerTime(getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double getFirmActivityHours(String employeeName, String firmActivityName, int day, int month, int year) throws SystemAppException{
+    public double getFirmActivityHours(String firmActivityName, String employeeName, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         return firmActivity.getHours(getEmployee(employeeName),date);
