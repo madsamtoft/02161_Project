@@ -452,12 +452,7 @@ public class App {
     }
 
     private void registerTime(Scanner arguments){
-        String usage = "Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>";
-        if(!arguments.hasNext()){
-            System.out.println(usage);
-            return;
-        }
-        String employee = arguments.next();
+        String usage = "Usage: registerTime <project> <activity> <employee> <hours> <minutes> <day> <month> <year>";
         if(!arguments.hasNext()){
             System.out.println(usage);
             return;
@@ -468,6 +463,11 @@ public class App {
             return;
         }
         String activity = arguments.next();
+        if(!arguments.hasNext()){
+            System.out.println(usage);
+            return;
+        }
+        String employee = arguments.next();
         if(!arguments.hasNextInt()){
             System.out.println(usage);
             return;
@@ -494,8 +494,8 @@ public class App {
         }
         int year = arguments.nextInt();
         try{
-            systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
-            double registered = systemApp.getActivityHours(employee,project,activity,day,month,year);
+            systemApp.registerTimeActivity(project,activity,employee,hours,minutes,day,month,year);
+            double registered = systemApp.getActivityHours(project,activity,employee,day,month,year);
             System.out.println("\"" + employee.toLowerCase() + "\" has registered " + registered + " hours to \"" + activity.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -503,12 +503,7 @@ public class App {
     }
 
     private void getActivityHours(Scanner arguments){
-        String usage = "Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>";
-        if(!arguments.hasNext()){
-            System.out.println(usage);
-            return;
-        }
-        String employee = arguments.next();
+        String usage = "Usage: getActivityHours <project> <activity> <employee> <day> <month> <year>";
         if(!arguments.hasNext()){
             System.out.println(usage);
             return;
@@ -519,6 +514,11 @@ public class App {
             return;
         }
         String activity = arguments.next();
+        if(!arguments.hasNext()){
+            System.out.println(usage);
+            return;
+        }
+        String employee = arguments.next();
         if(!arguments.hasNextInt()){
             System.out.println(usage);
             return;
@@ -837,9 +837,9 @@ public class App {
     private void helpActivity() {
         System.out.println("General activity commands:");
         System.out.println("\tregisterTimeToday <project> <activity> <employee> <hours> <minutes>  -  register time that <employee> worked on <activity> today");
-        System.out.println("\tregisterTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>  -  register time that <employee> worked on <activity> on a specific day");
+        System.out.println("\tregisterTime <project> <activity> <employee> <hours> <minutes> <day> <month> <year>  -  register time that <employee> worked on <activity> on a specific day");
         System.out.println("\tgetActivityHoursToday <project> <activity> <employee>  -  check how many hours <employee> has worked on <activity> today");
-        System.out.println("\tgetActivityHours <employee> <project> <activity> <day> <month> <year>  -  check how many hours <employee> has worked on <activity> on a specific day");
+        System.out.println("\tgetActivityHours <project> <activity> <employee> <day> <month> <year>  -  check how many hours <employee> has worked on <activity> on a specific day");
         System.out.println();
         System.out.println("Only when logged in as project leader (or none is assigned):");
         System.out.println("\tcreateActivity <project> <activity>  -  create new <activity> in <project>");

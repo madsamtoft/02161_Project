@@ -1,7 +1,6 @@
 package app;
 
 import java.util.*;
-
 import static app.SystemCalendar.*;
 
 public class Activity {

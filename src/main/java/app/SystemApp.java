@@ -243,7 +243,7 @@ public class SystemApp {
         return output;
     }
 
-    public void registerTimeActivity(String employeeName, String project, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+    public void registerTimeActivity(String project, String employeeName, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         if (!(hours >= 0 && minutes >= 0 )){
             throw new SystemAppException("Hours and minutes can't be negative");
@@ -251,7 +251,7 @@ public class SystemApp {
         getProject(project).setTimeActivity(activity,getEmployee(employeeName),hours,minutes,date);
     }
 
-    public double getActivityHours(String employeeName, String project, String activity, int day, int month , int year ) throws SystemAppException{
+    public double getActivityHours(String project, String employeeName, String activity, int day, int month , int year ) throws SystemAppException{
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         return getProject(project).getActivityHours(activity,getEmployee(employeeName),date);
     }

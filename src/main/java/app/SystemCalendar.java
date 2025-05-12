@@ -56,24 +56,24 @@ public class SystemCalendar {
     }
 
     public static boolean dateOverlap(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
-        //assert ((start1 == null | end1 == null) || (start1.before(end1)) & ((start2 == null | end2 == null) || start2.before(end2)));
+        //assert ((start1 == null || end1 == null) || (start1.before(end1)) && ((start2 == null || end2 == null) || start2.before(end2)));
         boolean s1null = start1 == null;
         boolean e1null = end1 == null;
         boolean s2null = start2 == null;
         boolean e2null = end2 == null;
         boolean overlap = true;
 
-        if(!(s1null | e1null | s2null | e2null)){
-            //assert (start1.before(end1) & start2.before(end2));
-            overlap = (start1.getTimeInMillis() <= end2.getTimeInMillis()) & (start2.getTimeInMillis() <= end1.getTimeInMillis());
-        } else if(!(e1null | s2null)) {
+        if(!(s1null || e1null || s2null || e2null)){
+            //assert (start1.before(end1) && start2.before(end2));
+            overlap = (start1.getTimeInMillis() <= end2.getTimeInMillis()) && (start2.getTimeInMillis() <= end1.getTimeInMillis());
+        } else if(!(e1null || s2null)) {
             //assert (start1 == null || (start1.before(end1)));
             overlap = start2.getTimeInMillis() <= end1.getTimeInMillis();
-        } else if(!(e2null | s1null)) {
+        } else if(!(e2null || s1null)) {
             //assert (end1 == null || start1.before(end1));
             overlap = start1.getTimeInMillis() <= end2.getTimeInMillis();
         }
-        //assert (true);
+        assert (true);
         return overlap;
     }
 }
