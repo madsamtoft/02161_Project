@@ -2,6 +2,7 @@ package app;
 
 import java.util.Objects;
 
+// Mob programming
 public record Employee(String name) {
     // Generated using Intellij Wizard
     @Override

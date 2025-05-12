@@ -586,6 +586,7 @@ public class App {
         }
     }
 
+    // Mads
     private void listProjects() {
         Map<Integer, String> projects = systemApp.listProjects();
         int i = 1;
@@ -597,6 +598,7 @@ public class App {
         }
     }
 
+    // Mads
     private void listActivities(String projectName) {
         List<String> activities;
         try {
@@ -614,6 +616,7 @@ public class App {
         }
     }
 
+    // Mads
     private void listEmployees() {
         List<String> employees = systemApp.getEmployeeList();
         for (int i = 0; i < employees.size(); i++) {
@@ -621,6 +624,7 @@ public class App {
         }
     }
 
+    // Sebastian
     private void listAvailableEmployees() {
         List<String> availableEmployees = systemApp.getAvailableEmployeesList();
 
@@ -633,6 +637,7 @@ public class App {
         }
     }
 
+    // Dejan
     private void list(Scanner arguments) {
         if (!arguments.hasNext()){
             System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>\n\tlist firmactivities");

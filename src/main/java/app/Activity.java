@@ -3,6 +3,7 @@ package app;
 import java.util.*;
 import static app.SystemCalendar.*;
 
+// Mob programming
 public class Activity {
     private String name;
     private final Map<Employee, Map<Calendar, Double>> employeeDateHours;
