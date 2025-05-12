@@ -85,6 +85,14 @@ public class SystemApp {
         throw new SystemAppException("Firm activity " + name + " does not exist");
     }
 
+    public List<String> getFirmActivityList() {
+        List<String> firmActivityNames = new LinkedList<>();
+        for(Activity activity: firmActivityList) {
+            firmActivityNames.add(activity.getName());
+        }
+        return firmActivityNames;
+    }
+
     public boolean firmActivityExists(String name) {
         return firmActivityList.stream().anyMatch(a -> a.getName().equals(name));
     }
