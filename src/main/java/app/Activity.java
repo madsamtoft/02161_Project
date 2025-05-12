@@ -35,10 +35,7 @@ public class Activity {
     }
 
     public void registerTimeToday(Employee employee, int fullHours, int minutes) throws SystemAppException {
-        double hours = fullHours + (minutes/60.);
-        double putHours = Math.ceil(hours*2) / 2.;
-
-        if (putHours < 0.) {
+        if (fullHours < 0 || minutes < 0) {
             throw new SystemAppException("Hours and minutes can't be negative");
         }
 
@@ -56,6 +53,8 @@ public class Activity {
             alreadyRegistered = dateHours.get(today);
         }
 
+        double hours = fullHours + (minutes/60.);
+        double putHours = Math.ceil(hours*2) / 2.;
         if ((putHours + alreadyRegistered) > 24.) {
             throw new SystemAppException("Cannot work more than 24 hours a day");
         }

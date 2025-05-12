@@ -23,6 +23,10 @@ Feature: Register time Daily
     When employee tries to register daily time to -1:00 for activity
     Then error message "Hours and minutes can't be negative" is given
 
+  Scenario: Employee registers -1 minutes to existing activity
+    Given it has 1 activities
+    When employee tries to register daily time to 00:-1 for activity
+    Then error message "Hours and minutes can't be negative" is given
 
   Scenario: Employee registers 100 hours to existing activity
     Given it has 1 activities
