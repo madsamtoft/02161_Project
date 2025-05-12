@@ -56,7 +56,8 @@ public class App {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("Customer \"" + customer + "\" successfully added");
+        System.out.println("Project Customer for project \"" + projectName + "\" successfully set to \"" + customer + "\"");
+
     }
 
     private void setProjectName(Scanner arguments) {
@@ -72,7 +73,7 @@ public class App {
         String newName = arguments.next();
         try {
             systemApp.setProjectName(actor, name, newName);
-            System.out.println("Project name for \"" + name + "\" successfully changed to \"" + newName + "\"");
+            System.out.println("Project name for project \"" + name + "\" successfully set to \"" + newName + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -108,7 +109,7 @@ public class App {
         }
         try {
             systemApp.setProjectStartDate(actor, project, date);
-            System.out.println("Start date successfully changed in project \"" + project + "\"");
+            System.out.println("Start date for project \"" + project + "\" successfully set to \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -146,6 +147,8 @@ public class App {
         try {
             systemApp.setProjectEndDate(actor, project, date);
             System.out.println("End date successfully changed in project \"" + project + "\"");
+            System.out.println("End date for project \"" + project + "\" successfully set to \"" + day + "/" + month + "/" + year + "\"");
+
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -164,7 +167,7 @@ public class App {
         String employee = arguments.next();
         try {
             systemApp.setProjectLeader(actor, project, employee);
-            System.out.println("\"" + employee + "\" has been successfully assigned as Project Leader for the project \"" + project + "\"");
+            System.out.println("Project leader for project \"" + project + "\" successfully set to \"" + employee + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -329,7 +332,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityStartWeek(actor, project, activity, week, year);
-            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+            System.out.println("Start Week for activity \"" + activity + "\" successfully set to \"" + week + "\" in project \"" + project + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -358,7 +361,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityEndWeek(actor, project, activity, week, year);
-            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+            System.out.println("End Week for activity \"" + activity + "\" successfully set to \"" + week + "\" in project \"" + project + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -552,7 +555,8 @@ public class App {
         int hours = arguments.nextInt();
         try{
             systemApp.setActivityEstimatedHours(actor,project,activity,hours);
-            System.out.println("Estimated Hours set to " + hours + " hours for activity \"" + activity + "\" in project \"" + project + "\"");
+            System.out.println("Estimated Hours for activity \"" + activity + "\" successfully set to \"" + hours + "\" in project \"" + project + "\"");
+
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
