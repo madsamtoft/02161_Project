@@ -459,7 +459,7 @@ public class ProjectSteps {
     @When("{string} registers {int} hours and {int} minutes to day {int}, month {int} and year {int} to firm Activity {string}")
     public void registersHoursAndMinutesToDayMonthAndYearToFirmActivity(String employeeName, int hours, int minutes, int day, int month, int year, String firmActivityName) {
         try {
-            systemApp.registerTimeFirmActivity(employeeName, firmActivityName, hours, minutes, day, month, year);
+            systemApp.registerTimeFirmActivity(firmActivityName, employeeName, hours, minutes, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
@@ -470,7 +470,7 @@ public class ProjectSteps {
         double roundHours = calcHours(fullHours, minutes);
         double checkHours = -1;
         try {
-            checkHours = systemApp.getFirmActivityHours(employeeName, firmActivityName, day, month, year);
+            checkHours = systemApp.getFirmActivityHours(firmActivityName, employeeName, day, month, year);
         } catch (Exception e){
             errorMessage = e.getMessage();
         }
