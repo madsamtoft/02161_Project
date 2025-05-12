@@ -63,6 +63,11 @@ Feature: Change Project Activities
     Given employee is the leader of the project
     When setting the estimated hours of an activity to 100
     Then the estimated hours of the activity should be 100
+  
+  Scenario: Set estimated hours negative for an activity as project leader
+    Given employee is the leader of the project
+    When setting the estimated hours of an activity to -1
+    Then error message "Cannot set negative estimated hours" is given
 
   Scenario: Set estimated hours for an activity without being project leader
     Given employee is not the leader of the project
