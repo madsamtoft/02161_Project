@@ -604,6 +604,9 @@ public class App {
             System.out.println(e.getMessage());
             return;
         }
+        if (activities.isEmpty()){
+            System.out.println("There are no activities in project \"" + projectName.toLowerCase() + "\"");
+        }
 
         for (int i = 0; i < activities.size(); i++) {
             System.out.printf("\tActivity %2d: %s\n", (i+1), activities.get(i));
