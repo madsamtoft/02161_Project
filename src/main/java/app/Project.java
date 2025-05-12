@@ -33,6 +33,7 @@ public class Project {
         return this.name;
     }
     public void setName(String actor, String name) throws SystemAppException {
+        assert actor != null && name != null;
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
         } else if (name.isEmpty()) {
@@ -40,6 +41,7 @@ public class Project {
         } else {
             this.name = name.toLowerCase();
         }
+        assert this.name.equals(name.toLowerCase());
     }
 
     public int getId() {
