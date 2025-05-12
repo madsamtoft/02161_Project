@@ -194,17 +194,17 @@ public class App {
     }
 
     public void registerTimeFirmActivity(Scanner arguments) {
-        String usage = "Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>";
-        if (!arguments.hasNext()){
-            System.out.println(usage);
-            return;
-        }
-        String employee = arguments.next();
+        String usage = "Usage: registerTimeFirmActivity <firmActivity> <employee> <hours> <minutes> <day> <month> <year>";
         if (!arguments.hasNext()){
             System.out.println(usage);
             return;
         }
         String firmActivityName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println(usage);
+            return;
+        }
+        String employee = arguments.next();
         if (!arguments.hasNext()){
             System.out.println(usage);
             return;
@@ -231,7 +231,7 @@ public class App {
         }
         int year = arguments.nextInt();
         try {
-            systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
+            systemApp.registerTimeFirmActivity(firmActivityName,employee,hours,minutes,day,month,year);
             System.out.println("\""+ employee.toLowerCase() + "\" has registered " + hours + " hours and " + minutes + " minutes to \"" + firmActivityName.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println((e.getMessage()));
@@ -239,17 +239,17 @@ public class App {
     }
 
     private void getFirmActivityHours(Scanner arguments){
-        String usage = "Usage: getFirmActivityHours <employee> <firmActivity> <day> <month> <year>";
-        if (!arguments.hasNext()){
-            System.out.println(usage);
-            return;
-        }
-        String employee = arguments.next();
+        String usage = "Usage: getFirmActivityHours <firmActivity> <employee> <day> <month> <year>";
         if (!arguments.hasNext()){
             System.out.println(usage);
             return;
         }
         String firmActivityName = arguments.next();
+        if (!arguments.hasNext()){
+            System.out.println(usage);
+            return;
+        }
+        String employee = arguments.next();
         if (!arguments.hasNextInt()){
             System.out.println(usage);
             return;
@@ -266,7 +266,7 @@ public class App {
         }
         int year = arguments.nextInt();
         try {
-            double hours = systemApp.getFirmActivityHours(employee,firmActivityName,day,month,year);
+            double hours = systemApp.getFirmActivityHours(firmActivityName,employee,day,month,year);
             System.out.println("\""+ employee.toLowerCase() + "\" has registered " + hours + " hours to firm activity \"" + firmActivityName.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
@@ -852,8 +852,8 @@ public class App {
     private void helpFirmActivity() {
         System.out.println("General firm activity commands:");
         System.out.println("\tcreateFirmActivity <firmActivity>  -  create new <firmActivity> in the system");
-        System.out.println("\tregisterTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>  -  register time for <employee> in <firmActivity> on a specific day");
-        System.out.println("\tgetFirmActivityHours <employee> <firmActivity> <day> <month> <year>  -  check the time registered for <employee> in <firmActivity> on a specific day");
+        System.out.println("\tregisterTimeFirmActivity <firmActivity> <employee> <hours> <minutes> <day> <month> <year>  -  register time for <employee> in <firmActivity> on a specific day");
+        System.out.println("\tgetFirmActivityHours <firmActivity> <employee> <day> <month> <year>  -  check the time registered for <employee> in <firmActivity> on a specific day");
     }
 
     private void help(Scanner arguments) {
