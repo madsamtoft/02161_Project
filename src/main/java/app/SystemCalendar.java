@@ -2,7 +2,7 @@ package app;
 
 import java.util.Calendar;
 
-// Mob programming
+// Mads (Mob programming)
 public class SystemCalendar {
     // Karl
     public static Calendar getCalendar(int day, int month, int year) throws SystemAppException {
@@ -49,12 +49,14 @@ public class SystemCalendar {
         return today;
     }
 
+    // Mads
     public static Calendar getThisWeek() {
         Calendar thisWeek = getToday();
         thisWeek.set(Calendar.DAY_OF_WEEK, 0);
         return thisWeek;
     }
 
+    // Mads
     public static int getCurrentYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
