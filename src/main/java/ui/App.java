@@ -331,7 +331,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityStartWeek(actor, project, activity, week, year);
-            System.out.println("Start Week for activity \"" + activity + "\" successfully set to \"" + week + "\" in project \"" + project + "\"");
+            System.out.println("Start Week for activity \"" + activity + "\" successfully set to " + week + " in project \"" + project + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -360,7 +360,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityEndWeek(actor, project, activity, week, year);
-            System.out.println("End Week for activity \"" + activity + "\" successfully set to \"" + week + "\" in project \"" + project + "\"");
+            System.out.println("End Week for activity \"" + activity + "\" successfully set to " + week + " in project \"" + project + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -565,7 +565,7 @@ public class App {
         Map<Integer, String> projects = systemApp.listProjects();
         int i = 1;
         if (projects.isEmpty()){
-            System.out.println("There is currently no projects");
+            System.out.println("There are no projects");
         }
         for (int id : projects.keySet()) {
             System.out.printf("\tProject %2d: %s#%d\n", i, projects.get(id), id);
@@ -598,6 +598,11 @@ public class App {
 
     private void listAvailableEmployees() {
         List<String> availableEmployees = systemApp.getAvailableEmployeesList();
+
+        if (availableEmployees.isEmpty()){
+            System.out.println("There are no available employees");
+        }
+
         for (int i = 0; i < availableEmployees.size(); i++) {
             System.out.printf("\tAvailable Employee %2d: %s\n", (i+1), availableEmployees.get(i));
         }
