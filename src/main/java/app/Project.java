@@ -116,7 +116,7 @@ public class Project {
         throw new SystemAppException("No such activity found");
     }
 
-    public List<String> getActivityList() {
+    public List<String> getActivityNameList() {
         List<String> activityNames = new LinkedList<>();
         for(Activity activity: activities) {
             activityNames.add(activity.getName());

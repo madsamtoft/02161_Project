@@ -732,9 +732,9 @@ public class App {
         int activityAmount;
         List<String> activityNames;
         List<Double> activityHoursRegistered;
-        List<Double> activityHoursEstimated;
-        List<Integer> activityStartWeek;
-        List<Integer> activityEndWeek;
+        List<Integer> activityHoursEstimated;
+//        List<Integer> activityStartWeek;
+//        List<Integer> activityEndWeek;
         double estimatedHours;
         double totalHours;
         try {
@@ -750,12 +750,12 @@ public class App {
                 projectWeeksRemaining = "No project end date set";
             }
 
-            activityAmount = 0;
-            activityNames = new LinkedList<>();
-            activityHoursRegistered = new LinkedList<>();
-            activityHoursEstimated = new LinkedList<>();
-            activityStartWeek = new LinkedList<>();
-            activityEndWeek = new LinkedList<>();
+            activityNames = systemApp.getActivityNameList(projectName);
+            activityAmount = activityNames.size();
+            activityHoursRegistered = systemApp.getActivityHoursRegisteredList(projectName);
+            activityHoursEstimated = systemApp.getActivityHoursEstimatedList(projectName);
+//            activityStartWeek = new LinkedList<>();
+//            activityEndWeek = new LinkedList<>();
 
 
             estimatedHours = systemApp.getProjectEstimatedHours(projectName);
@@ -765,15 +765,27 @@ public class App {
             return;
         }
 
+        int longestActivityName = 0;
+        for (String activity : activityNames) {
+            if (activity.length() > longestActivityName) {
+                longestActivityName = activity.length();
+            }
+        }
+
         System.out.printf("Project: %s#%d\n", projectName, projectId);
         System.out.printf("Weeks remaining: %s\n", projectWeeksRemaining);
         System.out.println("Activity time usage:");
         for (int i = 0; i < activityAmount; i++) {
-            System.out.printf("  Activity %02d: %s: %.1f/%.1f (%3d%%) - Week %d/%d\n", i+1, activityNames.get(i), activityHoursRegistered.get(i), activityHoursEstimated.get(i), activityStartWeek.get(i), activityEndWeek.get(i));
+            String activityPercentage = activityHoursEstimated.get(i) > 0 ? String.format("(%d%%)", Math.round(100*activityHoursRegistered.get(i)/activityHoursEstimated.get(i))) : "";
+            String alignedActivityName = "\"" + activityNames.get(i) + "\":";
+            while (alignedActivityName.length() < longestActivityName + 3) {
+                alignedActivityName += " ";
+            }
+            System.out.printf("  Activity %-3d %s %5.1f/%5.1f %6s\n", i+1, alignedActivityName, activityHoursRegistered.get(i), (double)activityHoursEstimated.get(i), activityPercentage);
         }
         System.out.println();
-        String projectPercentage = String.format("(%d%%)", Math.round(100*totalHours/estimatedHours));
-        System.out.printf("Total activity time usage: %.1f/%.1f %6s\n", totalHours, estimatedHours, projectPercentage);
+        String projectPercentage = estimatedHours > 0. ? String.format("(%d%%)", Math.round(100*totalHours/estimatedHours)) : "";
+        System.out.printf("Total hours: %.1f/%.1f %6s\n", totalHours, estimatedHours, projectPercentage);
     }
 
     public void login(Scanner arguments) {

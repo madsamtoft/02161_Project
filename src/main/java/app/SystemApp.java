@@ -153,7 +153,7 @@ public class SystemApp {
     }
 
     public List<String> getProjectActivityList(String projectName) throws SystemAppException {
-        return getProject(projectName).getActivityList();
+        return getProject(projectName).getActivityNameList();
     }
 
     public List<String> getEmployeeList() {
@@ -236,7 +236,7 @@ public class SystemApp {
 
     public double getTodayHoursProject(String project, String employee)throws SystemAppException{
        double output = 0;
-        for (String activity : getProject(project).getActivityList()){
+        for (String activity : getProject(project).getActivityNameList()){
               output += getActivityHoursToday(project, activity, employee);
 
         }
@@ -291,10 +291,34 @@ public class SystemApp {
         return availableEmployeeNames;
     }
 
+    public List<String> getActivityNameList(String projectName) throws SystemAppException {
+        return getProject(projectName).getActivityNameList();
+    }
+
+    public List<Double> getActivityHoursRegisteredList(String projectName) throws SystemAppException {
+        Project project = getProject(projectName);
+        List<Double> hoursRegisteredList = new LinkedList<>();
+        for (String activity : project.getActivityNameList()) {
+            hoursRegisteredList.add(project.getActivityTotalHours(activity));
+        }
+        return hoursRegisteredList;
+    }
+
+    public List<Integer> getActivityHoursEstimatedList(String projectName) throws SystemAppException {
+        Project project = getProject(projectName);
+        List<Integer> hoursRegisteredList = new LinkedList<>();
+        for (String activity : project.getActivityNameList()) {
+            hoursRegisteredList.add(project.getActivityEstimatedHours(activity));
+        }
+        return hoursRegisteredList;
+    }
+
+
+
     public int getProjectEstimatedHours(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         int sum = 0;
-        for (String activity : project.getActivityList()) {
+        for (String activity : project.getActivityNameList()) {
             sum += project.getActivityEstimatedHours(activity);
         }
         return sum;
@@ -303,7 +327,7 @@ public class SystemApp {
     public double getProjectTotalHours(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         double sum = 0;
-        for (String activity : project.getActivityList()) {
+        for (String activity : project.getActivityNameList()) {
             sum += project.getActivityTotalHours(activity);
         }
         return sum;
