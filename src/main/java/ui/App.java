@@ -8,6 +8,7 @@ public class App {
 
     private final SystemApp systemApp;
     private String actor = "";
+    private String usage;
 
     public App(SystemApp systemApp) {
         this.systemApp = systemApp;
@@ -28,9 +29,10 @@ public class App {
     }
 
     private void createProject(Scanner arguments) {
+        usage = "Usage: createProject <name>";
         arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: createProject <name>");
+            System.out.println(usage);
             return;
         }
         String name = arguments.next();
@@ -43,13 +45,14 @@ public class App {
     }
 
     private void setProjectCustomer(Scanner arguments) {
+        usage = "Usage: setProjectCustomer <project> <customer>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectCustomer <project> <customer>");
+            System.out.println(usage);
             return;
         }
         String projectName = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectCustomer <project> <customer>");
+            System.out.println(usage);
             return;
         }
         String customer = arguments.next();
@@ -64,13 +67,14 @@ public class App {
     }
 
     private void setProjectName(Scanner arguments) {
+        usage = "Usage: setProjectName <project> <newName>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectName <project> <newName>");
+            System.out.println(usage);
             return;
         }
         String name = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectName <project> <newName>");
+            System.out.println(usage);
             return;
         }
         String newName = arguments.next();
@@ -83,23 +87,24 @@ public class App {
     }
 
     private void setProjectStartDate(Scanner arguments) {
+        usage = "Usage: setProjectStartDate <project> <dd> <mm> <yyyy>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectStartDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setProjectStartDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
         int day = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setProjectStartDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
         int month = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setProjectStartDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -119,24 +124,25 @@ public class App {
     }
 
     private void setProjectEndDate(Scanner arguments) {
+        usage = "Usage: setProjectEndDate <project> <dd> <mm> <yyyy>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectEndDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
 
         String project = arguments.next();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setProjectEndDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
         int day = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setProjectEndDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
         int month = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setProjectEndDate <project> <dd> <mm> <yyyy>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -157,13 +163,14 @@ public class App {
     }
 
     private void setProjectLeader(Scanner arguments){
+        usage = "Usage: setProjectLeader <project> <employee>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectLeader <project> <employee>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectLeader <project> <employee>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
@@ -176,8 +183,9 @@ public class App {
     }
 
     private void createFirmActivity(Scanner arguments) {
+        usage = "Usage: createFirmActivity <activity>";
         if (!arguments.hasNext()){
-            System.out.println("Usage: createFirmActivity <activity>");
+            System.out.println(usage);
             return;
         }
         String activityName = arguments.next();
@@ -190,38 +198,39 @@ public class App {
     }
 
     public void registerTimeFirmActivity(Scanner arguments) {
+        usage = "Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>";
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String firmActivityName = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int hours = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int minutes = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int day = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int month = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -235,28 +244,29 @@ public class App {
     }
 
     private void getFirmActivityHours(Scanner arguments){
+        usage = "Usage: getFirmActivityHours <employee> <firmActivity> <day> <month> <year>";
         if (!arguments.hasNext()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String firmActivityName = arguments.next();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int day = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int month = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -282,13 +292,14 @@ public class App {
 
 
     private void createActivity(Scanner arguments) {
+        usage = "Usage: createActivity <project> <activity>";
         if (!arguments.hasNext()){
-            System.out.println("Usage: createActivity <project> <activity>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: createActivity <project> <activity>");
+            System.out.println(usage);
             return;
         }
         String activityName = arguments.next();
@@ -301,18 +312,19 @@ public class App {
     }
 
     private void assignEmployee(Scanner arguments) {
+        usage = "Usage: assignEmployee <project> <activity> <employee>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
+            System.out.println(usage);
             return;
         }
         String activity = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: assignEmployee <project> <activity> <employee>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
@@ -325,23 +337,24 @@ public class App {
     }
 
     private void setActivityStartWeek(Scanner arguments) {
+        usage = "Usage: setActivityStartWeek <project> <activity> <week> <year>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setActivityStartWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setActivityStartWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         String activity = arguments.next();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setActivityStartWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         int week = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setActivityStartWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -354,23 +367,24 @@ public class App {
     }
 
     private void setActivityEndWeek(Scanner arguments) {
+        usage = "Usage: setActivityEndWeek <project> <activity> <week> <year>";
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setActivityEndWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setActivityEndWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         String activity = arguments.next();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setActivityEndWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         int week = arguments.nextInt();
         if (!arguments.hasNextInt()) {
-            System.out.println("Usage: setActivityEndWeek <project> <activity> <week> <year>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -383,28 +397,29 @@ public class App {
     }
 
     private void registerTimeToday(Scanner arguments){
+        usage = "Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>";
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
+            System.out.println(usage);
             return;
         }
         String activityName = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
+            System.out.println(usage);
             return;
         }
         int hours = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
+            System.out.println(usage);
             return;
         }
         int minutes = arguments.nextInt();
@@ -418,19 +433,20 @@ public class App {
     }
 
     private void getActivityHoursToday(Scanner arguments){
+        usage = "Usage: getActivityHoursToday <project> <activity> <employee>";
         if (!arguments.hasNext()){
-            System.out.println("Usage: getActivityHoursToday <project> <activity> <employee>");
+            System.out.println(usage);
             return;
         }
 
         String project = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: getActivityHoursToday <project> <activity> <employee>");
+            System.out.println(usage);
             return;
         }
         String activityName = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: getActivityHoursToday <project> <activity> <employee>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
@@ -443,43 +459,44 @@ public class App {
     }
 
     private void registerTime(Scanner arguments){
+        usage = "Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>";
         if(!arguments.hasNext()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
         if(!arguments.hasNext()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if(!arguments.hasNext()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String activity = arguments.next();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int hours = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int minutes = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int day = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int month = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -493,33 +510,34 @@ public class App {
     }
 
     private void getActivityHours(Scanner arguments){
+        usage = "Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>";
         if(!arguments.hasNext()){
-            System.out.println("Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String employee = arguments.next();
         if(!arguments.hasNext()){
-            System.out.println("Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if(!arguments.hasNext()){
-            System.out.println("Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         String activity = arguments.next();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int day = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int month = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: getActivityHours <employee> <project> <activity> <day> <month> <year>");
+            System.out.println(usage);
             return;
         }
         int year = arguments.nextInt();
@@ -553,18 +571,19 @@ public class App {
     }
 
     public void setActivityEstimatedHours(Scanner arguments){
+        usage = "Usage: setActivityEstimatedHours <project> <activity> <hours>";
         if(!arguments.hasNext()){
-            System.out.println("Usage: setActivityEstimatedHours <project> <activity> <hours>");
+            System.out.println(usage);
             return;
         }
         String project = arguments.next();
         if(!arguments.hasNext()){
-            System.out.println("Usage: setActivityEstimatedHours <project> <activity> <hours>");
+            System.out.println(usage);
             return;
         }
         String activity = arguments.next();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: setActivityEstimatedHours <project> <activity> <hours>");
+            System.out.println(usage);
             return;
         }
         int hours = arguments.nextInt();
