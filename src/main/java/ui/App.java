@@ -854,6 +854,7 @@ public class App {
     private void help(Scanner arguments) {
         if (!arguments.hasNext()) {
             helpBase();
+            return;
         }
         String arg = arguments.next();
         switch (arg.toLowerCase()) {
