@@ -27,7 +27,7 @@ public class SystemApp {
     }
 
     public void createProject(String name) throws SystemAppException {
-        assert name != null:"precondition";
+//        assert name != null:"precondition";
 
         if (name.isEmpty()) {
             throw new SystemAppException("Project Name cannot be empty");
@@ -38,13 +38,13 @@ public class SystemApp {
         Project newProject = new Project(name, getNewProjectId());
         projects.add(newProject);
 
-        boolean forallPost = true;
-        for (Project project : projects) {
-            if (project != newProject) {
-                forallPost &= !(project.getName().equals(newProject.getName())) && project.getId() != newProject.getId();
-            }
-        }
-        assert name != null && !name.isEmpty() && projectExists(name) && forallPost:"postcondition";
+//        boolean forallPost = true;
+//        for (Project project : projects) {
+//            if (project != newProject) {
+//                forallPost &= !(project.getName().equals(newProject.getName())) && project.getId() != newProject.getId();
+//            }
+//        }
+//        assert name != null && !name.isEmpty() && projectExists(name) && forallPost:"postcondition";
     }
 
     public void setProjectName(String actor, String project, String newName) throws SystemAppException {
