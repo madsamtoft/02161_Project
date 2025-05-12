@@ -22,7 +22,7 @@ public class App {
         String name = arguments.next();
         try {
             systemApp.createEmployee(name);
-            System.out.println("Employee \"" + name + "\" successfully registered");
+            System.out.println("Employee \"" + name.toLowerCase() + "\" successfully registered");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -37,7 +37,7 @@ public class App {
         String name = arguments.next();
         try {
             systemApp.createProject(name);
-            System.out.println("Project \"" + name + "\" successfully created");
+            System.out.println("Project \"" + name.toLowerCase() + "\" successfully created");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -61,7 +61,7 @@ public class App {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("Customer for project \"" + projectName + "\" successfully set to \"" + customer + "\"");
+        System.out.println("Customer for project \"" + projectName.toLowerCase() + "\" successfully set to \"" + customer.toLowerCase() + "\"");
     }
 
     private void setProjectName(Scanner arguments) {
@@ -78,7 +78,7 @@ public class App {
         String newName = arguments.next();
         try {
             systemApp.setProjectName(actor, name, newName);
-            System.out.println("Name for project \"" + name + "\" successfully set to \"" + newName + "\"");
+            System.out.println("Name for project \"" + name.toLowerCase() + "\" successfully set to \"" + newName.toLowerCase() + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -172,7 +172,7 @@ public class App {
         String employee = arguments.next();
         try {
             systemApp.setProjectLeader(actor, project, employee);
-            System.out.println("Project leader for project \"" + project + "\" successfully set to \"" + employee + "\"");
+            System.out.println("Project leader for project \"" + project.toLowerCase() + "\" successfully set to \"" + employee.toLowerCase() + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -187,7 +187,7 @@ public class App {
         String activityName = arguments.next();
         try {
             systemApp.createFirmActivity(activityName);
-            System.out.println("Firm activity \"" + activityName + "\" successfully created");
+            System.out.println("Firm activity \"" + activityName.toLowerCase() + "\" successfully created");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -232,7 +232,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
-            System.out.println("\""+employee + "\" has registered " + hours + " and " + minutes + " to \"" + firmActivityName + "\" at \"" + day+ "/" + month + "/" + year + "\"");
+            System.out.println("\""+ employee.toLowerCase() + "\" has registered " + hours + " and " + minutes + " to \"" + firmActivityName.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println((e.getMessage()));
         }
@@ -267,7 +267,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             double hours = systemApp.getFirmActivityHours(employee,firmActivityName,day,month,year);
-            System.out.println("\""+employee + "\" has registered " + hours + " hours to firm activity \"" + firmActivityName + "\" at \"" + day + "/" + month + "/" + year + "\"");
+            System.out.println("\""+ employee.toLowerCase() + "\" has registered " + hours + " hours to firm activity \"" + firmActivityName.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -298,7 +298,7 @@ public class App {
         String activityName = arguments.next();
         try {
             systemApp.createActivity(actor, project, activityName);
-            System.out.println("Activity \"" + activityName + "\" successfully created in project \"" + project + "\"");
+            System.out.println("Activity \"" + activityName.toLowerCase() + "\" successfully created in project \"" + project.toLowerCase() + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -323,7 +323,7 @@ public class App {
         String employee = arguments.next();
         try {
             systemApp.assignEmployee(actor, project, activity, employee);
-            System.out.println("Employee \"" + employee + "\" successfully assigned to activity \"" + activity + "\" in project \"" + project + "\"");
+            System.out.println("Employee \"" + employee.toLowerCase() + "\" successfully assigned to activity \"" + activity.toLowerCase() + "\" in project \"" + project.toLowerCase() + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -353,7 +353,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityStartWeek(actor, project, activity, week, year);
-            System.out.println("Start Week for activity \"" + activity + "\" successfully set to " + week + " in project \"" + project + "\"");
+            System.out.println("Start Week for activity \"" + activity.toLowerCase() + "\" successfully set to " + week + " in project \"" + project.toLowerCase() + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -383,7 +383,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityEndWeek(actor, project, activity, week, year);
-            System.out.println("End Week for activity \"" + activity + "\" successfully set to " + week + " in project \"" + project + "\"");
+            System.out.println("End Week for activity \"" + activity.toLowerCase() + "\" successfully set to " + week + " in project \"" + project.toLowerCase() + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -419,7 +419,7 @@ public class App {
         try {
             systemApp.registerTimeToday(project, activityName, employee, hours, minutes);
             double registered = systemApp.getActivityHoursToday(project, activityName, employee);
-            System.out.println(registered + " hours have been registered to \"" + employee + "\" in activity \"" + activityName + "\"");
+            System.out.println(registered + " hours have been registered to \"" + employee.toLowerCase() + "\" in activity \"" + activityName.toLowerCase() + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -445,7 +445,7 @@ public class App {
         String employee = arguments.next();
         try {
             double hours = systemApp.getActivityHoursToday(project,activityName,employee);
-            System.out.println("\""+employee + "\" has registered " + hours + " hours to \"" + activityName+"\"");
+            System.out.println("\""+employee + "\" has registered " + hours + " hours to \"" + activityName.toLowerCase() + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -496,7 +496,7 @@ public class App {
         try{
             systemApp.registerTimeActivity(employee,project,activity,hours,minutes,day,month,year);
             double registered = systemApp.getActivityHours(employee,project,activity,day,month,year);
-            System.out.println("\""+employee + "\" has registered " + registered + " hours to \"" + activity + "\" at \"" + day+ "/" + month + "/" + year+"\"");
+            System.out.println("\"" + employee.toLowerCase() + "\" has registered " + registered + " hours to \"" + activity.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -536,7 +536,7 @@ public class App {
         int year = arguments.nextInt();
         try{
             double hours = systemApp.getActivityHours(employee,project,activity,day,month,year);
-            System.out.println("\""+employee + "\" has registered " + hours + " hours to \"" + activity + "\" at \"" + day+ "/" + month + "/" + year+"\"");
+            System.out.println("\"" + employee.toLowerCase() + "\" has registered " + hours + " hours to \"" + activity.toLowerCase() + "\" at \"" + day+ "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -554,7 +554,7 @@ public class App {
         }
         String employee = arguments.next();
         try {
-            System.out.println("\"" + employee + "\" has registered" + systemApp.getTodayHoursProject(project,employee) + " hours today");
+            System.out.println("\"" + employee.toLowerCase() + "\" has registered" + systemApp.getTodayHoursProject(project,employee) + " hours today");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -579,7 +579,7 @@ public class App {
         int hours = arguments.nextInt();
         try{
             systemApp.setActivityEstimatedHours(actor,project,activity,hours);
-            System.out.println("Estimated Hours for activity \"" + activity + "\" successfully set to \"" + hours + "\" in project \"" + project + "\"");
+            System.out.println("Estimated Hours for activity \"" + activity.toLowerCase() + "\" successfully set to \"" + hours + "\" in project \"" + project.toLowerCase() + "\"");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -755,9 +755,9 @@ public class App {
         }
         String name = arguments.next();
         if (systemApp.employeeExists(name)) {
-            actor = name;
+            actor = name.toLowerCase();
         } else {
-            System.out.println("Employee " + name + " does not exist");
+            System.out.println("Employee " + name.toLowerCase() + " does not exist");
         }
     }
 

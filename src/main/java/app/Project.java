@@ -12,13 +12,13 @@ public class Project {
     private final List<Activity> activities;
 
     public Project(String name, int id) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.id = id;
         this.activities = new ArrayList<>();
     }
 
     private boolean isProjectLeader(String employee) {
-        return this.projectLeader == null || employee.equals(this.projectLeader.name());
+        return this.projectLeader == null || employee.toLowerCase().equals(this.projectLeader.name());
     }
 
     public void assignProjectLeader(String actor, Employee employee) throws SystemAppException {
@@ -38,7 +38,7 @@ public class Project {
         } else if (name.isEmpty()) {
             throw new SystemAppException("Project Name cannot be empty");
         } else {
-            this.name = name;
+            this.name = name.toLowerCase();
         }
     }
 
@@ -80,7 +80,7 @@ public class Project {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("User not authorized to add customer to project \"" + getName() + "\"");
         }
-        this.customer = customer;
+        this.customer = customer.toLowerCase();
     }
 
     public Employee getProjectLeader() {
@@ -90,12 +90,11 @@ public class Project {
     public void createActivity(String actor, String activityName) throws SystemAppException {
         if (!isProjectLeader(actor)) {
             throw new SystemAppException("Employee is not Project Leader");
-//        } else if (activities.stream().anyMatch(a -> activityName.equals(a.getName()))) {
-        } else if (activityExists(activityName)) {
+        } else if (activityExists(activityName.toLowerCase())) {
             throw new SystemAppException("Activity Name already taken");
         }
         else {
-            activities.add(new Activity(activityName));
+            activities.add(new Activity(activityName.toLowerCase()));
         }
     }
 
@@ -109,7 +108,7 @@ public class Project {
 
     private Activity getActivity(String activityName) throws SystemAppException {
         for (Activity activity : activities) {
-            if (activityName.equals(activity.getName())) {
+            if (activityName.toLowerCase().equals(activity.getName())) {
                 return activity;
             }
         }
@@ -125,7 +124,7 @@ public class Project {
     }
 
     public boolean hasActivity(String activity) {
-        return activities.stream().anyMatch(a -> a.getName().equals(activity));
+        return activities.stream().anyMatch(a -> a.getName().equals(activity.toLowerCase()));
     }
 
     public void registerTimeToday(String activityName, Employee employee, int fullHours, int minutes) throws SystemAppException {
@@ -161,7 +160,7 @@ public class Project {
     }
 
     public boolean activityExists(String activityName) {
-        return activities.stream().anyMatch(a -> activityName.equals(a.getName()));
+        return activities.stream().anyMatch(a -> activityName.toLowerCase().equals(a.getName()));
     }
 
     public Calendar getActivityStartWeek(String activity) throws SystemAppException {

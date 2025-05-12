@@ -16,7 +16,7 @@ public class Activity {
         if (name.isEmpty()) {
             throw new SystemAppException("Activity Name cannot be empty");
         }
-        this.name = name;
+        this.name = name.toLowerCase();
         this.employeeDateHours = new HashMap<>();
         this.assignedEmployees = new ArrayList<>();
         this.startWeek = null;
@@ -110,7 +110,7 @@ public class Activity {
         return name;
     }
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public Calendar getStartWeek() {
