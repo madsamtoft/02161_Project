@@ -28,7 +28,6 @@ public class App {
     }
 
     private void createProject(Scanner arguments) {
-        arguments.next();
         if (!arguments.hasNext()) {
             System.out.println("Usage: createProject <name>");
             return;
