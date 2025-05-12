@@ -3,6 +3,7 @@ package app;
 import java.util.*;
 import static app.SystemCalendar.*;
 
+// Mob programming
 public class Activity {
     private String name;
     private final Map<Employee, Map<Calendar, Double>> employeeDateHours;
@@ -64,7 +65,7 @@ public class Activity {
         return getHours(employee, getToday());
     }
 
-    public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
+    public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException { //Karl
 
         //assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
 

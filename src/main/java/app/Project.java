@@ -2,6 +2,7 @@ package app;
 
 import java.util.*;
 
+// Mob programming
 public class Project {
     private String name;
     private final int id; // Read-only
@@ -206,6 +207,7 @@ public class Project {
         return getActivity(activity).isEmployeeAssigned(employee);
     }
 
+    // Mads
     public int assignedActivityAmount(Employee employee, Calendar start, Calendar end) {
         int sum = 0;
         for (Activity activity: activities) {

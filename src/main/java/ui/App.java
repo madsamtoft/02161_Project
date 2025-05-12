@@ -4,6 +4,7 @@ import app.*;
 import java.util.*;
 import java.util.Scanner;
 
+// Sebastian
 public class App {
 
     private final SystemApp systemApp;
@@ -585,6 +586,7 @@ public class App {
         }
     }
 
+    // Mads
     private void listProjects() {
         Map<Integer, String> projects = systemApp.listProjects();
         int i = 1;
@@ -596,6 +598,7 @@ public class App {
         }
     }
 
+    // Mads
     private void listActivities(String projectName) {
         List<String> activities;
         try {
@@ -613,6 +616,7 @@ public class App {
         }
     }
 
+    // Mads
     private void listEmployees() {
         List<String> employees = systemApp.getEmployeeList();
         for (int i = 0; i < employees.size(); i++) {
@@ -620,6 +624,7 @@ public class App {
         }
     }
 
+    // Sebastian
     private void listAvailableEmployees() {
         List<String> availableEmployees = systemApp.getAvailableEmployeesList();
 
@@ -632,6 +637,7 @@ public class App {
         }
     }
 
+    // Dejan
     private void list(Scanner arguments) {
         if (!arguments.hasNext()){
             System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>\n\tlist firmactivities");
@@ -724,6 +730,7 @@ public class App {
         infoProject(projectName);
     }
 
+    // Dejan
     private void generateReport(Scanner arguments){
         if(!arguments.hasNext()){
             System.out.println("Usage: generateReport <project>");
@@ -805,6 +812,7 @@ public class App {
         }
     }
 
+    // Dejan
     private void helpBase() {
         System.out.println("General system commands:");
         System.out.println("\texit  -  exit the program");
@@ -820,6 +828,7 @@ public class App {
         System.out.println("Further help:\n\thelp project\n\thelp activity\n\thelp firmActivity");
     }
 
+    // Dejan
     private void helpProject() {
         System.out.println("General project commands:");
         System.out.println("\tinfo <project>  -  display general information about");
@@ -834,6 +843,7 @@ public class App {
         System.out.println("\tsetProjectLeader <project> <employee>  -  set the project leader of <project> to <employee>");
     }
 
+    // Dejan
     private void helpActivity() {
         System.out.println("General activity commands:");
         System.out.println("\tregisterTimeToday <project> <activity> <employee> <hours> <minutes>  -  register time that <employee> worked on <activity> today");
@@ -849,6 +859,7 @@ public class App {
         System.out.println("\tsetActivityEstimatedHours <project> <activity> <hours>  -  set the estimated hours of <activity>");
     }
 
+    // Dejan
     private void helpFirmActivity() {
         System.out.println("General firm activity commands:");
         System.out.println("\tcreateFirmActivity <firmActivity>  -  create new <firmActivity> in the system");
@@ -856,6 +867,7 @@ public class App {
         System.out.println("\tgetFirmActivityHours <firmActivity> <employee> <day> <month> <year>  -  check the time registered for <employee> in <firmActivity> on a specific day");
     }
 
+    // Dejan
     private void help(Scanner arguments) {
         if (!arguments.hasNext()) {
             helpBase();
@@ -878,6 +890,7 @@ public class App {
         }
     }
 
+    // Sebastian
     public void launch() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the time registration and project management system\n -- by Softwarehuset A/S --");
@@ -991,6 +1004,7 @@ public class App {
         }
     }
 
+    // Sebastian
     public static void main(String[] args) {
         SystemApp systemApp = new SystemApp();
         while (true) {
@@ -999,7 +1013,6 @@ public class App {
                 ui.launch();
                 break;
             } catch (Exception e) {
-                e.printStackTrace();
                 System.out.println("Internal Error. Press enter to continue");
                 new Scanner(System.in).nextLine();
             }
