@@ -139,7 +139,10 @@ public class Activity {
     public int getEstimatedHours() {
         return estimatedHours;
     }
-    public void setEstimatedHours(int estimatedHours) {
+    public void setEstimatedHours(int estimatedHours) throws SystemAppException {
+        if (estimatedHours < 0) {
+            throw new SystemAppException("Cannot set negative estimated hours");
+        }
         this.estimatedHours = estimatedHours;
     }
 
