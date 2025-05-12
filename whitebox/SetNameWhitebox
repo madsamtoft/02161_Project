@@ -1,0 +1,35 @@
+   public void setName(String actor, String name) throws SystemAppException {
+        if (!isProjectLeader(actor)) {                                              // 1
+            throw new SystemAppException("Employee is not Project Leader");         // 2
+        } else if (name.isEmpty()) {                                                // 3
+            throw new SystemAppException("Project Name cannot be empty");           // 4
+        } else {
+            this.name = name;                                                       // 5
+        }
+    }
+
+    TABLE 1
+    -----------------------------------------------------------------------------------------------
+    paths				            input		input property
+    1(true),2                       A		    Actor is not Project Leader and tries to set name
+    1(false),3(true),4      	    B		    Actor is Project Leader and tries to set empty name
+    1(false),3(false),5     	    C		    Actor is Project Leader and sets name
+
+
+    TABLE 2
+    ------------------------------------------------------------------------------------------------
+    input set	input data						                    Expected Results
+    A		                                                        Exception with message "Employee is not Project Leader" is thrown
+    		    ProjectLeader = "bobi"  					        Projects = [25001,"a"]
+                Actor = "huba"
+                Name = "b"
+
+    B		                                                        Exception with message "Project Name cannot be empty" is thrown
+    		    ProjectLeader = "huba"                              Projects = [25001,"a"]
+                Actor = "huba"
+                Name = ""
+
+    C		                        			                    Projects = [25001,"b"]
+    		    ProjectLeader = "huba"
+                Actor = "huba"
+                Name = "b"
