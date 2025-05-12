@@ -127,7 +127,7 @@ public class SystemApp {
 
     private Employee getEmployee(String name) throws SystemAppException {
         for (Employee employee : employees) {
-            if (employee.name().equals(name)) {
+            if (employee.name().equals(name.toLowerCase())) {
                 return employee;
             }
         }

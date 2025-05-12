@@ -30,7 +30,6 @@ public class App {
 
     private void createProject(Scanner arguments) {
         String usage = "Usage: createProject <name>";
-        arguments.next();
         if (!arguments.hasNext()) {
             System.out.println(usage);
             return;
