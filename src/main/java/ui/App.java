@@ -738,6 +738,7 @@ public class App {
         double estimatedHours;
         double totalHours;
         try {
+            projectName = systemApp.getProjectName(projectName);
             projectId = systemApp.getProjectId(projectName);
             Calendar projectEndDate = systemApp.getProjectEndDate(projectName);
             if (projectEndDate != null) {
