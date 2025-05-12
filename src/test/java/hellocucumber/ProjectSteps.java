@@ -710,4 +710,18 @@ public class ProjectSteps {
             errorMessage = e.getMessage();
         }
     }
+
+    private  List<String> listFirmActivitiesList;
+    @When("getting the firm activity list")
+    public void gettingTheFirmActivityList() {
+        listFirmActivitiesList = systemApp.getFirmActivityList();
+    }
+
+
+    @Then("the output list is equal to the firm activity list reference list containing {string}")
+    public void theOutputListIsEqualToTheFirmActivityListReferenceListContaining(String activityName) {
+        List<String> referenceList = new LinkedList<>();
+        referenceList.add(activityName);
+        assertEquals(referenceList, listFirmActivitiesList);
+    }
 }
