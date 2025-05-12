@@ -64,16 +64,13 @@ public class SystemCalendar {
         boolean overlap = true;
 
         if(!(s1null || e1null || s2null || e2null)){
-            //assert start1.before(end1) && start2.before(end2);
             overlap = (start1.getTimeInMillis() <= end2.getTimeInMillis()) && (start2.getTimeInMillis() <= end1.getTimeInMillis());
         } else if(!(e1null || s2null)) {
-            //assert (start1 == null || start1.before(end1)) && (end2 == null || start2.before(end2));
             overlap = start2.getTimeInMillis() <= end1.getTimeInMillis();
         } else if(!(e2null || s1null)) {
-            //assert (end1 == null || start1.before(end1)) && (start2 == null || start2.before(end2));
             overlap = start1.getTimeInMillis() <= end2.getTimeInMillis();
         }
-        //assert (true);
+        //assert true;
         return overlap;
     }
 }
