@@ -265,6 +265,19 @@ public class App {
         }
     }
 
+    private void listFirmActivities() {
+        List<String> activities;
+        activities = systemApp.getFirmActivityList();
+        if (activities.isEmpty()){
+            System.out.println("There are no firm activities");
+        }
+
+        for (int i = 0; i < activities.size(); i++) {
+            System.out.printf("\tFirm activity %2d: %s\n", (i+1), activities.get(i));
+        }
+    }
+
+
     private void createActivity(Scanner arguments) {
         if (!arguments.hasNext()){
             System.out.println("Usage: createActivity <projectName> <activityName>");
@@ -610,7 +623,7 @@ public class App {
 
     private void list(Scanner arguments) {
         if (!arguments.hasNext()){
-            System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>");
+            System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>\n\tlist firmactivities");
             return;
         }
         switch (arguments.next().toLowerCase()) {
@@ -630,8 +643,11 @@ public class App {
                 }
                 listActivities(arguments.next());
                 break;
+            case "firmactivities":
+                listFirmActivities();
+                break;
             default:
-                System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>");
+                System.out.println("Usage:\n\tlist projects\n\tlist employees\n\tlist availableEmployees\n\tlist activities <project>\n\tlist firmactivities");
         }
     }
 
