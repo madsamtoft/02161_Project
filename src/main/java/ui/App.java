@@ -232,7 +232,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
-            System.out.println("\""+ employee.toLowerCase() + "\" has registered " + hours + " and " + minutes + " to \"" + firmActivityName.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
+            System.out.println("\""+ employee.toLowerCase() + "\" has registered " + hours + " hours and " + minutes + " minutes to \"" + firmActivityName.toLowerCase() + "\" at \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println((e.getMessage()));
         }
@@ -419,7 +419,7 @@ public class App {
         try {
             systemApp.registerTimeToday(project, activityName, employee, hours, minutes);
             double registered = systemApp.getActivityHoursToday(project, activityName, employee);
-            System.out.println(registered + " hours have been registered to \"" + employee.toLowerCase() + "\" in activity \"" + activityName.toLowerCase() + "\"");
+            System.out.println("\"" + employee.toLowerCase() + "\" has registered " + registered + " hours to \"" + activityName.toLowerCase() + "\" today");
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -727,25 +727,53 @@ public class App {
             return;
         }
         String projectName = arguments.next();
+        int projectId;
+        String projectWeeksRemaining;
+        int activityAmount;
+        List<String> activityNames;
+        List<Double> activityHoursRegistered;
+        List<Double> activityHoursEstimated;
+        List<Integer> activityStartWeek;
+        List<Integer> activityEndWeek;
         double estimatedHours;
-        try {
-            estimatedHours = systemApp.getProjectEstimatedHours(projectName);
-        } catch (SystemAppException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
         double totalHours;
         try {
+            projectId = systemApp.getProjectId(projectName);
+            Calendar projectEndDate = systemApp.getProjectEndDate(projectName);
+            if (projectEndDate != null) {
+                Calendar today = SystemCalendar.getToday();
+                int weekDiff = (projectEndDate.get(Calendar.YEAR) - today.get(Calendar.YEAR)) * 52;
+                int todayWeek = today.get(Calendar.WEEK_OF_YEAR);
+                int endWeek = projectEndDate.get(Calendar.WEEK_OF_YEAR);
+                projectWeeksRemaining = Integer.toString(endWeek - todayWeek + weekDiff);
+            } else {
+                projectWeeksRemaining = "No project end date set";
+            }
+
+            activityAmount = 0;
+            activityNames = new LinkedList<>();
+            activityHoursRegistered = new LinkedList<>();
+            activityHoursEstimated = new LinkedList<>();
+            activityStartWeek = new LinkedList<>();
+            activityEndWeek = new LinkedList<>();
+
+
+            estimatedHours = systemApp.getProjectEstimatedHours(projectName);
             totalHours = systemApp.getProjectTotalHours(projectName);
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
             return;
         }
 
-
-        System.out.println("[" + projectName + "]:");
-        System.out.println("Estimated Hours.."+ estimatedHours);
-        System.out.println("Total Hours......"+ totalHours);
+        System.out.printf("Project: %s#%d\n", projectName, projectId);
+        System.out.printf("Weeks remaining: %s\n", projectWeeksRemaining);
+        System.out.println("Activity time usage:");
+        for (int i = 0; i < activityAmount; i++) {
+            System.out.printf("  Activity %02d: %s: %.1f/%.1f (%3d%%) - Week %d/%d\n", i+1, activityNames.get(i), activityHoursRegistered.get(i), activityHoursEstimated.get(i), activityStartWeek.get(i), activityEndWeek.get(i));
+        }
+        System.out.println();
+        String projectPercentage = String.format("(%d%%)", Math.round(100*totalHours/estimatedHours));
+        System.out.printf("Total activity time usage: %.1f/%.1f %6s\n", totalHours, estimatedHours, projectPercentage);
     }
 
     public void login(Scanner arguments) {
@@ -921,6 +949,7 @@ public class App {
                 // Help commands
                 case "help":
                     help(arguments);
+                    break;
                 case "list":
                     list(arguments);
                     break;
@@ -952,6 +981,7 @@ public class App {
                 ui.launch();
                 break;
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Internal Error. Press enter to continue");
                 new Scanner(System.in).nextLine();
             }
