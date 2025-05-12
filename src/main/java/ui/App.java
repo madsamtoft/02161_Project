@@ -153,12 +153,12 @@ public class App {
 
     private void setProjectLeader(Scanner arguments){
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectLeader <project> <name>");
+            System.out.println("Usage: setProjectLeader <project> <employee>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectLeader <project> <name>");
+            System.out.println("Usage: setProjectLeader <project> <employee>");
             return;
         }
         String employee = arguments.next();
@@ -736,14 +736,14 @@ public class App {
     }
 
     private void helpProject() {
-        System.out.println("info <project>  -  displays general information about");
-        System.out.println("createProject <project>");
-        System.out.println("setProjectCustomer <project> <customer>");
-        System.out.println("setProjectName <project> <newName>");
-        System.out.println("setProjectStartDate <project> <dd> <mm> <yyyy>");
-        System.out.println("setProjectEndDate <project> <dd> <mm> <yyyy>");
-        System.out.println("setProjectLeader <project> <name>");
-        System.out.println("generateReport <project>");
+        System.out.println("\tinfo <project>  -  display general information about");
+        System.out.println("\tcreateProject <project>  -  create a new project with name <project>");
+        System.out.println("\tsetProjectCustomer <project> <customer>  -  set the customer of <project> to <customer>");
+        System.out.println("\tsetProjectName <project> <newName>  -  set the project name of <project> to <newName>");
+        System.out.println("\tsetProjectStartDate <project> <dd> <mm> <yyyy>  -  set the start date of <project>");
+        System.out.println("\tsetProjectEndDate <project> <dd> <mm> <yyyy>  -  set the end date of <project>");
+        System.out.println("\tsetProjectLeader <project> <employee>  -  set the project leader of <project> to <employee>");
+        System.out.println("\tgenerateReport <project>  -  generate report for <project>");
     }
 
     private void helpActivity() {
