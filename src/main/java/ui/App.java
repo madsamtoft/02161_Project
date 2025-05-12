@@ -232,7 +232,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
-            System.out.println("\""+employee + "\" has registered " + hours + " and " + minutes + " to \"" + firmActivityName + "\" at \"" + day+ "/" + month + "/" + year + "\"");
+            System.out.println("\""+employee + "\" has registered " + hours + " hours and " + minutes + " minutes to \"" + firmActivityName + "\" at \"" + day+ "/" + month + "/" + year + "\"");
         } catch (SystemAppException e){
             System.out.println((e.getMessage()));
         }
