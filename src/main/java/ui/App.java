@@ -750,7 +750,7 @@ public class App {
                 projectWeeksRemaining = "No project end date set";
             }
 
-            activityNames = systemApp.getActivityNameList(projectName);
+            activityNames = systemApp.getProjectActivityList(projectName);
             activityAmount = activityNames.size();
             activityHoursRegistered = systemApp.getActivityHoursRegisteredList(projectName);
             activityHoursEstimated = systemApp.getActivityHoursEstimatedList(projectName);

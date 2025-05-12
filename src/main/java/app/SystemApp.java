@@ -291,10 +291,6 @@ public class SystemApp {
         return availableEmployeeNames;
     }
 
-    public List<String> getActivityNameList(String projectName) throws SystemAppException {
-        return getProject(projectName).getActivityNameList();
-    }
-
     public List<Double> getActivityHoursRegisteredList(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         List<Double> hoursRegisteredList = new LinkedList<>();

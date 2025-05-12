@@ -674,6 +674,8 @@ public class ProjectSteps {
 
     private int projectEstimatedHours;
     private double projectTotalHours;
+    private List<Integer> projectEstimatedHourList;
+    private List<Double> projectTotalHourList;
     @When("getting the project estimated hours")
     public void gettingTheProjectEstimatedHours() {
         try {
@@ -690,6 +692,34 @@ public class ProjectSteps {
         } catch (SystemAppException e) {
             errorMessage = e.getMessage();
         }
+    }
+
+    @When("getting the project estimated hour list")
+    public void gettingTheProjectEstimatedHourList() {
+        try {
+            projectEstimatedHourList = systemApp.getActivityHoursEstimatedList(someProjectName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the project estimated hour list is equal to {int}")
+    public void theProjectEstimatedHourListIsEqualTo(int hours) {
+        assertEquals(List.of(hours), projectEstimatedHourList);
+    }
+
+    @When("getting the project total hour list")
+    public void gettingTheProjectTotalHourList() {
+        try {
+            projectTotalHourList = systemApp.getActivityHoursRegisteredList(someProjectName);
+        } catch (SystemAppException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("the project total hour list is equal to {double}")
+    public void theProjectTotalHourListIsEqualTo(double hours) {
+        assertEquals(List.of(hours), projectTotalHourList);
     }
 
     @Then("the project estimated hours are {int}")
