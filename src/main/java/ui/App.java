@@ -561,6 +561,9 @@ public class App {
     private void listProjects() {
         Map<Integer, String> projects = systemApp.listProjects();
         int i = 1;
+        if (projects.isEmpty()){
+            System.out.println("There is currently no projects");
+        }
         for (int id : projects.keySet()) {
             System.out.printf("\tProject %2d: %s#%d\n", i, projects.get(id), id);
         }
@@ -573,6 +576,9 @@ public class App {
         } catch (Exception e) {
             System.out.println("Project \"" + projectName + "\" has no activities");
             return;
+        }
+        if (activities.isEmpty()){
+            System.out.println("Project \"" + projectName + "\" has no activities");
         }
 
         for (int i = 0; i < activities.size(); i++) {
