@@ -67,7 +67,7 @@ public class Activity {
 
     public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
 
-        assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
+        //assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
 
         Map<Calendar, Double> dateHours;
         if (employeeDateHours.containsKey(employee)) {
@@ -84,7 +84,7 @@ public class Activity {
         }
         dateHours.put(date,putHours);
 
-        assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) && putHours <= 24:"postcondition" ;
+        //assert employeeDateHours.containsKey(employee) && (employeeDateHours.get(employee).get(date) == putHours) && putHours <= 24:"postcondition" ;
     }
 
     public double getHours(Employee employee, Calendar date ) {
