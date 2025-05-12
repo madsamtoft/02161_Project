@@ -309,8 +309,6 @@ public class SystemApp {
         return hoursRegisteredList;
     }
 
-
-
     public int getProjectEstimatedHours(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         int sum = 0;
