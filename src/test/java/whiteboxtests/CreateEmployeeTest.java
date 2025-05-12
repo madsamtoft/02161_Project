@@ -8,12 +8,12 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class RegisterEmployeeTest {
+public class CreateEmployeeTest {
     private final SystemApp systemApp = new SystemApp();
     private String errorMessage = "";
 
     @Test
-    void testRegisterEmployeeA() {
+    void testCreateEmployeeA() {
         try {
             systemApp.createEmployee("seba");
         } catch (SystemAppException ignored) {
@@ -29,7 +29,7 @@ public class RegisterEmployeeTest {
     }
 
     @Test
-    void testRegisterEmployeeB() {
+    void testCreateEmployeeB() {
         try {
             systemApp.createEmployee("seba");
         } catch (SystemAppException ignored) {
@@ -45,7 +45,7 @@ public class RegisterEmployeeTest {
     }
 
     @Test
-    void testRegisterEmployeeC() {
+    void testCreateEmployeeC() {
         try {
             systemApp.createEmployee("seba");
         } catch (SystemAppException ignored) {
@@ -61,7 +61,7 @@ public class RegisterEmployeeTest {
     }
 
     @Test
-    void testRegisterEmployeeD() {
+    void testCreateEmployeeD() {
         assertEquals(List.of("huba"),systemApp.getEmployeeList());
         try {
             systemApp.createEmployee("Seba");

@@ -604,6 +604,9 @@ public class App {
             System.out.println(e.getMessage());
             return;
         }
+        if (activities.isEmpty()){
+            System.out.println("There are no activities in project \"" + projectName.toLowerCase() + "\"");
+        }
 
         for (int i = 0; i < activities.size(); i++) {
             System.out.printf("\tActivity %2d: %s\n", (i+1), activities.get(i));
@@ -738,6 +741,7 @@ public class App {
         double estimatedHours;
         double totalHours;
         try {
+            projectName = systemApp.getProjectName(projectName);
             projectId = systemApp.getProjectId(projectName);
             Calendar projectEndDate = systemApp.getProjectEndDate(projectName);
             if (projectEndDate != null) {
@@ -810,6 +814,7 @@ public class App {
         System.out.println("\tlist projects  -  list all projects in the SystemApp");
         System.out.println("\tlist activities <project>  -  list all activities in given <project>");
         System.out.println("\tlist employees  -  list all employees registered in the system");
+        System.out.println("\tlist firmActivities  -  list all firm activities registered in the system");
         System.out.println("\thelp  -  display this menu");
         System.out.println();
         System.out.println("Further help:\n\thelp project\n\thelp activity\n\thelp firmActivity");
