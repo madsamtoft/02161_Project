@@ -64,7 +64,7 @@ public class Activity {
         return getHours(employee, getToday());
     }
 
-    public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException {
+    public void registerTime(Employee employee, int fullHours, int minutes, Calendar date) throws SystemAppException { //Karl
 
         //assert employee != null && fullHours >= 0 && minutes >= 0 && date !=null:"precondition";
 

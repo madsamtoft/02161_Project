@@ -2,6 +2,7 @@ package app;
 
 import java.util.*;
 
+// Mob programming
 public class SystemApp {
     private final List<Project> projects = new LinkedList<>();
     private final List<Activity> firmActivityList = new ArrayList<>();
@@ -13,10 +14,12 @@ public class SystemApp {
         employees.add(new Employee("huba"));
     }
 
+    // Dejan
     private boolean projectExists(String name) {
         return projects.stream().anyMatch(p -> p.getName().equals(name.toLowerCase()));
     }
 
+    // Dejan
     private int getNewProjectId() {
         int currentYear = SystemCalendar.getCurrentYear();
         if (this.currentYear != currentYear) {
@@ -26,6 +29,7 @@ public class SystemApp {
         return (currentYear % 100) * 1000 + projectIdCounter++;
     }
 
+    // Dejan
     public void createProject(String name) throws SystemAppException {
 //        assert name != null:"precondition";
 
@@ -66,6 +70,7 @@ public class SystemApp {
         getProject(project).setCustomer(actor, customer);
     }
 
+    // Sebastian
     public void createEmployee(String name) throws SystemAppException {
         if (name.isEmpty() || name.length() > 4) {
             throw new SystemAppException("Employee username must be 1-4 letters");
@@ -79,6 +84,7 @@ public class SystemApp {
         employees.add(new Employee(name.toLowerCase()));
     }
 
+    // Karl
     public void createFirmActivity(String activityName) throws SystemAppException {
         if (firmActivityList.stream().anyMatch(a -> activityName.toLowerCase().equals(a.getName()))) {
             throw new SystemAppException("Firm Activity Name already taken");
@@ -87,6 +93,7 @@ public class SystemApp {
         }
     }
 
+    // Karl
     private Activity getFirmActivity(String name) throws SystemAppException{
         for (Activity activity : firmActivityList) {
             if (name.toLowerCase().equals(activity.getName())) {
@@ -96,6 +103,7 @@ public class SystemApp {
         throw new SystemAppException("Firm activity " + name + " does not exist");
     }
 
+    // Karl
     public List<String> getFirmActivityList() {
         List<String> firmActivityNames = new LinkedList<>();
         for(Activity activity: firmActivityList) {
@@ -104,10 +112,12 @@ public class SystemApp {
         return firmActivityNames;
     }
 
+    // Karl
     public boolean firmActivityExists(String name) {
         return firmActivityList.stream().anyMatch(a -> a.getName().equals(name));
     }
 
+    //Karl
     public void registerTimeFirmActivity(String firmActivityName, String employeeName, int hours, int minutes, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = SystemCalendar.getCalendar(day, month, year);
@@ -117,6 +127,7 @@ public class SystemApp {
         firmActivity.registerTime(getEmployee(employeeName),hours,minutes,date);
     }
 
+    // Karl
     public double getFirmActivityHours(String firmActivityName, String employeeName, int day, int month, int year) throws SystemAppException{
         Activity firmActivity = getFirmActivity(firmActivityName);
         Calendar date = SystemCalendar.getCalendar(day, month, year);
@@ -127,6 +138,7 @@ public class SystemApp {
         getProject(project).createActivity(actor, activityName);
     }
 
+    // Sebastian
     private Project getProject(String name) throws SystemAppException {
         for (Project project : projects) {
             if (project.getName().equals(name.toLowerCase())) {
@@ -136,6 +148,7 @@ public class SystemApp {
         throw new SystemAppException("Project " + name + " does not exist");
     }
 
+    // Sebastian
     private Employee getEmployee(String name) throws SystemAppException {
         for (Employee employee : employees) {
             if (employee.name().equals(name.toLowerCase())) {
@@ -145,15 +158,16 @@ public class SystemApp {
         throw new SystemAppException("Employee " + name + " does not exist");
     }
 
+    // Sebastian
     public boolean employeeExists(String name) {
         return employees.stream().anyMatch(e -> e.name().equals(name.toLowerCase()));
     }
 
     public void setProjectLeader(String actor, String project, String employeeName) throws SystemAppException {
-        // TODO: this should be changed to use project IDs
         getProject(project).assignProjectLeader(actor, getEmployee(employeeName));
     }
 
+    // Dejan
     public Map<Integer, String> listProjects() {
         // This method only works when EVERY SINGLE project ID is unique
         Map<Integer, String> projectMap = new HashMap<>();
@@ -245,7 +259,8 @@ public class SystemApp {
         return getProject(project).getActivityHoursToday(activity, getEmployee(employeeName));
     }
 
-    public double getTodayHoursProject(String project, String employee)throws SystemAppException{
+    // Bertram
+    public double getTodayHoursProject(String project, String employee) throws SystemAppException {
        double output = 0;
         for (String activity : getProject(project).getActivityNameList()){
               output += getActivityHoursToday(project, activity, employee);
@@ -254,7 +269,8 @@ public class SystemApp {
         return output;
     }
 
-    public void registerTimeActivity(String project, String employeeName, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException{
+    // Mads
+    public void registerTimeActivity(String project, String employeeName, String activity, int hours, int minutes, int day, int month, int year) throws SystemAppException {
         Calendar date = SystemCalendar.getCalendar(day, month, year);
         if (!(hours >= 0 && minutes >= 0 )){
             throw new SystemAppException("Hours and minutes can't be negative");
@@ -271,6 +287,7 @@ public class SystemApp {
         return getProject(project).getActivityTotalHoursEmployee(activity, getEmployee(employeeName));
     }
 
+    // Bertram
     public void assignEmployee(String actor, String project, String activity, String employeeName) throws SystemAppException {
         if(assignedActivityAmount(employeeName, project, activity) < 20){
             getProject(project).assignEmployee(actor, activity, getEmployee(employeeName));
@@ -279,6 +296,7 @@ public class SystemApp {
         }
     }
 
+    // Mads
     public int assignedActivityAmount(String employeeName, String projectName, String activityName) throws SystemAppException {
         Employee employee = getEmployee(employeeName);
         Calendar startWeek = getActivityStartWeek(projectName, activityName);
@@ -294,6 +312,7 @@ public class SystemApp {
         return getProject(project).hasEmployeeAssignedToActivity(activity, getEmployee(employeeName));
     }
 
+    // Sebastian
     public List<String> getAvailableEmployeesList() {
         ArrayList<String> availableEmployeeNames = new ArrayList<>(employees.stream().map(Employee::name).toList());
         for (Project project : projects) {
@@ -302,6 +321,7 @@ public class SystemApp {
         return availableEmployeeNames;
     }
 
+    // Dejan
     public List<Double> getActivityHoursRegisteredList(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         List<Double> hoursRegisteredList = new LinkedList<>();
@@ -311,6 +331,7 @@ public class SystemApp {
         return hoursRegisteredList;
     }
 
+    // Dejan
     public List<Integer> getActivityHoursEstimatedList(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         List<Integer> hoursRegisteredList = new LinkedList<>();
@@ -320,6 +341,7 @@ public class SystemApp {
         return hoursRegisteredList;
     }
 
+    // Mads
     public int getProjectEstimatedHours(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         int sum = 0;
@@ -329,6 +351,7 @@ public class SystemApp {
         return sum;
     }
 
+    // Mads
     public double getProjectTotalHours(String projectName) throws SystemAppException {
         Project project = getProject(projectName);
         double sum = 0;

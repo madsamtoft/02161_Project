@@ -2,7 +2,9 @@ package app;
 
 import java.util.Calendar;
 
+// Mob programming
 public class SystemCalendar {
+    // Karl
     public static Calendar getCalendar(int day, int month, int year) throws SystemAppException {
         Calendar calendar = getToday();
         calendar.set(Calendar.DAY_OF_MONTH, day);
@@ -20,6 +22,7 @@ public class SystemCalendar {
         }
     }
 
+    // Mads
     public static Calendar getCalendar(int week, int year) throws SystemAppException {
         Calendar calendar = getToday();
         calendar.set(Calendar.DAY_OF_WEEK, 0);
@@ -36,6 +39,7 @@ public class SystemCalendar {
         }
     }
 
+    // Dejan
     public static Calendar getToday() {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
@@ -55,6 +59,7 @@ public class SystemCalendar {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
 
+    // Mads (pair programming)
     public static boolean dateOverlap(Calendar start1, Calendar end1, Calendar start2, Calendar end2) {
         //assert (start1 == null || end1 == null || start1.before(end1)) && (start2 == null || end2 == null || start2.before(end2));
         boolean s1null = start1 == null;
