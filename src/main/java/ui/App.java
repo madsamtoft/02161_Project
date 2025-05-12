@@ -1,9 +1,7 @@
 package ui;
 
 import app.*;
-
 import java.util.*;
-
 import java.util.Scanner;
 
 public class App {
@@ -61,7 +59,8 @@ public class App {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("Customer \"" + customer + "\" successfully added");
+        System.out.println("Customer for project \"" + projectName + "\" successfully set to \"" + customer + "\"");
+
     }
 
     private void setProjectName(Scanner arguments) {
@@ -77,7 +76,7 @@ public class App {
         String newName = arguments.next();
         try {
             systemApp.setProjectName(actor, name, newName);
-            System.out.println("Project name for \"" + name + "\" successfully changed to \"" + newName + "\"");
+            System.out.println("Name for project \"" + name + "\" successfully set to \"" + newName + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -113,7 +112,7 @@ public class App {
         }
         try {
             systemApp.setProjectStartDate(actor, project, date);
-            System.out.println("Start date successfully changed in project \"" + project + "\"");
+            System.out.println("Start date for project \"" + project + "\" successfully set to \"" + day + "/" + month + "/" + year + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -150,7 +149,8 @@ public class App {
         }
         try {
             systemApp.setProjectEndDate(actor, project, date);
-            System.out.println("End date successfully changed in project \"" + project + "\"");
+            System.out.println("End date for project \"" + project + "\" successfully set to \"" + day + "/" + month + "/" + year + "\"");
+
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -158,18 +158,18 @@ public class App {
 
     private void setProjectLeader(Scanner arguments){
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectLeader <project> <name>");
+            System.out.println("Usage: setProjectLeader <project> <employee>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()) {
-            System.out.println("Usage: setProjectLeader <project> <name>");
+            System.out.println("Usage: setProjectLeader <project> <employee>");
             return;
         }
         String employee = arguments.next();
         try {
             systemApp.setProjectLeader(actor, project, employee);
-            System.out.println("\"" + employee + "\" has been successfully assigned as Project Leader for the project \"" + project + "\"");
+            System.out.println("Project leader for project \"" + project + "\" successfully set to \"" + employee + "\"");
         } catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -177,7 +177,7 @@ public class App {
 
     private void createFirmActivity(Scanner arguments) {
         if (!arguments.hasNext()){
-            System.out.println("Usage: createFirmActivity <activityName>");
+            System.out.println("Usage: createFirmActivity <activity>");
             return;
         }
         String activityName = arguments.next();
@@ -191,37 +191,37 @@ public class App {
 
     public void registerTimeFirmActivity(Scanner arguments) {
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         String employee = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         String firmActivityName = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int hours = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int minutes = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int day = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int month = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
+            System.out.println("Usage: registerTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int year = arguments.nextInt();
@@ -236,27 +236,27 @@ public class App {
 
     private void getFirmActivityHours(Scanner arguments){
         if (!arguments.hasNext()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activityName> <day> <month> <year>");
+            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
             return;
         }
         String employee = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activityName> <day> <month> <year>");
+            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
             return;
         }
         String firmActivityName = arguments.next();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activityName> <day> <month> <year>");
+            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
             return;
         }
         int day = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activityName> <day> <month> <year>");
+            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
             return;
         }
         int month = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: getFirmActivityHours <employee> <activityName> <day> <month> <year>");
+            System.out.println("Usage: getFirmActivityHours <employee> <activity> <day> <month> <year>");
             return;
         }
         int year = arguments.nextInt();
@@ -270,12 +270,12 @@ public class App {
 
     private void createActivity(Scanner arguments) {
         if (!arguments.hasNext()){
-            System.out.println("Usage: createActivity <projectName> <activityName>");
+            System.out.println("Usage: createActivity <project> <activity>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: createActivity <projectName> <activityName>");
+            System.out.println("Usage: createActivity <project> <activity>");
             return;
         }
         String activityName = arguments.next();
@@ -334,7 +334,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityStartWeek(actor, project, activity, week, year);
-            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+            System.out.println("Start Week for activity \"" + activity + "\" successfully set to " + week + " in project \"" + project + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -363,7 +363,7 @@ public class App {
         int year = arguments.nextInt();
         try {
             systemApp.setActivityEndWeek(actor, project, activity, week, year);
-            System.out.println("End date successfully changed in activity \"" + activity + "\" in project \"" + project + "\"");
+            System.out.println("End Week for activity \"" + activity + "\" successfully set to " + week + " in project \"" + project + "\"");
         }  catch (SystemAppException e) {
             System.out.println(e.getMessage());
         }
@@ -371,27 +371,27 @@ public class App {
 
     private void registerTimeToday(Scanner arguments){
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeToday <project> <activityName> <employee> <hours> <minutes>");
+            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
             return;
         }
         String project = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeToday <project> <activityName> <employee> <hours> <minutes>");
+            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
             return;
         }
         String activityName = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: registerTimeToday <project> <activityName> <employee> <hours> <minutes>");
+            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
             return;
         }
         String employee = arguments.next();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeToday <project> <activityName> <employee> <hours> <minutes>");
+            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
             return;
         }
         int hours = arguments.nextInt();
         if (!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeToday <project> <activityName> <employee> <hours> <minutes>");
+            System.out.println("Usage: registerTimeToday <project> <activity> <employee> <hours> <minutes>");
             return;
         }
         int minutes = arguments.nextInt();
@@ -406,18 +406,18 @@ public class App {
 
     private void getActivityHoursToday(Scanner arguments){
         if (!arguments.hasNext()){
-            System.out.println("Usage: getActivityHoursToday <project> <activityName> <employee>");
+            System.out.println("Usage: getActivityHoursToday <project> <activity> <employee>");
             return;
         }
 
         String project = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: getActivityHoursToday <project> <activityName> <employee>");
+            System.out.println("Usage: getActivityHoursToday <project> <activity> <employee>");
             return;
         }
         String activityName = arguments.next();
         if (!arguments.hasNext()){
-            System.out.println("Usage: getActivityHoursToday <project> <activityName> <employee>");
+            System.out.println("Usage: getActivityHoursToday <project> <activity> <employee>");
             return;
         }
         String employee = arguments.next();
@@ -429,44 +429,44 @@ public class App {
         }
     }
 
-    private void registerTimeActivity(Scanner arguments){
+    private void registerTime(Scanner arguments){
         if(!arguments.hasNext()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         String employee = arguments.next();
         if(!arguments.hasNext()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         String project = arguments.next();
         if(!arguments.hasNext()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         String activity = arguments.next();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int hours = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int minutes = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int day = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int month = arguments.nextInt();
         if(!arguments.hasNextInt()){
-            System.out.println("Usage: registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
+            System.out.println("Usage: registerTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
             return;
         }
         int year = arguments.nextInt();
@@ -557,7 +557,8 @@ public class App {
         int hours = arguments.nextInt();
         try{
             systemApp.setActivityEstimatedHours(actor,project,activity,hours);
-            System.out.println("Estimated Hours set to " + hours + " hours for activity \"" + activity + "\" in project \"" + project + "\"");
+            System.out.println("Estimated Hours for activity \"" + activity + "\" successfully set to \"" + hours + "\" in project \"" + project + "\"");
+
         } catch (SystemAppException e){
             System.out.println(e.getMessage());
         }
@@ -566,6 +567,9 @@ public class App {
     private void listProjects() {
         Map<Integer, String> projects = systemApp.listProjects();
         int i = 1;
+        if (projects.isEmpty()){
+            System.out.println("There are no projects");
+        }
         for (int id : projects.keySet()) {
             System.out.printf("\tProject %2d: %s#%d\n", i, projects.get(id), id);
         }
@@ -594,6 +598,11 @@ public class App {
 
     private void listAvailableEmployees() {
         List<String> availableEmployees = systemApp.getAvailableEmployeesList();
+
+        if (availableEmployees.isEmpty()){
+            System.out.println("There are no available employees");
+        }
+
         for (int i = 0; i < availableEmployees.size(); i++) {
             System.out.printf("\tAvailable Employee %2d: %s\n", (i+1), availableEmployees.get(i));
         }
@@ -729,44 +738,53 @@ public class App {
     }
 
     private void helpBase() {
-        System.out.println("\texit  -  exits the program");
+        System.out.println("General system commands:");
+        System.out.println("\texit  -  exit the program");
         System.out.println("\tlogin <user>  -  log into the system as <user>");
-        System.out.println("\tlogout  -  logs out the current user");
-        System.out.println("\tcreateEmployee <employee>  -  registers <employee> in the system");
-        System.out.println("\tlist projects  -  lists all projects in the SystemApp");
-        System.out.println("\tlist activities <project>  -  lists all activities in given <project>");
-        System.out.println("\tlist employees  -  lists all employees registered in the system");
+        System.out.println("\tlogout  -  log out the current user");
+        System.out.println("\tcreateEmployee <employee>  -  register <employee> in the system");
+        System.out.println("\tlist projects  -  list all projects in the SystemApp");
+        System.out.println("\tlist activities <project>  -  list all activities in given <project>");
+        System.out.println("\tlist employees  -  list all employees registered in the system");
         System.out.println("\thelp  -  display this menu");
+        System.out.println();
         System.out.println("Further help:\n\thelp project\n\thelp activity\n\thelp firmActivity");
     }
 
     private void helpProject() {
-        System.out.println("info <project>  -  displays general information about");
-        System.out.println("createProject <project>");
-        System.out.println("setProjectCustomer <project> <customer>");
-        System.out.println("setProjectName <project> <newName>");
-        System.out.println("setProjectStartDate <project> <dd> <mm> <yyyy>");
-        System.out.println("setProjectEndDate <project> <dd> <mm> <yyyy>");
-        System.out.println("setProjectLeader <project> <name>");
-        System.out.println("generateReport <project>");
+        System.out.println("General project commands:");
+        System.out.println("\tinfo <project>  -  display general information about");
+        System.out.println("\tcreateProject <project>  -  create a new project with name <project>");
+        System.out.println("\tgenerateReport <project>  -  generate report for <project>");
+        System.out.println();
+        System.out.println("Only when logged in as project leader (or none is assigned):");
+        System.out.println("\tsetProjectCustomer <project> <customer>  -  set the customer of <project> to <customer>");
+        System.out.println("\tsetProjectName <project> <newName>  -  set the project name of <project> to <newName>");
+        System.out.println("\tsetProjectStartDate <project> <dd> <mm> <yyyy>  -  set the start date of <project>");
+        System.out.println("\tsetProjectEndDate <project> <dd> <mm> <yyyy>  -  set the end date of <project>");
+        System.out.println("\tsetProjectLeader <project> <employee>  -  set the project leader of <project> to <employee>");
     }
 
     private void helpActivity() {
-        System.out.println("createActivity <projectName> <activityName>");
-        System.out.println("assignEmployee <project> <activity> <employee>");
-        System.out.println("setActivityStartWeek <project> <activity> <week> <year>");
-        System.out.println("setActivityEndWeek <project> <activity> <week> <year>");
-        System.out.println("registerTimeToday <project> <activityName> <employee> <hours> <minutes>");
-        System.out.println("getActivityHoursToday <project> <activityName> <employee>");
-        System.out.println("registerTimeActivity <employee> <project> <activity> <hours> <minutes> <day> <month> <year>");
-        System.out.println("getActivityHours <employee> <project> <activity> <day> <month> <year>");
-        System.out.println("setActivityEstimatedHours <project> <activity> <hours>");
+        System.out.println("General activity commands:");
+        System.out.println("\tregisterTimeToday <project> <activity> <employee> <hours> <minutes>  -  register time that <employee> worked on <activity> today");
+        System.out.println("\tregisterTime <employee> <project> <activity> <hours> <minutes> <day> <month> <year>  -  register time that <employee> worked on <activity> on a specific day");
+        System.out.println("\tgetActivityHoursToday <project> <activity> <employee>  -  check how many hours <employee> has worked on <activity> today");
+        System.out.println("\tgetActivityHours <employee> <project> <activity> <day> <month> <year>  -  check how many hours <employee> has worked on <activity> on a specific day");
+        System.out.println();
+        System.out.println("Only when logged in as project leader (or none is assigned):");
+        System.out.println("\tcreateActivity <project> <activity>  -  create new <activity> in <project>");
+        System.out.println("\tassignEmployee <project> <activity> <employee>  -  assign <employee> to <activity>");
+        System.out.println("\tsetActivityStartWeek <project> <activity> <week> <year>  -  set start week of <activity>");
+        System.out.println("\tsetActivityEndWeek <project> <activity> <week> <year>  -  set end week of <activity>");
+        System.out.println("\tsetActivityEstimatedHours <project> <activity> <hours>  -  set the estimated hours of <activity>");
     }
-    
+
     private void helpFirmActivity() {
-        System.out.println("createFirmActivity <activityName>");
-        System.out.println("registerTimeFirmActivity <employee> <firmActivityName> <hours> <minutes> <day>,<month> <year>");
-        System.out.println("getFirmActivityHours <employee> <activityName> <day> <month> <year>");
+        System.out.println("General firm activity commands:");
+        System.out.println("\tcreateFirmActivity <firmActivity>  -  create new <firmActivity> in the system");
+        System.out.println("\tregisterTimeFirmActivity <employee> <firmActivity> <hours> <minutes> <day> <month> <year>  -  register time for <employee> in <firmActivity> on a specific day");
+        System.out.println("\tgetFirmActivityHours <employee> <firmActivity> <day> <month> <year>  -  check the time registered for <employee> in <firmActivity> on a specific day");
     }
 
     private void help(Scanner arguments) {
@@ -774,7 +792,7 @@ public class App {
             helpBase();
         }
         String arg = arguments.next();
-        switch (arg) {
+        switch (arg.toLowerCase()) {
             case "project":
                 helpProject();
                 break;
@@ -866,8 +884,8 @@ public class App {
                 case "getactivityhourstoday":
                     getActivityHoursToday(arguments);
                     break;
-                case "registertimeactivity":
-                    registerTimeActivity(arguments);
+                case "registertime":
+                    registerTime(arguments);
                     break;
                 case "getactivityhours":
                     getActivityHours(arguments);
@@ -894,6 +912,7 @@ public class App {
                     actor = "";
                     break;
                 case "exit":
+                    System.out.println("Exiting system...");
                     return;
                 default:
                     System.out.println("Unknown command: " + command + "\ntype \"help\" for further information");
