@@ -8,8 +8,12 @@ import java.util.Scanner;
 
 public class App {
 
-    private final SystemApp systemApp = new SystemApp();
+    private final SystemApp systemApp;
     private String actor = "";
+
+    public App(SystemApp systemApp) {
+        this.systemApp = systemApp;
+    }
 
     private void createEmployee(Scanner arguments) {
         if (!arguments.hasNext()) {
@@ -26,6 +30,7 @@ public class App {
     }
 
     private void createProject(Scanner arguments) {
+        arguments.next();
         if (!arguments.hasNext()) {
             System.out.println("Usage: createProject <name>");
             return;
@@ -52,7 +57,7 @@ public class App {
         String customer = arguments.next();
         try {
             systemApp.setProjectCustomer(actor, projectName, customer);
-        } catch (Exception e) {
+        } catch (SystemAppException e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -102,7 +107,7 @@ public class App {
         Calendar date;
         try {
             date = SystemCalendar.getCalendar(day, month, year);
-        } catch (Exception e) {
+        } catch (SystemAppException e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;
         }
@@ -139,7 +144,7 @@ public class App {
         Calendar date;
         try {
             date = SystemCalendar.getCalendar(day, month, year);
-        } catch (Exception e) {
+        } catch (SystemAppException e) {
             System.out.println("Date format not valid. usage: <dd> <mm> <yyyy>");
             return;
         }
@@ -224,7 +229,7 @@ public class App {
         try {
             systemApp.registerTimeFirmActivity(employee,firmActivityName,hours,minutes,day,month,year);
             System.out.println(employee + " has registered " + hours + " and " + minutes + " to " + firmActivityName + " at " + day+ "/" + month + "/" + year);
-        } catch (Exception e){
+        } catch (SystemAppException e){
             System.out.println((e.getMessage()));
         }
     }
@@ -561,9 +566,6 @@ public class App {
     private void listProjects() {
         Map<Integer, String> projects = systemApp.listProjects();
         int i = 1;
-        if (projects.isEmpty()){
-            System.out.println("There is currently no projects");
-        }
         for (int id : projects.keySet()) {
             System.out.printf("\tProject %2d: %s#%d\n", i, projects.get(id), id);
         }
@@ -573,12 +575,9 @@ public class App {
         List<String> activities;
         try {
             activities = systemApp.getProjectActivityList(projectName);
-        } catch (Exception e) {
-            System.out.println("Project \"" + projectName + "\" has no activities");
+        } catch (SystemAppException e) {
+            System.out.println(e.getMessage());
             return;
-        }
-        if (activities.isEmpty()){
-            System.out.println("Project \"" + projectName + "\" has no activities");
         }
 
         for (int i = 0; i < activities.size(); i++) {
@@ -705,7 +704,7 @@ public class App {
         double totalHours;
         try {
             totalHours = systemApp.getProjectTotalHours(projectName);
-        } catch (Exception e) {
+        } catch (SystemAppException e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -773,7 +772,6 @@ public class App {
     private void help(Scanner arguments) {
         if (!arguments.hasNext()) {
             helpBase();
-            return;
         }
         String arg = arguments.next();
         switch (arg) {
@@ -881,7 +879,6 @@ public class App {
                 // Help commands
                 case "help":
                     help(arguments);
-                    break;
                 case "list":
                     list(arguments);
                     break;
@@ -905,7 +902,17 @@ public class App {
     }
 
     public static void main(String[] args) {
-        App ui = new App();
-        ui.launch();
+        SystemApp systemApp = new SystemApp();
+        while (true) {
+            try {
+                App ui = new App(systemApp);
+                ui.launch();
+                break;
+            } catch (Exception e) {
+                System.out.println("Internal Error. Press enter to continue");
+                new Scanner(System.in).nextLine();
+            }
+
+        }
     }
 }
