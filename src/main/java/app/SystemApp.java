@@ -234,10 +234,10 @@ public class SystemApp {
         return getProject(project).getActivityHoursToday(activity, getEmployee(employeeName));
     }
 
-    public double getTodayHoursProject(String project, String actor)throws SystemAppException{
+    public double getTodayHoursProject(String project, String employee)throws SystemAppException{
        double output = 0;
         for (String activity : getProject(project).getActivityList()){
-              output += getActivityHoursToday(project, activity, actor);
+              output += getActivityHoursToday(project, activity, employee);
 
         }
         return output;
