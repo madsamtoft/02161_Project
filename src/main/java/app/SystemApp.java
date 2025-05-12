@@ -27,13 +27,24 @@ public class SystemApp {
     }
 
     public void createProject(String name) throws SystemAppException {
+        assert name != null:"precondition";
+
         if (name.isEmpty()) {
             throw new SystemAppException("Project Name cannot be empty");
         }
         if (projectExists(name))  {
             throw new SystemAppException("Project with that name already exists");
         }
-        projects.add(new Project(name, getNewProjectId()));
+        Project newProject = new Project(name, getNewProjectId());
+        projects.add(newProject);
+
+        boolean forallPost = true;
+        for (Project project : projects) {
+            if (project != newProject) {
+                forallPost &= !(project.getName().equals(newProject.getName())) && project.getId() != newProject.getId();
+            }
+        }
+        assert name != null && !name.isEmpty() && projectExists(name) && forallPost:"postcondition";
     }
 
     public void setProjectName(String actor, String project, String newName) throws SystemAppException {
